@@ -116,5 +116,6 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("tailwindcss-animate"),
     require("@headlessui/tailwindcss"),
+    require("tailwind-scrollbar")({ nocompatible: true }),
   ],
 };
