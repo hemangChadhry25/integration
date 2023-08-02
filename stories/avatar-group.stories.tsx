@@ -9,6 +9,7 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
+  ScrollArea,
 } from "@/components/ui";
 
 const meta: Meta = {
@@ -76,52 +77,53 @@ export const Xs: Story = {
               </Avatar>
             </AvatarGroup>
           </TooltipTrigger>
-          <TooltipContent
-            className="max-h-[192px] space-y-3 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-thumb-rounded-lg"
-            size="md"
-          >
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
+          <TooltipContent className="p-0" size="md">
+            <ScrollArea className="h-[192px] p-3">
+              <div className="space-y-3">
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+              </div>
+            </ScrollArea>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -165,52 +167,53 @@ export const Sm: Story = {
               </Avatar>
             </AvatarGroup>
           </TooltipTrigger>
-          <TooltipContent
-            className="max-h-[192px] space-y-3 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-thumb-rounded-lg"
-            size="md"
-          >
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
+          <TooltipContent className="p-0" size="md">
+            <ScrollArea className="h-[192px] p-3">
+              <div className="space-y-3">
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+              </div>
+            </ScrollArea>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -255,52 +258,53 @@ export const Md: Story = {
             </AvatarGroup>
           </TooltipTrigger>
 
-          <TooltipContent
-            className="max-h-[192px] space-y-3 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-thumb-rounded-lg"
-            size="md"
-          >
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <Avatar>
-                <AvatarImage src="/woman.jpg" alt="Woman" />
-                <AvatarFallback>W</AvatarFallback>
-              </Avatar>
-              <span className="text-xs font-medium leading-5">Woman</span>
-            </div>
+          <TooltipContent className="p-0" size="md">
+            <ScrollArea className="h-[192px] p-3">
+              <div className="space-y-3">
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+                <div className="flex items-center gap-x-2">
+                  <Avatar className="hover:ring-0">
+                    <AvatarImage src="/woman.jpg" alt="Woman" />
+                    <AvatarFallback>W</AvatarFallback>
+                  </Avatar>
+                  <span className="text-xs font-medium leading-5">Woman</span>
+                </div>
+              </div>
+            </ScrollArea>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

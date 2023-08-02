@@ -2,9 +2,10 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
+import { X2 } from "../icons";
 
 const alertVariants = cva(
-  "relative inline-flex items-start rounded-lg border p-4 gap-x-3",
+  "relative w-full [&>svg~*]:pl-12 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 rounded-lg border py-4",
   {
     variants: {
       variant: {
@@ -46,8 +47,26 @@ const AlertDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("text-sm", className)} {...props} />
+  <div ref={ref} className={cn("mt-1 text-sm", className)} {...props} />
 ));
 AlertDescription.displayName = "AlertDescription";
 
-export { Alert, AlertTitle, AlertDescription };
+const CloseButton = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+>(({ className, ...props }, ref) => (
+  <button
+    className={cn(
+      "absolute right-2 top-2 flex h-9 w-9 items-center justify-center focus-visible:outline-none",
+      className
+    )}
+    {...props}
+    ref={ref}
+  >
+    <X2 />
+  </button>
+));
+
+CloseButton.displayName = "CloseButton";
+
+export { Alert, AlertTitle, AlertDescription, CloseButton };

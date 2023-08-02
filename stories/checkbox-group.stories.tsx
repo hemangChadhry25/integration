@@ -1,10 +1,22 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { HelperText, Label, CheckboxGroup, Checkbox } from "@/components/ui";
+import {
+  HelperText,
+  Label,
+  CheckboxGroup,
+  Checkbox,
+  CheckboxSelector,
+} from "@/components/ui";
 
 const meta: Meta = {
-  title: "Checkbox",
+  title: "CheckboxGroup",
   component: CheckboxGroup,
+  parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/file/CgaxYAFROXbQH5fgPw8sX4/Blend-Metrics---New-Design-System?type=design&node-id=934-196241&mode=design&t=gTVxpZUAC2dAusau-4",
+    },
+  },
 };
 
 export default meta;
@@ -26,12 +38,6 @@ export const SmLabel: Story = {
         </div>
       </CheckboxGroup>
     );
-  },
-  parameters: {
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/file/CgaxYAFROXbQH5fgPw8sX4/Blend-Metrics---New-Design-System?type=design&node-id=934-196255&mode=design&t=oI200WrSfiwzeWIG-4",
-    },
   },
 };
 
@@ -55,12 +61,6 @@ export const MdLabel: Story = {
       </CheckboxGroup>
     );
   },
-  parameters: {
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/file/CgaxYAFROXbQH5fgPw8sX4/Blend-Metrics---New-Design-System?type=design&node-id=934-196274&mode=design&t=oI200WrSfiwzeWIG-4",
-    },
-  },
 };
 
 export const LgLabel: Story = {
@@ -82,12 +82,6 @@ export const LgLabel: Story = {
         </div>
       </CheckboxGroup>
     );
-  },
-  parameters: {
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/file/CgaxYAFROXbQH5fgPw8sX4/Blend-Metrics---New-Design-System?type=design&node-id=934-196293&mode=design&t=oI200WrSfiwzeWIG-4",
-    },
   },
 };
 
@@ -111,12 +105,6 @@ export const SmLabelHelperText: Story = {
       </CheckboxGroup>
     );
   },
-  parameters: {
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/file/CgaxYAFROXbQH5fgPw8sX4/Blend-Metrics---New-Design-System?type=design&node-id=934-196249&mode=design&t=oI200WrSfiwzeWIG-4",
-    },
-  },
 };
 
 export const MdLabelHelperText: Story = {
@@ -138,12 +126,6 @@ export const MdLabelHelperText: Story = {
         </div>
       </CheckboxGroup>
     );
-  },
-  parameters: {
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/file/CgaxYAFROXbQH5fgPw8sX4/Blend-Metrics---New-Design-System?type=design&node-id=934-196268&mode=design&t=oI200WrSfiwzeWIG-4",
-    },
   },
 };
 
@@ -167,10 +149,61 @@ export const LgLabelHelperText: Story = {
       </CheckboxGroup>
     );
   },
-  parameters: {
-    design: {
-      type: "figma",
-      url: "https://www.figma.com/file/CgaxYAFROXbQH5fgPw8sX4/Blend-Metrics---New-Design-System?type=design&node-id=934-196287&mode=design&t=oI200WrSfiwzeWIG-4",
-    },
-  },
+};
+
+export const SmSelector: Story = {
+  render: (args) => (
+    <CheckboxGroup className="grid gap-y-2" {...args}>
+      <CheckboxSelector>
+        <Label>Option 1</Label>
+        <HelperText>Short description here</HelperText>
+      </CheckboxSelector>
+      <CheckboxSelector>
+        <Label>Option 1</Label>
+        <HelperText>Short description here</HelperText>
+      </CheckboxSelector>
+      <CheckboxSelector>
+        <Label>Option 1</Label>
+        <HelperText>Short description here</HelperText>
+      </CheckboxSelector>
+    </CheckboxGroup>
+  ),
+};
+
+export const MdSelector: Story = {
+  render: (args) => (
+    <CheckboxGroup className="grid gap-y-2" {...args}>
+      <CheckboxSelector size="md">
+        <Label size="sm">Option 1</Label>
+        <HelperText size="sm">Short description here</HelperText>
+      </CheckboxSelector>
+      <CheckboxSelector size="md">
+        <Label size="sm">Option 1</Label>
+        <HelperText size="sm">Short description here</HelperText>
+      </CheckboxSelector>
+      <CheckboxSelector size="md">
+        <Label size="sm">Option 1</Label>
+        <HelperText size="sm">Short description here</HelperText>
+      </CheckboxSelector>
+    </CheckboxGroup>
+  ),
+};
+
+export const LgSelector: Story = {
+  render: (args) => (
+    <CheckboxGroup className="grid gap-y-2" {...args}>
+      <CheckboxSelector size="lg">
+        <Label size="md">Option 1</Label>
+        <HelperText size="md">Short description here</HelperText>
+      </CheckboxSelector>
+      <CheckboxSelector size="lg">
+        <Label size="md">Option 1</Label>
+        <HelperText size="md">Short description here</HelperText>
+      </CheckboxSelector>
+      <CheckboxSelector size="lg">
+        <Label size="md">Option 1</Label>
+        <HelperText size="md">Short description here</HelperText>
+      </CheckboxSelector>
+    </CheckboxGroup>
+  ),
 };

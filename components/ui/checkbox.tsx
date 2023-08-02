@@ -2,13 +2,13 @@
 
 import * as React from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Check } from "lucide-react";
+import { Check, Minus } from "lucide-react";
 import { type VariantProps, cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
 const checkboxVariants = cva(
-  "peer shrink-0 border-[1.5px] border-gray-300 hover:border-primary-400 hover:ring-2 hover:ring-primary-50 hover:ring-offset-2 hover:ring-offset-primary-50 focus:ring-2 focus:ring-primary-50 focus:ring-offset-2 focus:ring-offset-primary-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-200 disabled:hover:ring-0 disabled:hover:ring-offset-0 data-[state=checked]:border-primary-500 data-[state=checked]:bg-primary-500 data-[state=checked]:text-white data-[state=checked]:disabled:border-gray-200 data-[state=checked]:disabled:bg-gray-50 data-[state=checked]:disabled:text-gray-200",
+  "peer shrink-0 border-[1.5px] border-gray-300 hover:border-primary-400 hover:ring hover:ring-primary-50 focus:ring focus:ring-primary-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-200 disabled:hover:ring-0 data-[state=checked]:border-primary-500 data-[state=checked]:hover:border-primary-500 data-[state=checked]:bg-primary-500 data-[state=checked]:text-white data-[state=checked]:disabled:border-gray-200 data-[state=checked]:disabled:bg-gray-50 data-[state=checked]:disabled:text-gray-200 data-[state=indeterminate]:border-primary-500 data-[state=indeterminate]:hover:border-primary-500 data-[state=indeterminate]:bg-primary-500 data-[state=indeterminate]:text-white data-[state=indeterminate]:disabled:border-gray-200 data-[state=indeterminate]:disabled:bg-gray-50 data-[state=indeterminate]:disabled:text-gray-200",
   {
     variants: {
       size: {
@@ -28,18 +28,37 @@ const checkboxVariants = cva(
   }
 );
 
-const iconVariants = cva("stroke-[2.5px]", {
-  variants: {
-    size: {
-      sm: "h-3 w-3",
-      md: "h-3.5 w-3.5",
-      lg: "h-4 w-4",
+const checkIconVariants = cva(
+  "hidden stroke-[2.5px] group-data-[state=checked]:inline-flex",
+  {
+    variants: {
+      size: {
+        sm: "h-3 w-3",
+        md: "h-3.5 w-3.5",
+        lg: "h-4 w-4",
+      },
     },
-  },
-  defaultVariants: {
-    size: "sm",
-  },
-});
+    defaultVariants: {
+      size: "sm",
+    },
+  }
+);
+
+const minusIconVariants = cva(
+  "hidden stroke-[2.5px] group-data-[state=indeterminate]:inline-flex",
+  {
+    variants: {
+      size: {
+        sm: "h-3 w-3",
+        md: "h-3.5 w-3.5",
+        lg: "h-4 w-4",
+      },
+    },
+    defaultVariants: {
+      size: "sm",
+    },
+  }
+);
 
 interface CheckboxProps
   extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
@@ -55,8 +74,9 @@ const Checkbox = React.forwardRef<
       {...props}
       ref={ref}
     >
-      <CheckboxPrimitive.Indicator className="flex items-center justify-center text-current">
-        <Check className={iconVariants({ size })} />
+      <CheckboxPrimitive.Indicator className="group flex items-center justify-center text-current">
+        <Check className={checkIconVariants({ size })} />
+        <Minus className={minusIconVariants({ size })} />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );

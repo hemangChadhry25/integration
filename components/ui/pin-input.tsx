@@ -40,9 +40,7 @@ const FourDigitPinInput = React.forwardRef<
   ) => {
     const id = React.useId();
     const [state, send] = useMachine(pinInput.machine({ id, placeholder }));
-
     const api = pinInput.connect(state, send, normalizeProps);
-
     const _pinInputClassName = cn(
       pinInputVariants({ size, className: pinInputClassName })
     );
@@ -94,9 +92,7 @@ const SixDigitPinInput = React.forwardRef<
   ) => {
     const id = React.useId();
     const [state, send] = useMachine(pinInput.machine({ id, placeholder }));
-
     const api = pinInput.connect(state, send, normalizeProps);
-
     const _pinInputClassName = pinInputVariants({
       size,
       className: pinInputClassName,

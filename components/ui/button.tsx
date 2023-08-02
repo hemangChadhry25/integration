@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-x-2 rounded-md font-semibold transition-colors focus:ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-x-2 rounded-[5px] font-semibold transition-colors focus:ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       visual: {
@@ -92,7 +92,8 @@ const buttonVariants = cva(
       {
         visual: "gray",
         variant: "outlined",
-        className: "border-gray-300 hover:bg-gray-50 focus:ring-gray-100",
+        className:
+          "text-gray-800 border-gray-300 hover:bg-gray-50 focus:ring-gray-100",
       },
       {
         visual: "gray",
