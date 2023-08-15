@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { createContext, getValidChildren } from "@/lib/utils";
+import { cn, createContext, getValidChildren } from "@/lib/utils";
 
 const [InputGroupProvider, useInputGroupContext] = createContext<{
   [key: string]: string;
@@ -14,7 +14,7 @@ const [InputGroupProvider, useInputGroupContext] = createContext<{
 const InputGroup = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { fieldHeight?: string }
->(({ children, fieldHeight = "2.75rem", ...props }, ref) => {
+>(({ children, className, fieldHeight = "2.75rem", ...props }, ref) => {
   const validChildren = getValidChildren(children);
   let fieldStyles: { [key: string]: string } = {};
 
@@ -56,7 +56,11 @@ const InputGroup = React.forwardRef<
 
   return (
     <InputGroupProvider value={{ fieldHeight }}>
-      <div className="relative flex items-center" ref={ref} {...props}>
+      <div
+        className={cn("relative flex items-center", className)}
+        ref={ref}
+        {...props}
+      >
         {clones}
       </div>
     </InputGroupProvider>

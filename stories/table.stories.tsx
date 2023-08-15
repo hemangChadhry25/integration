@@ -48,7 +48,7 @@ import {
   TableRow,
   BadgeGroup,
 } from "@/components/ui";
-import { cn, nope } from "@/lib/utils";
+import { cn, first, nope } from "@/lib/utils";
 import { mergeProps, normalizeProps, useMachine } from "@zag-js/react";
 
 const meta: Meta = {
@@ -115,7 +115,7 @@ const columns = [
             src={info.getValue().photo}
             alt={info.getValue().fullName}
           />
-          <AvatarFallback>{info.getValue().fullName[0]}</AvatarFallback>
+          <AvatarFallback>{first(info.getValue().fullName)}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
           <span className="text-sm font-semibold text-gray-700">
@@ -635,7 +635,7 @@ const teamMemberColumns = [
             src={info.getValue().photo}
             alt={info.getValue().fullName}
           />
-          <AvatarFallback>{info.getValue().fullName[0]}</AvatarFallback>
+          <AvatarFallback>{first(info.getValue().fullName)}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
           <span className="text-sm font-semibold text-gray-700">

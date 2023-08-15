@@ -45,6 +45,14 @@ export function isString(arg: any): arg is string {
   return typeof arg === "string";
 }
 
+export function first(arg: string | string[]) {
+  return arg[0];
+}
+
+export function last(arg: string | string[]) {
+  return arg[0];
+}
+
 export const createContext = <TValue>({
   displayName,
   value,

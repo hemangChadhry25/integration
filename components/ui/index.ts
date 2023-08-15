@@ -30,3 +30,4 @@ export * from "./dropdown-menu";
 export * from "./badge-group";
 export * from "./scroll-area";
 export * from "./accordion";
+export * from "./dialog";
