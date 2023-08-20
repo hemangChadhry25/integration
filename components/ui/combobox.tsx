@@ -50,7 +50,7 @@ const ComboboxButton = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ComboboxPrimitive.Button
     className={cn(
-      "absolute inset-y-0 left-2.5 my-auto text-gray-400 focus-visible:outline-none peer-hover:text-gray-500 peer-focus:text-primary-500 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+      "absolute inset-y-0 left-2.5 my-auto text-gray-400 peer-hover:text-gray-500 peer-focus:text-primary-500 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 focus-visible:outline-none",
       className
     )}
     {...props}
@@ -92,12 +92,16 @@ const ComboboxOption = React.forwardRef<
 
 ComboboxOption.displayName = "ComboboxOption";
 
-const ScaleIn = React.forwardRef<
+const ScaleOutIn = React.forwardRef<
   React.ElementRef<typeof Transition>,
   React.ComponentPropsWithoutRef<typeof Transition>
 >((props, ref) => (
   <Transition
     as={React.Fragment}
+    appear
+    enter="transition ease-out duration-200"
+    enterFrom="opacity-0 scale-95"
+    enterTo="opacity-100 scale-100"
     leave="transition ease-in duration-100"
     leaveFrom="opacity-100 scale-100"
     leaveTo="opacity-0 scale-95"
@@ -106,7 +110,7 @@ const ScaleIn = React.forwardRef<
   />
 ));
 
-ScaleIn.displayName = "ScaleIn";
+ScaleOutIn.displayName = "ScaleOutIn";
 
 export {
   Combobox,
@@ -116,5 +120,5 @@ export {
   ComboboxButton,
   ComboboxOptions,
   ComboboxOption,
-  ScaleIn,
+  ScaleOutIn,
 };

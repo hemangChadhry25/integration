@@ -16,12 +16,13 @@ import {
   TooltipTrigger,
 } from "./tooltip";
 
-const LinearProgress = React.forwardRef<
+const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
     value?: number;
+    bubble?: boolean;
   }
->(({ className, value = 0, ...props }, ref) => {
+>(({ className, value = 0, bubble = true, ...props }, ref) => {
   const indicatorRef =
     React.useRef<React.ElementRef<typeof ProgressPrimitive.Indicator>>(null);
   const [alignOffset, setAlignOffset] = React.useState<number>();
@@ -49,14 +50,17 @@ const LinearProgress = React.forwardRef<
             {...props}
           >
             <ProgressPrimitive.Indicator
-              className="h-full w-full flex-1 rounded-r-full bg-primary-500 transition-all"
+              className="h-full w-full flex-1 rounded-r-full bg-primary-500 transition-all duration-500"
               style={{ transform: `translateX(-${100 - value}%)` }}
               ref={indicatorRef}
             />
           </ProgressPrimitive.Root>
         </TooltipTrigger>
         <TooltipContent
-          className="px-3 py-2"
+          className={cn(
+            "relative overflow-visible px-3 py-2 text-xs font-semibold leading-[18px] shadow-lg after:absolute after:inset-x-0 after:-bottom-1 after:mx-auto after:h-3 after:w-3 after:-rotate-45 after:rounded-[1.5px] after:bg-white",
+            bubble ? "after:content-['']" : "after:content-none"
+          )}
           alignOffset={alignOffset}
           visual="white"
           align="start"
@@ -67,7 +71,7 @@ const LinearProgress = React.forwardRef<
     </TooltipProvider>
   );
 });
-LinearProgress.displayName = ProgressPrimitive.Root.displayName;
+Progress.displayName = ProgressPrimitive.Root.displayName;
 
 interface CircularProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: number;
@@ -93,7 +97,10 @@ const CircularProgress = React.forwardRef<
   ) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = computeCircumference(radius);
-    const offset = circumference - (value / 100) * circumference;
+    const strokeDashArray = `${computePercentage(circumference, value)} ${
+      circumference - computePercentage(circumference, value)
+    }`;
+    const offset = circumference / 4;
 
     return (
       <div
@@ -106,22 +113,21 @@ const CircularProgress = React.forwardRef<
       >
         <svg width={size} height={size}>
           <circle
-            className={cn("stroke-gray-200", trackClassName)}
+            className={cn("fill-none stroke-gray-200", trackClassName)}
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            fill="none"
             strokeWidth={strokeWidth}
           />
           <circle
-            className="stroke-primary-500"
+            className="fill-none stroke-primary-500 transition-[stroke,stroke-dasharray] duration-500"
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            fill="none"
+            opacity={value === 0 ? 0 : undefined}
             strokeLinecap="round"
             strokeWidth={strokeWidth}
-            strokeDasharray={circumference}
+            strokeDasharray={strokeDashArray}
             strokeDashoffset={offset}
           />
         </svg>
@@ -135,4 +141,4 @@ const CircularProgress = React.forwardRef<
 
 CircularProgress.displayName = "CircularProgress";
 
-export { CircularProgress, LinearProgress };
+export { CircularProgress, Progress };

@@ -1,4 +1,4 @@
-import { CircularProgress, LinearProgress } from "@/components/ui";
+import { CircularProgress, Progress } from "@/components/ui";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -64,5 +64,15 @@ export const CircularXl: StoryObj = {
 };
 
 export const Linear: StoryObj = {
-  render: (args) => <LinearProgress {...args} />,
+  argTypes: {
+    bubble: {
+      value: {
+        control: { type: "boolean" },
+      },
+    },
+  },
+  args: {
+    bubble: true,
+  },
+  render: (args) => <Progress {...args} />,
 };

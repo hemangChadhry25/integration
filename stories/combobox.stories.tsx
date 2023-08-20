@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
+import { Meta } from "@storybook/react";
 
 import {
   ComboboxButton,
@@ -7,11 +8,11 @@ import {
   ComboboxOptions,
   ComboboxTrigger,
   Combobox,
-  ScaleIn,
+  ScaleOutIn,
 } from "@/components/ui";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui";
 import { Search } from "@/components/icons";
-import * as React from "react";
+import { first } from "@/lib/utils";
 
 const meta: Meta = {
   title: "Combobox",
@@ -30,7 +31,7 @@ export const Default = () => {
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
   ]);
-  const [selected, setSelected] = React.useState(users[0]);
+  const [selected, setSelected] = React.useState(first(users));
   const [query, setQuery] = React.useState("");
 
   const filteredPeople =
@@ -54,7 +55,7 @@ export const Default = () => {
           <Search />
         </ComboboxButton>
       </ComboboxTrigger>
-      <ScaleIn afterLeave={() => setQuery("")}>
+      <ScaleOutIn afterLeave={() => setQuery("")}>
         <ComboboxOptions>
           <ScrollArea className="h-[304px]">
             {filteredPeople.map((user) => (
@@ -64,7 +65,7 @@ export const Default = () => {
             ))}
           </ScrollArea>
         </ComboboxOptions>
-      </ScaleIn>
+      </ScaleOutIn>
     </Combobox>
   );
 };

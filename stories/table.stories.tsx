@@ -39,7 +39,7 @@ import {
   Badge,
   Button,
   Checkbox,
-  LinearProgress,
+  Progress,
   Table,
   TableBody,
   TableCell,
@@ -131,7 +131,7 @@ const columns = [
     header: "Rating",
     cell: (info) => (
       <div className="flex items-center gap-x-3">
-        <LinearProgress className="w-56" value={info.getValue().percentage} />
+        <Progress className="w-56" value={info.getValue().percentage} />
         <span className="text-sm font-medium text-gray-700">
           {info.getValue().percentage}%
         </span>

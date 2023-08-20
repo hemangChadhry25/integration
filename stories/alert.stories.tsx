@@ -7,7 +7,7 @@ import {
   AlertTitle,
   CircularProgress,
   CloseButton,
-  LinearProgress,
+  Progress,
 } from "@/components/ui";
 import {
   AlertCircle,
@@ -15,7 +15,6 @@ import {
   ArrowRight2,
   CheckCircle,
   ExternalLink,
-  X2,
 } from "@/components/icons";
 import Image from "next/image";
 
@@ -287,7 +286,7 @@ export const UsedSpaceLinearProgress = () => {
       <div className="mt-1 text-sm text-gray-500">
         Your team has used 80% of your available space. Need more?
       </div>
-      <LinearProgress className="mt-3 bg-gray-300" value={75} />
+      <Progress className="mt-3 bg-gray-300" value={75} />
 
       <div className="mt-3 flex items-center gap-x-3">
         <button className="text-sm font-semibold text-gray-600 focus-visible:outline-none">

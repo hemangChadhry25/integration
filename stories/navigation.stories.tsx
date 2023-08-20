@@ -43,7 +43,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  ScaleIn,
+  ScaleOutIn,
   ScrollArea,
   Tooltip,
   TooltipContent,
@@ -669,7 +669,7 @@ export const WelcomeNav = () => {
               <Search />
             </ComboboxButton>
           </ComboboxTrigger>
-          <ScaleIn afterLeave={() => setQuery("")}>
+          <ScaleOutIn afterLeave={() => setQuery("")}>
             <ComboboxOptions>
               <ScrollArea className="h-[304px]">
                 {filteredUsers.map((user, key) => (
@@ -679,7 +679,7 @@ export const WelcomeNav = () => {
                 ))}
               </ScrollArea>
             </ComboboxOptions>
-          </ScaleIn>
+          </ScaleOutIn>
         </Combobox>
 
         <Button variant="outlined" visual="gray">

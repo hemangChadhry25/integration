@@ -45,7 +45,7 @@ export function isString(arg: any): arg is string {
   return typeof arg === "string";
 }
 
-export function first(arg: string | string[]) {
+export function first<T>(arg: string | T[]) {
   return arg[0];
 }
 
