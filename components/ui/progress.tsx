@@ -78,6 +78,7 @@ interface CircularProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   strokeWidth?: number;
   value?: number;
   trackClassName?: string;
+  show?: boolean;
 }
 
 const CircularProgress = React.forwardRef<
@@ -91,6 +92,7 @@ const CircularProgress = React.forwardRef<
       strokeWidth = 8,
       className,
       trackClassName,
+      show = true,
       ...props
     },
     ref
@@ -131,9 +133,11 @@ const CircularProgress = React.forwardRef<
             strokeDashoffset={offset}
           />
         </svg>
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          {value}%
-        </span>
+        {show && (
+          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            {value}%
+          </span>
+        )}
       </div>
     );
   }
