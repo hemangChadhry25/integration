@@ -45,7 +45,7 @@ export function isString(arg: any): arg is string {
   return typeof arg === "string";
 }
 
-export function first<T>(arg: string | T[]) {
+export function first<T extends any[] | string>(arg: T) {
   return arg[0];
 }
 
@@ -75,3 +75,17 @@ export const createContext = <TValue>({
 
   return [Context.Provider, useContext] as const;
 };
+
+export function verifyFileType(fileName: string, accepted: string[]): boolean {
+  if (accepted.length === 0) {
+    return false;
+  }
+  return fileName.endsWith(first(accepted))
+    ? true
+    : verifyFileType(fileName, accepted.slice(1));
+}
+
+export function convertToMb(bytes: number) {
+  const kbs = bytes / 1000;
+  return kbs < 1000 ? `${kbs.toFixed(2)}KB` : `${(kbs / 1000).toFixed(2)}MB`;
+}
