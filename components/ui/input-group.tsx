@@ -8,7 +8,7 @@ const [InputGroupProvider, useInputGroupContext] = createContext<{
   [key: string]: string;
 }>({
   displayName: "InputGroupProvider",
-  errorMessage: `useInputGroupStyles returned is 'undefined'. Seems you forgot to wrap the components in "<InputGroup />"`,
+  errorMessage: `useInputGroupContext returned is 'undefined'. Seems you forgot to wrap the components in "<InputGroup />"`,
 });
 
 const InputGroup = React.forwardRef<

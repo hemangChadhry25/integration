@@ -3,11 +3,12 @@
 import * as React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import { VariantProps, cva } from "class-variance-authority";
+import { User } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn, createContext } from "@/lib/utils";
 
 const avatarVariants = cva(
-  "relative flex shrink-0 overflow-hidden rounded-full hover:ring hover:ring-gray-100",
+  "relative flex shrink-0 overflow-hidden rounded-full hover:ring-4 active:ring-4 hover:ring-gray-100 active:ring-primary-50",
   {
     variants: {
       size: {
@@ -44,6 +45,45 @@ const badgeVariants = cva(
   }
 );
 
+const avatarFallbackIconVariants = cva("text-primary-500", {
+  variants: {
+    size: {
+      xs: "h-4 w-4",
+      sm: "h-5 w-5",
+      md: "h-6 w-6",
+      lg: "h-7 w-7",
+      xl: "h-8 w-8",
+      "2xl": "h-8 w-8",
+    },
+  },
+  defaultVariants: {
+    size: "xs",
+  },
+});
+
+const avatarFallbackVariants = cva(
+  "flex h-full w-full items-center justify-center rounded-full bg-primary-25 text-primary-500 font-medium hover:bg-primary-50",
+  {
+    variants: {
+      size: {
+        xs: "text-xs leading-[18px]",
+        sm: "text-sm",
+        md: "text-base",
+        lg: "text-lg",
+        xl: "text-xl leading-[30px]",
+        "2xl": "text-2xl",
+      },
+    },
+  }
+);
+
+const [AvatarProvider, useAvatarContext] = createContext<{
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | null;
+}>({
+  displayName: "AvatarProvider",
+  errorMessage: `useAvatarContext returned is 'undefined'. Seems you forgot to wrap the components in "<Avatar />"`,
+});
+
 interface AvatarProps
   extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>,
     VariantProps<typeof avatarVariants> {
@@ -55,16 +95,18 @@ const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   AvatarProps
 >(({ className, size, isOnline, badgeClassName, ...props }, ref) => (
-  <div className="relative inline-block">
-    <AvatarPrimitive.Root
-      ref={ref}
-      className={cn(avatarVariants({ size, className }))}
-      {...props}
-    />
-    {isOnline && (
-      <span className={badgeVariants({ size, className: badgeClassName })} />
-    )}
-  </div>
+  <AvatarProvider value={{ size }}>
+    <div className="relative inline-block">
+      <AvatarPrimitive.Root
+        ref={ref}
+        className={cn(avatarVariants({ size, className }))}
+        {...props}
+      />
+      {isOnline && (
+        <span className={badgeVariants({ size, className: badgeClassName })} />
+      )}
+    </div>
+  </AvatarProvider>
 ));
 Avatar.displayName = AvatarPrimitive.Root.displayName;
 
@@ -80,19 +122,47 @@ const AvatarImage = React.forwardRef<
 ));
 AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
+const AvatarFallbackIcon = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> & {
+    iconClass?: string;
+  }
+>(({ className, iconClass, ...props }, ref) => {
+  const { size } = useAvatarContext();
+
+  return (
+    <AvatarPrimitive.Fallback
+      ref={ref}
+      className={cn(
+        "flex h-full w-full items-center justify-center rounded-full bg-primary-25 text-primary-500 hover:bg-primary-50",
+        className
+      )}
+      {...props}
+    >
+      <User
+        className={cn(
+          avatarFallbackIconVariants({ size, className: iconClass })
+        )}
+      />
+    </AvatarPrimitive.Fallback>
+  );
+});
+AvatarFallbackIcon.displayName = "AvatarFallbackIcon";
+
 const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-primary-25 text-xs font-medium leading-[18px] text-primary-500 hover:bg-primary-50",
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const { size } = useAvatarContext();
+
+  return (
+    <AvatarPrimitive.Fallback
+      ref={ref}
+      className={cn(avatarFallbackVariants({ size }))}
+      {...props}
+    />
+  );
+});
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export { Avatar, AvatarImage, AvatarFallback };
+export { Avatar, AvatarImage, AvatarFallback, AvatarFallbackIcon };

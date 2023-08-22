@@ -8,8 +8,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  AvatarFallbackIcon,
 } from "@/components/ui";
-import { User } from "@/components/icons";
 
 const meta: Meta = {
   title: "Avatar",
@@ -140,20 +140,11 @@ export const DoubleXl: Story = {
 };
 
 export const Fallback: Story = {
-  argTypes: {
-    size: {
-      table: {
-        disable: true,
-      },
-    },
-  },
   render: (args) => {
     return (
-      <Avatar {...args}>
+      <Avatar className="hover:ring-0 active:ring-primary-100" {...args}>
         <AvatarImage src="/boy.jpg" alt="Boy" />
-        <AvatarFallback>
-          <User />
-        </AvatarFallback>
+        <AvatarFallbackIcon />
       </Avatar>
     );
   },
