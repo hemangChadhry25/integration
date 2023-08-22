@@ -385,7 +385,7 @@ export const AvatarIndividualVariant: Story = {
             </TooltipTrigger>
 
             <TooltipContent
-              className="scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-lg max-h-[192px] space-y-3 overflow-y-auto"
+              className="max-h-[192px] space-y-3 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-lg"
               size="md"
             >
               <div className="flex items-center gap-x-2">

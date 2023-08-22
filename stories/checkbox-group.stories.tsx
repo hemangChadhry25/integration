@@ -153,7 +153,7 @@ export const LgLabelHelperText: Story = {
 
 export const SmSelector: Story = {
   render: (args) => (
-    <CheckboxGroup className="grid gap-y-2" {...args}>
+    <CheckboxGroup className="grid gap-y-2 space-y-2" {...args}>
       <CheckboxSelector>
         <Label>Option 1</Label>
         <HelperText>Short description here</HelperText>
@@ -191,7 +191,7 @@ export const MdSelector: Story = {
 
 export const LgSelector: Story = {
   render: (args) => (
-    <CheckboxGroup className="grid gap-y-2" {...args}>
+    <CheckboxGroup className="grid gap-y-2 space-y-3" {...args}>
       <CheckboxSelector size="lg">
         <Label size="md">Option 1</Label>
         <HelperText size="md">Short description here</HelperText>
