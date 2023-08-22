@@ -88,7 +88,7 @@ export const XIcon: Story = {
     return (
       <Badge {...args}>
         Label
-        <X />
+        <X className="cursor-pointer" />
       </Badge>
     );
   },
