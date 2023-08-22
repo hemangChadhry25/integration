@@ -191,7 +191,7 @@ export const XsDetailed: Story = {
     return (
       <div className="inline-flex items-center gap-x-2">
         <Avatar {...args}>
-          <AvatarImage src="/Man.jpg" alt="Man" />
+          <AvatarImage src="/man.jpg" alt="Man" />
           <AvatarFallback>M</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
@@ -224,7 +224,7 @@ export const SmDetailed: Story = {
     return (
       <div className="inline-flex items-center gap-x-2.5">
         <Avatar {...args}>
-          <AvatarImage src="/Man.jpg" alt="Man" />
+          <AvatarImage src="/man.jpg" alt="Man" />
           <AvatarFallback>M</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
@@ -254,7 +254,7 @@ export const MdDetailed: Story = {
     return (
       <div className="inline-flex items-center gap-x-3">
         <Avatar {...args}>
-          <AvatarImage src="/Man.jpg" alt="Man" />
+          <AvatarImage src="/man.jpg" alt="Man" />
           <AvatarFallback>M</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
@@ -282,7 +282,7 @@ export const LgDetailed: Story = {
     return (
       <div className="inline-flex items-center gap-x-3">
         <Avatar {...args}>
-          <AvatarImage src="/Man.jpg" alt="Man" />
+          <AvatarImage src="/man.jpg" alt="Man" />
           <AvatarFallback>M</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
@@ -312,7 +312,7 @@ export const XlDetailed: Story = {
     return (
       <div className="inline-flex items-center gap-x-3">
         <Avatar {...args}>
-          <AvatarImage src="/Man.jpg" alt="Man" />
+          <AvatarImage src="/man.jpg" alt="Man" />
           <AvatarFallback>M</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
