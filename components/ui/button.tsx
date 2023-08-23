@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-x-2 rounded-[5px] font-semibold transition-colors focus:ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-x-2 rounded-[5px] font-semibold transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       visual: {
@@ -15,10 +15,10 @@ const buttonVariants = cva(
       },
       variant: {
         filled: "",
+        light: "",
         outlined: "border",
         ghost: "",
         link: "hover:underline",
-        light: "",
       },
       size: {
         sm: "text-sm py-2 px-[14px] h-9",
@@ -41,47 +41,30 @@ const buttonVariants = cva(
         visual: "primary",
         variant: "filled",
         className:
-          "text-white bg-primary-500 hover:bg-primary-600 focus:ring-primary-100",
+          "text-white bg-primary-500 active:ring-4 hover:bg-primary-600 active:ring-primary-100",
       },
       {
         visual: "primary",
         variant: "light",
         className:
-          "text-primary-500 bg-primary-50 hover:bg-primary-100 focus:ring-primary-25",
+          "text-primary-500 bg-primary-50 active:ring-4 hover:bg-primary-100 active:ring-primary-25",
       },
       {
         visual: "primary",
         variant: "link",
-        className: "text-primary-500 focus:text-primary-700 focus:ring-0",
+        className: "text-primary-500 focus:text-primary-700",
       },
       {
         visual: "primary",
         variant: "ghost",
         className:
-          "text-primary-500 hover:bg-primary-50 focus:bg-primary-100 focus:text-primary-700 focus:ring-0",
+          "text-primary-500 hover:bg-primary-50 focus:bg-primary-100 focus:text-primary-700",
       },
       {
         visual: "error",
         variant: "filled",
         className:
-          "text-white bg-error-500 hover:bg-error-600 focus:ring-error-200",
-      },
-      {
-        visual: "error",
-        variant: "outlined",
-        className:
-          "border-error-300 text-error-500 hover:bg-red-50 focus:ring-error-25",
-      },
-      {
-        visual: "error",
-        variant: "ghost",
-        className:
-          "text-error-500 hover:bg-error-50 focus:text-error-700 focus:bg-error-100 focus:ring-0",
-      },
-      {
-        visual: "error",
-        variant: "link",
-        className: "text-error-500 focus:text-error-700 focus:ring-0",
+          "text-white bg-error-500 active:ring-4 active:ring-error-200 hover:bg-error-600",
       },
       {
         visual: "error",
@@ -90,21 +73,37 @@ const buttonVariants = cva(
           "text-error-500 bg-error-50 hover:bg-error-100 focus:ring-error-100",
       },
       {
+        visual: "error",
+        variant: "outlined",
+        className:
+          "border-error-300 text-error-500 hover:bg-red-50 active:ring-4 active:ring-error-25",
+      },
+      {
+        visual: "error",
+        variant: "ghost",
+        className:
+          "text-error-500 hover:bg-error-50 focus:text-error-700 focus:bg-error-100",
+      },
+      {
+        visual: "error",
+        variant: "link",
+        className: "text-error-500 focus:text-error-700",
+      },
+      {
         visual: "gray",
         variant: "outlined",
         className:
-          "text-gray-800 border-gray-300 hover:bg-gray-50 focus:ring-gray-100",
+          "text-gray-800 border-gray-300 hover:bg-gray-50 focus:bg-gray-50",
       },
       {
         visual: "gray",
         variant: "ghost",
-        className:
-          "text-gray-800 hover:bg-gray-100 focus:bg-gray-200 focus:ring-0",
+        className: "text-gray-800 hover:bg-gray-100 focus:bg-gray-200",
       },
       {
         visual: "gray",
         variant: "link",
-        className: "text-gray-500 focus:text-gray-600 focus:ring-0",
+        className: "text-gray-500 focus:text-gray-600",
       },
       {
         size: "2xl",
