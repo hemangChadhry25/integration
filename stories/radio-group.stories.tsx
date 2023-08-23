@@ -30,13 +30,25 @@ export const SmLabel: Story = {
     return (
       <RadioGroup {...args}>
         <div className="flex gap-x-3">
-          <RadioGroupItem value="Option 1" id="option-one" />
-          <Label htmlFor="option-one">Option 1</Label>
+          <Label className="order-2" htmlFor="option-one">
+            Option 1
+          </Label>
+          <RadioGroupItem
+            className="order-1"
+            value="Option 1"
+            id="option-one"
+          />
         </div>
 
         <div className="flex gap-x-3">
-          <RadioGroupItem value="Option 2" id="option-two" />
-          <Label htmlFor="option-two">Option 2</Label>
+          <Label className="order-2" htmlFor="option-two">
+            Option 2
+          </Label>
+          <RadioGroupItem
+            className="order-1"
+            value="Option 2"
+            id="option-two"
+          />
         </div>
       </RadioGroup>
     );
@@ -54,17 +66,27 @@ export const MdLabel: Story = {
     return (
       <RadioGroup className="space-y-3" {...args}>
         <div className="flex gap-x-3.5">
-          <RadioGroupItem size="md" value="Option 1" id="option-one" />
-          <Label size="sm" htmlFor="option-one">
+          <Label className="order-2" size="sm" htmlFor="option-one">
             Option 1
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            size="md"
+            value="Option 1"
+            id="option-one"
+          />
         </div>
 
         <div className="flex gap-x-3.5">
-          <RadioGroupItem size="md" value="Option 2" id="option-two" />
-          <Label size="sm" htmlFor="option-two">
+          <Label className="order-2" size="sm" htmlFor="option-two">
             Option 2
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            size="md"
+            value="Option 2"
+            id="option-two"
+          />
         </div>
       </RadioGroup>
     );
@@ -82,17 +104,27 @@ export const LgLabel: Story = {
     return (
       <RadioGroup className="space-y-3.5" {...args}>
         <div className="flex gap-x-4">
-          <RadioGroupItem size="lg" value="Option 1" id="option-one" />
-          <Label size="md" htmlFor="option-one">
+          <Label className="order-2" size="md" htmlFor="option-one">
             Option 1
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            size="lg"
+            value="Option 1"
+            id="option-one"
+          />
         </div>
 
         <div className="flex gap-x-4">
-          <RadioGroupItem size="lg" value="Option 2" id="option-two" />
-          <Label size="md" htmlFor="option-two">
+          <Label className="order-2" size="md" htmlFor="option-two">
             Option 2
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            size="lg"
+            value="Option 2"
+            id="option-two"
+          />
         </div>
       </RadioGroup>
     );
@@ -110,17 +142,25 @@ export const SmLabelHelperText: Story = {
     return (
       <RadioGroup {...args}>
         <div className="flex gap-x-3">
-          <RadioGroupItem value="Option 1" id="option-one" />
-          <Label className="flex flex-col" htmlFor="option-one">
+          <Label className="order-2 flex flex-col" htmlFor="option-one">
             Option 1<HelperText>Short description here</HelperText>
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            value="Option 1"
+            id="option-one"
+          />
         </div>
 
         <div className="flex gap-x-3">
-          <RadioGroupItem value="Option 2" id="option-two" />
-          <Label className="flex flex-col" htmlFor="option-two">
+          <Label className="order-2 flex flex-col" htmlFor="option-two">
             Option 2<HelperText>Short description here</HelperText>
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            value="Option 2"
+            id="option-two"
+          />
         </div>
       </RadioGroup>
     );
@@ -138,17 +178,35 @@ export const MdLabelHelperText: Story = {
     return (
       <RadioGroup className="space-y-3" {...args}>
         <div className="flex gap-x-3.5">
-          <RadioGroupItem size="md" value="Option 1" id="option-one" />
-          <Label size="sm" className="flex flex-col" htmlFor="option-one">
+          <Label
+            size="sm"
+            className="order-2 flex flex-col"
+            htmlFor="option-one"
+          >
             Option 1 <HelperText size="sm">Short description here</HelperText>
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            size="md"
+            value="Option 1"
+            id="option-one"
+          />
         </div>
 
         <div className="flex gap-x-3.5">
-          <RadioGroupItem size="md" value="Option 2" id="option-two" />
-          <Label size="sm" className="flex flex-col" htmlFor="option-two">
+          <Label
+            size="sm"
+            className="order-2 flex flex-col"
+            htmlFor="option-two"
+          >
             Option 2 <HelperText size="sm">Short description here</HelperText>
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            size="md"
+            value="Option 2"
+            id="option-two"
+          />
         </div>
       </RadioGroup>
     );
@@ -166,17 +224,35 @@ export const LgLabelHelperText: Story = {
     return (
       <RadioGroup className="space-y-3.5" {...args}>
         <div className="flex gap-x-4">
-          <RadioGroupItem size="lg" value="Option 1" id="option-one" />
-          <Label className="flex flex-col" size="md" htmlFor="option-one">
+          <Label
+            className="order-2 flex flex-col"
+            size="md"
+            htmlFor="option-one"
+          >
             Option 1 <HelperText size="md">Short description here</HelperText>
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            size="lg"
+            value="Option 1"
+            id="option-one"
+          />
         </div>
 
         <div className="flex gap-x-4">
-          <RadioGroupItem size="lg" value="Option 2" id="option-two" />
-          <Label className="flex flex-col" size="md" htmlFor="option-two">
+          <Label
+            className="order-2 flex flex-col"
+            size="md"
+            htmlFor="option-two"
+          >
             Option 2 <HelperText size="md">Short description here</HelperText>
           </Label>
+          <RadioGroupItem
+            className="order-1"
+            size="lg"
+            value="Option 2"
+            id="option-two"
+          />
         </div>
       </RadioGroup>
     );
@@ -210,7 +286,7 @@ export const SmRadioGroupItemSelector: Story = {
 
 export const MdRadioGroupItemSelector: Story = {
   render: (args) => (
-    <RadioGroup className="grid gap-y-2" {...args}>
+    <RadioGroup className="grid gap-y-2.5" {...args}>
       <RadioGroupItemSelector size="md" value="Option 1">
         <Label size="sm">Option 1</Label>
         <HelperText size="sm">Short description here</HelperText>
@@ -229,7 +305,7 @@ export const MdRadioGroupItemSelector: Story = {
 
 export const LgRadioGroupItemSelector: Story = {
   render: (args) => (
-    <RadioGroup {...args}>
+    <RadioGroup className="grid gap-y-3" {...args}>
       <RadioGroupItemSelector size="lg" value="Option 1">
         <Label size="md">Option 1</Label>
         <HelperText size="md">Short description here</HelperText>
