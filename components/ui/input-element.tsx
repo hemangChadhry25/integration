@@ -10,17 +10,15 @@ const InputRightElement = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const { fieldHeight } = useInputGroupContext();
+  const style: { [key: string]: string } = { "--w": fieldHeight };
 
   return (
     <div
       className={cn(
-        "absolute inset-y-0 right-0 my-auto flex items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+        "absolute inset-y-0 right-0 my-auto flex w-[var(--w,44px)] items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
         className
       )}
-      style={{
-        height: fieldHeight,
-        width: fieldHeight,
-      }}
+      style={{ ...style }}
       ref={ref}
       {...props}
     />
@@ -36,17 +34,15 @@ const InputLeftElement = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const { fieldHeight } = useInputGroupContext();
+  const style: { [key: string]: string } = { "--w": fieldHeight };
 
   return (
     <div
       className={cn(
-        "absolute inset-y-0 left-0 my-auto flex items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+        "absolute inset-y-0 left-0 my-auto flex w-[var(--w,44px)] items-center justify-center peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
         className
       )}
-      style={{
-        height: fieldHeight,
-        width: fieldHeight,
-      }}
+      style={{ ...style }}
       ref={ref}
       {...props}
     />

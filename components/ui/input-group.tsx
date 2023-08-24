@@ -23,27 +23,25 @@ const InputGroup = React.forwardRef<
     if (id === "InputLeftElement") {
       fieldStyles = {
         ...fieldStyles,
-        paddingLeft: fieldHeight,
+        "--pl": fieldHeight,
       };
     }
     if (id === "InputRightElement") {
       fieldStyles = {
         ...fieldStyles,
-        paddingRight: fieldHeight,
+        "--pr": fieldHeight,
       };
     }
     if (id === "InputLeftAddon") {
       fieldStyles = {
         ...fieldStyles,
-        borderTopLeftRadius: "0rem",
-        borderBottomLeftRadius: "0rem",
+        "--rounded-l": "0rem",
       };
     }
     if (id === "InputRightAddon") {
       fieldStyles = {
         ...fieldStyles,
-        borderTopRightRadius: "0rem",
-        borderBottomRightRadius: "0rem",
+        "--rounded-r": "0rem",
       };
     }
   });

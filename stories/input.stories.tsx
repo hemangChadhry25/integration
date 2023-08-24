@@ -487,8 +487,13 @@ export const HelperTextEmailHelpCircle: Story = {
 export const MasterCardIcon: Story = {
   render: (args) => (
     <InputGroup>
-      <Input type="email" placeholder="olivia@untitledui.com" {...args} />
-      <InputLeftElement>
+      <Input
+        className="pl-[52px]"
+        type="email"
+        placeholder="olivia@untitledui.com"
+        {...args}
+      />
+      <InputLeftElement className="w-[52px]">
         <MasterCard />
       </InputLeftElement>
     </InputGroup>
@@ -501,8 +506,13 @@ export const MasterCardIconDestructive: Story = {
   },
   render: (args) => (
     <InputGroup>
-      <Input type="email" placeholder="olivia@untitledui.com" {...args} />
-      <InputLeftElement>
+      <Input
+        className="pl-[52px]"
+        type="email"
+        placeholder="olivia@untitledui.com"
+        {...args}
+      />
+      <InputLeftElement className="w-[52px]">
         <MasterCard />
       </InputLeftElement>
       <InputRightElement>
@@ -520,12 +530,13 @@ export const LabeledMasterCard: Story = {
       </Label>
       <InputGroup>
         <Input
+          className="pl-[52px]"
           id="email"
           type="email"
           placeholder="olivia@untitledui.com"
           {...args}
         />
-        <InputLeftElement>
+        <InputLeftElement className="w-[52px]">
           <MasterCard />
         </InputLeftElement>
       </InputGroup>
@@ -544,12 +555,13 @@ export const LabeledMasterCardDestructive: Story = {
       </Label>
       <InputGroup>
         <Input
+          className="pl-[52px]"
           id="email"
           type="email"
           placeholder="olivia@untitledui.com"
           {...args}
         />
-        <InputLeftElement>
+        <InputLeftElement className="w-[52px]">
           <MasterCard />
         </InputLeftElement>
         <InputRightElement>
@@ -568,12 +580,13 @@ export const LabeledHelperTextMasterCard: Story = {
       </Label>
       <InputGroup>
         <Input
+          className="pl-[52px]"
           id="email"
           type="email"
           placeholder="olivia@untitledui.com"
           {...args}
         />
-        <InputLeftElement>
+        <InputLeftElement className="w-[52px]">
           <MasterCard />
         </InputLeftElement>
       </InputGroup>
@@ -592,8 +605,13 @@ export const LabeledHelperTextMasterCardDestructive: Story = {
         Email
       </Label>
       <InputGroup>
-        <Input type="email" placeholder="olivia@untitledui.com" {...args} />
-        <InputLeftElement>
+        <Input
+          className="pl-[52px]"
+          type="email"
+          placeholder="olivia@untitledui.com"
+          {...args}
+        />
+        <InputLeftElement className="w-[52px]">
           <MasterCard />
         </InputLeftElement>
         <InputRightElement>
@@ -609,8 +627,13 @@ export const HelperTextMasterCard: Story = {
   render: (args) => (
     <div className="space-y-1.5">
       <InputGroup>
-        <Input type="email" placeholder="olivia@untitledui.com" {...args} />
-        <InputLeftElement>
+        <Input
+          className="pl-[52px]"
+          type="email"
+          placeholder="olivia@untitledui.com"
+          {...args}
+        />
+        <InputLeftElement className="w-[52px]">
           <MasterCard />
         </InputLeftElement>
       </InputGroup>
@@ -626,7 +649,12 @@ export const HelperTextMasterCardDestructive: Story = {
   render: (args) => (
     <div className="space-y-1.5">
       <InputGroup>
-        <Input type="email" placeholder="olivia@untitledui.com" {...args} />
+        <Input
+          className="pl-[52px]"
+          type="email"
+          placeholder="olivia@untitledui.com"
+          {...args}
+        />
         <InputLeftElement>
           <MasterCard />
         </InputLeftElement>
@@ -642,8 +670,13 @@ export const HelperTextMasterCardDestructive: Story = {
 export const MasterCardHelpCircle: Story = {
   render: (args) => (
     <InputGroup>
-      <Input type="email" placeholder="olivia@untitledui.com" {...args} />
-      <InputLeftElement>
+      <Input
+        className="pl-[52px]"
+        type="email"
+        placeholder="olivia@untitledui.com"
+        {...args}
+      />
+      <InputLeftElement className="w-[52px]">
         <MasterCard />
       </InputLeftElement>
       <InputRightElement>
@@ -661,12 +694,13 @@ export const LabeledMasterCardHelpCircle: Story = {
       </Label>
       <InputGroup>
         <Input
+          className="pl-[52px]"
           id="email"
           type="email"
           placeholder="olivia@untitledui.com"
           {...args}
         />
-        <InputLeftElement>
+        <InputLeftElement className="w-[52px]">
           <MasterCard />
         </InputLeftElement>
         <InputRightElement>
@@ -685,12 +719,13 @@ export const LabeledHelperTextMasterCardHelpCircle: Story = {
       </Label>
       <InputGroup>
         <Input
+          className="pl-[52px]"
           id="email"
           type="email"
           placeholder="olivia@untitledui.com"
           {...args}
         />
-        <InputLeftElement>
+        <InputLeftElement className="w-[52px]">
           <MasterCard />
         </InputLeftElement>
         <InputRightElement>
@@ -707,12 +742,13 @@ export const HelperTextMasterCardHelpCircle: Story = {
     <div className="space-y-1.5">
       <InputGroup>
         <Input
+          className="pl-[52px]"
           id="email"
           type="email"
           placeholder="olivia@untitledui.com"
           {...args}
         />
-        <InputLeftElement>
+        <InputLeftElement className="w-[52px]">
           <MasterCard />
         </InputLeftElement>
         <InputRightElement>
