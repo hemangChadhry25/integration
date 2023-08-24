@@ -64,7 +64,7 @@ export const SmLabel: Story = {
 export const MdLabel: Story = {
   render: (args) => {
     return (
-      <RadioGroup className="space-y-3" {...args}>
+      <RadioGroup className="gap-y-3" {...args}>
         <div className="flex gap-x-3.5">
           <Label className="order-2" size="sm" htmlFor="option-one">
             Option 1
@@ -102,7 +102,7 @@ export const MdLabel: Story = {
 export const LgLabel: Story = {
   render: (args) => {
     return (
-      <RadioGroup className="space-y-3.5" {...args}>
+      <RadioGroup className="gap-y-3.5" {...args}>
         <div className="flex gap-x-4">
           <Label className="order-2" size="md" htmlFor="option-one">
             Option 1
@@ -176,7 +176,7 @@ export const SmLabelHelperText: Story = {
 export const MdLabelHelperText: Story = {
   render: (args) => {
     return (
-      <RadioGroup className="space-y-3" {...args}>
+      <RadioGroup className="gap-y-3" {...args}>
         <div className="flex gap-x-3.5">
           <Label
             size="sm"
@@ -222,7 +222,7 @@ export const MdLabelHelperText: Story = {
 export const LgLabelHelperText: Story = {
   render: (args) => {
     return (
-      <RadioGroup className="space-y-3.5" {...args}>
+      <RadioGroup className="gap-y-3.5" {...args}>
         <div className="flex gap-x-4">
           <Label
             className="order-2 flex flex-col"
@@ -267,7 +267,7 @@ export const LgLabelHelperText: Story = {
 
 export const SmRadioGroupItemSelector: Story = {
   render: (args) => (
-    <RadioGroup className="grid gap-y-2" {...args}>
+    <RadioGroup className="gap-y-2" {...args}>
       <RadioGroupItemSelector value="Option 1">
         <Label>Option 1</Label>
         <HelperText>Short description here</HelperText>
@@ -286,7 +286,7 @@ export const SmRadioGroupItemSelector: Story = {
 
 export const MdRadioGroupItemSelector: Story = {
   render: (args) => (
-    <RadioGroup className="grid gap-y-2.5" {...args}>
+    <RadioGroup {...args}>
       <RadioGroupItemSelector size="md" value="Option 1">
         <Label size="sm">Option 1</Label>
         <HelperText size="sm">Short description here</HelperText>
@@ -305,7 +305,7 @@ export const MdRadioGroupItemSelector: Story = {
 
 export const LgRadioGroupItemSelector: Story = {
   render: (args) => (
-    <RadioGroup className="grid gap-y-3" {...args}>
+    <RadioGroup className="gap-y-3" {...args}>
       <RadioGroupItemSelector size="lg" value="Option 1">
         <Label size="md">Option 1</Label>
         <HelperText size="md">Short description here</HelperText>

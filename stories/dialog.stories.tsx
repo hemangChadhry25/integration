@@ -7,7 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   AlertCircle,
   AlertCircle2,
+  AlertTriangle,
+  CheckCircle,
   ChevronDown,
+  MoveLeftRight,
   Search,
   Users,
 } from "@/components/icons";
@@ -31,6 +34,10 @@ import {
   ScrollArea,
   Checkbox,
   InputLeftElement,
+  RadioGroup,
+  RadioGroupItemSelector,
+  HelperText,
+  Badge,
 } from "@/components/ui";
 import {
   createColumnHelper,
@@ -57,6 +64,42 @@ const meta: Meta = {
 
 export default meta;
 
+export const SaveChangesExit = () => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border-8 border-warning-50 bg-warning-100">
+            <AlertTriangle className="h-5 w-5 text-warning-600" />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <DialogTitle>Save Changes and Exit?</DialogTitle>
+            <DialogDescription>
+              If you leave, any changes you’ve made will be lost.
+            </DialogDescription>
+          </div>
+        </DialogHeader>
+
+        <DialogFooter className="mt-8">
+          <DialogClose asChild>
+            <Button variant="outlined" visual="gray">
+              Exit without saving
+            </Button>
+          </DialogClose>
+
+          <DialogClose asChild>
+            <Button>Yes, save</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export const DeleteAnalystRole = () => {
   return (
     <Dialog>
@@ -69,7 +112,7 @@ export const DeleteAnalystRole = () => {
             <AlertCircle2 className="h-5 w-5 text-error-600" />
           </div>
 
-          <div className="flex flex-col gap-x-2">
+          <div className="flex flex-col gap-y-2">
             <DialogTitle>Delete Analyst Role?</DialogTitle>
             <DialogDescription>
               The role will be deleted for the following user:
@@ -79,7 +122,7 @@ export const DeleteAnalystRole = () => {
 
         <div className="mt-5 inline-flex items-center gap-x-3">
           <Avatar size="md">
-            <AvatarImage src="/Man.jpg" alt="Man" />
+            <AvatarImage src="/man.jpg" alt="Man" />
             <AvatarFallback>M</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
@@ -126,13 +169,18 @@ export const DeleteAnalystRoleConfirmation = () => {
     resolver: zodResolver(schema),
   });
 
+  const onOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    reset();
+  };
+
   const onSubmit: SubmitHandler<FormState> = () => {
     setIsOpen(false);
     reset();
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button>Open</Button>
       </DialogTrigger>
@@ -142,7 +190,7 @@ export const DeleteAnalystRoleConfirmation = () => {
             <AlertCircle2 className="h-5 w-5 text-error-600" />
           </div>
 
-          <div className="flex flex-col gap-x-2">
+          <div className="flex flex-col gap-y-2">
             <DialogTitle>Delete Analyst Role?</DialogTitle>
             <DialogDescription>
               Confirm that you want to delete this role
@@ -193,13 +241,13 @@ export const DeleteWriteRole = () => {
         <Button>Open</Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="max-w-[520px]">
         <DialogHeader>
           <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border-8 border-error-50 bg-error-100">
             <AlertCircle2 className="h-5 w-5 text-error-600" />
           </div>
 
-          <div className="flex flex-col gap-x-2">
+          <div className="flex flex-col gap-y-2">
             <DialogTitle>Delete Writer Role?</DialogTitle>
             <DialogDescription>
               All users will be reassigned to the role:{" "}
@@ -211,8 +259,8 @@ export const DeleteWriteRole = () => {
         </DialogHeader>
 
         <ScrollArea className="mt-5 h-[248px]">
-          <div className="mt-5 space-y-3">
-            <div className="inline-flex items-center gap-x-3">
+          <div className="space-y-3">
+            <div className="flex items-center gap-x-3">
               <Avatar size="md">
                 <AvatarImage src="/woman.jpg" alt="Man" />
                 <AvatarFallback>M</AvatarFallback>
@@ -226,9 +274,9 @@ export const DeleteWriteRole = () => {
                 </span>
               </div>
             </div>
-            <div className="inline-flex items-center gap-x-3">
+            <div className="flex items-center gap-x-3">
               <Avatar size="md">
-                <AvatarImage src="/Man.jpg" alt="Man" />
+                <AvatarImage src="/man.jpg" alt="Man" />
                 <AvatarFallback>M</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
@@ -240,9 +288,9 @@ export const DeleteWriteRole = () => {
                 </span>
               </div>
             </div>
-            <div className="inline-flex items-center gap-x-3">
+            <div className="flex items-center gap-x-3">
               <Avatar size="md">
-                <AvatarImage src="/Man.jpg" alt="Man" />
+                <AvatarImage src="/man.jpg" alt="Man" />
                 <AvatarFallback>M</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
@@ -254,9 +302,9 @@ export const DeleteWriteRole = () => {
                 </span>
               </div>
             </div>
-            <div className="inline-flex items-center gap-x-3">
+            <div className="flex items-center gap-x-3">
               <Avatar size="md">
-                <AvatarImage src="/Man.jpg" alt="Man" />
+                <AvatarImage src="/man.jpg" alt="Man" />
                 <AvatarFallback>M</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
@@ -268,9 +316,9 @@ export const DeleteWriteRole = () => {
                 </span>
               </div>
             </div>
-            <div className="inline-flex items-center gap-x-3">
+            <div className="flex items-center gap-x-3">
               <Avatar size="md">
-                <AvatarImage src="/Man.jpg" alt="Man" />
+                <AvatarImage src="/man.jpg" alt="Man" />
                 <AvatarFallback>M</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
@@ -384,7 +432,7 @@ const columns = [
       <div className="flex items-center justify-between">
         <div className="inline-flex items-center gap-x-3">
           <Avatar size="md">
-            <AvatarImage src="/Man.jpg" alt="Man" />
+            <AvatarImage src="/man.jpg" alt="Man" />
             <AvatarFallback>{first(info.getValue().fullName)}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
@@ -431,13 +479,13 @@ export const AssignUsers = () => {
       <DialogTrigger asChild>
         <Button>Open</Button>
       </DialogTrigger>
-      <DialogContent className="px-1.5">
+      <DialogContent className="max-w-[520px] px-1.5">
         <DialogHeader className="px-[18px]">
           <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border-8 border-primary-25 bg-primary-50">
             <Users className="h-5 w-5 text-primary-600" />
           </div>
 
-          <div className="flex flex-col gap-x-2">
+          <div className="flex flex-col gap-y-2">
             <DialogTitle>Assign Users</DialogTitle>
             <DialogDescription>
               Select users you want to assign the{" "}
@@ -515,6 +563,263 @@ export const AssignUsers = () => {
           </DialogClose>
           <DialogClose asChild>
             <Button>Assign</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export const ChangeRole = () => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open</Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-[630px]">
+        <DialogHeader>
+          <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border-8 border-primary-25 bg-primary-50">
+            <MoveLeftRight className="h-5 w-5 text-primary-600" />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <DialogTitle>Change Role</DialogTitle>
+            <DialogDescription>
+              Short description text that explain the assigning role process.
+            </DialogDescription>
+          </div>
+        </DialogHeader>
+
+        <div className="mt-5">
+          <h3 className="text-sm font-medium leading-6 text-gray-black">
+            Select the role you want to assign
+          </h3>
+
+          <RadioGroup className="mt-3 gap-y-2">
+            <RadioGroupItemSelector value="Administrator">
+              <Label>Administrator</Label>
+              <HelperText>Can manage the content they have created</HelperText>
+            </RadioGroupItemSelector>
+            <RadioGroupItemSelector value="Super Administrator">
+              <Label>Super Administrator</Label>
+              <HelperText>Can create, update and delete content</HelperText>
+            </RadioGroupItemSelector>
+            <RadioGroupItemSelector value="Editor">
+              <Label>Editor</Label>
+              <HelperText>Can create, update and delete content</HelperText>
+            </RadioGroupItemSelector>
+            <RadioGroupItemSelector value="Analyst">
+              <Label>Analyst</Label>
+              <HelperText>Can create, update and delete content</HelperText>
+            </RadioGroupItemSelector>
+          </RadioGroup>
+        </div>
+
+        <DialogFooter className="mt-8">
+          <DialogClose asChild>
+            <Button variant="outlined" visual="gray">
+              Cancel
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button>Assign</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export const AssignAdministratorRole = () => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open</Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-[630px]">
+        <DialogHeader>
+          <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full border-8 border-warning-50 bg-warning-100">
+            <AlertTriangle className="h-5 w-5 text-warning-600" />
+          </div>
+
+          <div className="flex flex-col gap-y-2">
+            <DialogTitle>Change Role</DialogTitle>
+            <DialogDescription>
+              Short description text that explain the assigning role process.
+            </DialogDescription>
+          </div>
+        </DialogHeader>
+
+        <div className="mt-2 h-[268px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-xl">
+          <table className="w-full table-fixed">
+            <thead>
+              <tr>
+                <th className="pt-3 text-left text-xs font-medium leading-5 text-gray-500">
+                  Feature
+                </th>
+                <th className="pt-3 text-left text-xs font-medium leading-5 text-gray-500">
+                  Old Permissions
+                </th>
+                <th className="pt-3 text-left text-xs font-medium leading-5 text-gray-500">
+                  New Permissions
+                </th>
+              </tr>
+              <tr>
+                <th className="pt-3 text-left text-xs font-medium leading-5 text-gray-500">
+                  Administrative
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  Feature Name
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge className="line-through">
+                    Save, Read, Write, Delete
+                  </Badge>
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge visual="success">Read</Badge>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  Feature Name
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge className="line-through">Save, Delete</Badge>
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge visual="success">Save, Read, Delete</Badge>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  Feature Name
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge className="line-through">
+                    Save, Read, Write, Delete
+                  </Badge>
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge visual="success">Save, Read, Delete</Badge>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  Feature Name
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge className="line-through">Read, Write, Delete</Badge>
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge visual="success">No Access</Badge>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  Feature Name
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge className="line-through">Save, Delete</Badge>
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge visual="success">Save</Badge>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  Feature Name
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge className="line-through">
+                    Save, Read, Write, Delete
+                  </Badge>
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge visual="success">Save, Read, Delete</Badge>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  Feature Name
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge className="line-through">
+                    Save, Read, Write, Delete
+                  </Badge>
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge visual="success">Save, Read, Delete</Badge>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  Feature Name
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge className="line-through">
+                    Save, Read, Write, Delete
+                  </Badge>
+                </td>
+                <td className="py-1.5 pr-4 text-xs font-medium leading-5 text-gray-800">
+                  <Badge visual="success">Save, Read, Delete</Badge>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <DialogFooter className="mt-8">
+          <DialogClose asChild>
+            <Button variant="outlined" visual="gray">
+              Cancel
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button>Assign</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export const Congratulations = () => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader className="items-center">
+          <div className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-success-100">
+            <CheckCircle className="h-5 w-5 text-success-600" />
+          </div>
+
+          <div className="mx-auto flex max-w-sm flex-col gap-y-2">
+            <DialogTitle className="text-center">
+              Congratulations, custom role has been created!
+            </DialogTitle>
+            <DialogDescription className="text-center">
+              Your role is ready and now you are able to assign your users to
+              this role.
+            </DialogDescription>
+          </div>
+        </DialogHeader>
+
+        <DialogFooter className="mt-8">
+          <DialogClose asChild>
+            <Button variant="outlined" visual="gray">
+              Go Back To Role
+            </Button>
+          </DialogClose>
+
+          <DialogClose asChild>
+            <Button>Assign Users</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

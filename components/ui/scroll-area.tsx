@@ -34,24 +34,35 @@ const ScrollBar = React.forwardRef<
   > & {
     thumbClassName?: string;
   }
->(({ className, orientation = "vertical", thumbClassName, ...props }, ref) => (
-  <ScrollAreaPrimitive.ScrollAreaScrollbar
-    ref={ref}
-    orientation={orientation}
-    className={cn(
-      "flex touch-none select-none transition-colors",
-      orientation === "vertical" &&
-        "h-full w-2.5 border-l border-l-transparent p-[1px]",
-      orientation === "horizontal" &&
-        "h-2.5 border-t border-t-transparent p-[1px]",
-      className
-    )}
-    {...props}
-  >
-    <ScrollAreaPrimitive.ScrollAreaThumb
-      className={cn("relative flex-1 rounded-lg bg-gray-200", thumbClassName)}
-    />
-  </ScrollAreaPrimitive.ScrollAreaScrollbar>
+>(({ className, thumbClassName, ...props }, ref) => (
+  <>
+    <ScrollAreaPrimitive.ScrollAreaScrollbar
+      ref={ref}
+      className={cn(
+        "flex h-full w-2.5 touch-none select-none border-l border-l-transparent p-[1px] transition-colors",
+        className
+      )}
+      {...props}
+      orientation="vertical"
+    >
+      <ScrollAreaPrimitive.ScrollAreaThumb
+        className={cn("relative flex-1 rounded-lg bg-gray-200", thumbClassName)}
+      />
+    </ScrollAreaPrimitive.ScrollAreaScrollbar>
+    <ScrollAreaPrimitive.ScrollAreaScrollbar
+      ref={ref}
+      className={cn(
+        "flex h-2.5 touch-none select-none border-t border-t-transparent p-[1px] transition-colors",
+        className
+      )}
+      {...props}
+      orientation="horizontal"
+    >
+      <ScrollAreaPrimitive.ScrollAreaThumb
+        className={cn("relative flex-1 rounded-lg bg-gray-200", thumbClassName)}
+      />
+    </ScrollAreaPrimitive.ScrollAreaScrollbar>
+  </>
 ));
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;
 

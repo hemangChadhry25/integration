@@ -73,3 +73,4 @@ export * from "./arrow-left2";
 export * from "./arrow-right-left";
 export * from "./video";
 export * from "./file";
+export * from "./move-left-right";
