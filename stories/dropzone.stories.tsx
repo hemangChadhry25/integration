@@ -120,7 +120,7 @@ export const Default = () => {
           </div>
           <div className="mx-auto mt-3 max-w-xs text-center text-sm text-gray-600">
             <button
-              className="font-semibold text-primary-500 focus:outline-none"
+              className="font-semibold text-primary-500 hover:underline focus:outline-none"
               onClick={open}
             >
               Click to upload
@@ -228,7 +228,7 @@ export const CircularProgressVariant = () => {
           </div>
           <div className="mx-auto mt-3 max-w-xs text-center text-sm text-gray-600">
             <button
-              className="font-semibold text-primary-500 focus:outline-none"
+              className="font-semibold text-primary-500 hover:underline focus:outline-none"
               onClick={open}
             >
               Click to upload
