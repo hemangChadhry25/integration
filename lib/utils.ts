@@ -85,7 +85,7 @@ export function verifyFileType(fileName: string, accepted: string[]): boolean {
     : verifyFileType(fileName, accepted.slice(1));
 }
 
-export function convertToMb(bytes: number) {
+export function convertToKbOrMb(bytes: number) {
   const kbs = bytes / 1000;
   return kbs < 1000 ? `${kbs.toFixed(2)}KB` : `${(kbs / 1000).toFixed(2)}MB`;
 }

@@ -3,7 +3,7 @@ import { Meta } from "@storybook/react";
 import { useDropzone } from "react-dropzone";
 
 import { Check, File, Trash, UploadCloud, Video } from "@/components/icons";
-import { convertToMb, first, verifyFileType } from "@/lib/utils";
+import { convertToKbOrMb, first, verifyFileType } from "@/lib/utils";
 import { Button, Progress, CircularProgress } from "@/components/ui";
 
 const meta: Meta = {
@@ -44,7 +44,7 @@ export const Default = () => {
         : isPdf
         ? "pdf"
         : undefined,
-      fileSize: convertToMb(size),
+      fileSize: convertToKbOrMb(size),
     });
   }, []);
 
@@ -165,7 +165,7 @@ export const CircularProgressVariant = () => {
         : isPdf
         ? "pdf"
         : undefined,
-      fileSize: convertToMb(size),
+      fileSize: convertToKbOrMb(size),
     });
   }, []);
 
