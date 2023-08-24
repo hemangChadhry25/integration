@@ -2,6 +2,7 @@ import * as React from "react";
 import { Combobox as ComboboxPrimitive, Transition } from "@headlessui/react";
 
 import { cn } from "@/lib/utils";
+import { VariantProps, cva } from "class-variance-authority";
 
 const ComboboxLabel = ComboboxPrimitive.Label;
 
@@ -28,15 +29,29 @@ const ComboboxTrigger = React.forwardRef<
 
 ComboboxTrigger.displayName = "ComboboxTrigger";
 
+const comboboxInputVariants = cva(
+  "peer w-full rounded-[5px] h-9 py-2.5 pl-[34px] pr-3 text-sm",
+  {
+    variants: {
+      visual: {
+        default:
+          "border border-gray-300 bg-white text-gray-black placeholder:text-gray-500 hover:border-primary-200 hover:ring-4 hover:ring-primary-50 focus:border-primary-500 focus:ring-4 focus:ring-primary-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-50 hover:disabled:border-gray-300 hover:disabled:ring-0",
+        gray: "border-0 bg-gray-100 hover:bg-gray-200 text-gray-black placeholder:text-gray-500 focus:bg-white focus:border focus:ring-4 focus:ring-primary-50 disabled:opacity-50 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-50 hover:disabled:border-gray-300 hover:disabled:ring-0",
+      },
+    },
+    defaultVariants: {
+      visual: "default",
+    },
+  }
+);
+
 const ComboboxInput = React.forwardRef<
   React.ElementRef<typeof ComboboxPrimitive.Input>,
-  React.ComponentPropsWithoutRef<typeof ComboboxPrimitive.Input>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ComboboxPrimitive.Input> &
+    VariantProps<typeof comboboxInputVariants>
+>(({ className, visual, ...props }, ref) => (
   <ComboboxPrimitive.Input
-    className={cn(
-      "peer w-full rounded-[5px] border border-gray-300 py-2.5 pl-[34px] pr-3 text-sm text-gray-black hover:border-primary-200 hover:ring hover:ring-primary-50 focus:border-primary-500 focus:ring focus:ring-primary-50 disabled:cursor-not-allowed disabled:border-gray-300 disabled:bg-gray-50 disabled:opacity-50 hover:disabled:border-gray-300 hover:disabled:ring-0",
-      className
-    )}
+    className={cn(comboboxInputVariants({ visual, className }))}
     {...props}
     ref={ref}
   />
@@ -82,7 +97,7 @@ const ComboboxOption = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ComboboxPrimitive.Option
     className={cn(
-      "bg-white px-3 py-2.5 text-[13px] font-medium leading-none text-gray-500 ui-active:bg-gray-50 ui-active:text-gray-900",
+      "cursor-pointer bg-white px-3 py-2.5 text-[13px] font-medium leading-none text-gray-500 ui-active:bg-gray-50 ui-active:text-gray-900",
       className
     )}
     {...props}
