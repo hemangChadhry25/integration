@@ -39,7 +39,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      "flex cursor-default select-none items-center px-3 py-2.5 text-[13px] leading-[13.25px] text-gray-500 outline-none hover:bg-gray-50 hover:text-gray-black focus:bg-gray-100 focus:text-gray-black disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-gray-100",
+      "flex cursor-default select-none items-center px-3 py-2.5 text-[13px] leading-[13.25px] text-gray-500 outline-none data-[state=open]:bg-gray-100 hover:bg-gray-50 hover:text-gray-black focus:bg-gray-100 focus:text-gray-black disabled:pointer-events-none disabled:opacity-50",
       inset && "pl-8",
       className
     )}
@@ -87,7 +87,7 @@ const DropdownMenuContent = React.forwardRef<
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
 
 const dropdownMenuItemVariants = cva(
-  "relative flex cursor-default select-none items-center gap-x-2 px-3 py-2.5 text-[13px] font-medium leading-[13.25px] outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+  "relative flex cursor-pointer select-none items-center gap-x-2 px-3 py-2.5 text-[13px] font-medium leading-[13.25px] outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
   {
     variants: {
       visual: {
@@ -131,19 +131,19 @@ DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
 export const DropdownMenuCheckItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem> & {
-    icon?: React.ReactNode;
+    iconOrAvatar?: React.ReactNode;
   }
->(({ className, checked, children, icon, ...props }, ref) => (
+>(({ className, checked, children, iconOrAvatar, ...props }, ref) => (
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center gap-x-2 py-2.5 pl-3 pr-10 text-[13px] font-medium leading-[13.25px] text-gray-500 outline-none transition-colors hover:bg-gray-50 focus:bg-gray-100 focus:text-gray-black data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-pointer select-none items-center gap-x-2 py-2.5 pl-3 pr-10 text-[13px] font-medium leading-[13.25px] text-gray-500 outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-gray-50 focus:bg-gray-100 focus:text-gray-black",
       className
     )}
     checked={checked}
     {...props}
   >
-    {icon}
+    {iconOrAvatar}
     {children}
     <span className="absolute right-3 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
@@ -164,7 +164,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
-      "group relative flex cursor-default select-none items-center py-2.5 pl-9 pr-3 text-[13px] font-medium leading-[13.25px] text-gray-500 outline-none transition-colors hover:bg-gray-50 hover:text-gray-black focus:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "group relative flex cursor-pointer select-none items-center py-2.5 pl-9 pr-3 text-[13px] font-medium leading-[13.25px] text-gray-500 outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-gray-50 hover:text-gray-black focus:bg-gray-100 focus:text-gray-900",
       className
     )}
     checked={checked}
@@ -195,12 +195,12 @@ const DropdownMenuRadioItem = React.forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
-      "group relative flex cursor-default select-none items-center py-2.5 pl-9 pr-3 text-[13px] font-medium leading-[13.25px] text-gray-500 outline-none transition-colors hover:bg-gray-50 hover:text-gray-black focus:bg-gray-100 focus:text-gray-black data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "group relative flex cursor-pointer select-none items-center py-2.5 pl-9 pr-3 text-[13px] font-medium leading-[13.25px] text-gray-500 outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-gray-50 hover:text-gray-black focus:bg-gray-100 focus:text-gray-black",
       className
     )}
     {...props}
   >
-    <span className="absolute left-3 flex h-4 w-4 items-center justify-center rounded-full border-[1.5px] border-gray-300 text-white hover:border-primary-400 group-hover:ring group-hover:ring-primary-100 group-focus:border-primary-400 group-focus:ring group-focus:ring-primary-100 group-disabled:border-gray-200 group-disabled:bg-gray-50 group-disabled:text-gray-200 group-data-[state=checked]:border-primary-500 group-data-[state=checked]:text-primary-500">
+    <span className="absolute left-3 flex h-4 w-4 items-center justify-center rounded-full border-[1.5px] border-gray-300 text-white group-hover:ring group-hover:ring-primary-100 group-focus:border-primary-400 group-focus:ring group-focus:ring-primary-100 group-disabled:border-gray-200 group-disabled:bg-gray-50 group-disabled:text-gray-200 group-data-[state=checked]:border-primary-500 group-data-[state=checked]:text-primary-500 hover:border-primary-400">
       <DropdownMenuPrimitive.ItemIndicator>
         <Circle className="h-1.5 w-1.5 fill-current" />
       </DropdownMenuPrimitive.ItemIndicator>

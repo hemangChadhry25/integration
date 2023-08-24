@@ -27,7 +27,9 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuCheckItem,
 } from "@/components/ui/dropdown-menu";
+import React, { useState } from "react";
 
 const meta: Meta = {
   title: "DropdownMenu",
@@ -69,9 +71,17 @@ export const IconsDefault: Story = {
   ),
 };
 
-export const ChevronDownDefault: Story = {
-  render: (args) => (
-    <DropdownMenu {...args}>
+export const ChevronDownDefault = () => {
+  const [state, setState] = React.useState({
+    option1: false,
+    option2: false,
+    option3: false,
+    option4: false,
+    option5: false,
+  });
+
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="ghost" visual="gray">
           Editor
@@ -79,14 +89,49 @@ export const ChevronDownDefault: Story = {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>Option 1</DropdownMenuItem>
-        <DropdownMenuItem>Option 2</DropdownMenuItem>
-        <DropdownMenuItem>Option 3</DropdownMenuItem>
-        <DropdownMenuItem>Option 4</DropdownMenuItem>
-        <DropdownMenuItem>Option 5</DropdownMenuItem>
+        <DropdownMenuCheckItem
+          checked={state.option1}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, option1: checked }))
+          }
+        >
+          Option 1
+        </DropdownMenuCheckItem>
+        <DropdownMenuCheckItem
+          checked={state.option2}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, option2: checked }))
+          }
+        >
+          Option 2
+        </DropdownMenuCheckItem>
+        <DropdownMenuCheckItem
+          checked={state.option3}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, option3: checked }))
+          }
+        >
+          Option 3
+        </DropdownMenuCheckItem>
+        <DropdownMenuCheckItem
+          checked={state.option4}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, option4: checked }))
+          }
+        >
+          Option 4
+        </DropdownMenuCheckItem>
+        <DropdownMenuCheckItem
+          checked={state.option5}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, option5: checked }))
+          }
+        >
+          Option 5
+        </DropdownMenuCheckItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  ),
+  );
 };
 
 export const IconsDetailedAvatarDefault: Story = {
@@ -146,9 +191,21 @@ export const IconsDetailedAvatarDefault: Story = {
   ),
 };
 
-export const ShortcutsCheckbox: Story = {
-  render: (args) => (
-    <DropdownMenu {...args}>
+export const ShortcutsCheckbox = () => {
+  const [state, setState] = React.useState({
+    select1: false,
+    select2: false,
+    select3: false,
+    select4: false,
+    select5: false,
+    select6: false,
+    select7: false,
+    select8: false,
+    select9: false,
+  });
+
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="outlined" visual="gray">
           Editor
@@ -157,38 +214,83 @@ export const ShortcutsCheckbox: Story = {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="min-w-[11.25rem]">
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select1}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select1: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select2}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select2: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select3}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select3: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select4}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select4: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select5}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select5: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select6}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select6: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select7}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select7: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select8}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select8: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select9}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select9: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  ),
+  );
 };
 
 export const IconsShortcutsDefault: Story = {
@@ -287,9 +389,21 @@ export const MoreHorizontalIconsDefault: Story = {
   ),
 };
 
-export const Checkbox: Story = {
-  render: (args) => (
-    <DropdownMenu {...args}>
+export const Checkbox = () => {
+  const [state, setState] = React.useState({
+    select1: false,
+    select2: false,
+    select3: false,
+    select4: false,
+    select5: false,
+    select6: false,
+    select7: false,
+    select8: false,
+    select9: false,
+  });
+
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="outlined" visual="gray">
           Editor
@@ -298,27 +412,100 @@ export const Checkbox: Story = {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="min-w-[11.25rem]">
-        <DropdownMenuCheckboxItem>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>Select</DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select1}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select1: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select2}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select2: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select3}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select3: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select4}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select4: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>Select</DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select5}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select6: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select6}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select7: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select7}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select7: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select8}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select8: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          checked={state.select9}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select9: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  ),
+  );
 };
 
-export const CircularCheckbox: Story = {
-  render: (args) => (
-    <DropdownMenu {...args}>
+export const CircularCheckbox = () => {
+  const [state, setState] = React.useState({
+    select1: false,
+    select2: false,
+    select3: false,
+    select4: false,
+    select5: false,
+    select6: false,
+    select7: false,
+    select8: false,
+    select9: false,
+  });
+
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="outlined" visual="gray">
           Editor
@@ -327,27 +514,99 @@ export const CircularCheckbox: Story = {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="min-w-[11.25rem]">
-        <DropdownMenuCheckboxItem circular>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>Select</DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select1}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select1: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select2}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select2: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select3}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select3: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select4}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select4: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem circular>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>Select</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>Select</DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select5}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select5: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select6}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select6: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select7}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select7: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select8}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select8: checked }))
+          }
+        >
+          Select
+        </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select9}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select9: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  ),
+  );
 };
 
-export const RadioButton: Story = {
-  render: (args) => (
-    <DropdownMenu {...args}>
+export const RadioButton = () => {
+  const [value, setValue] = React.useState("");
+
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="outlined" visual="gray">
           Editor
@@ -356,7 +615,7 @@ export const RadioButton: Story = {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="min-w-[11.25rem]">
-        <DropdownMenuRadioGroup>
+        <DropdownMenuRadioGroup value={value} onValueChange={setValue}>
           <DropdownMenuRadioItem value="Select 1">Select</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Select 2">Select</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Select 3">Select</DropdownMenuRadioItem>
@@ -373,7 +632,7 @@ export const RadioButton: Story = {
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  ),
+  );
 };
 
 export const OutlinedDefault: Story = {
@@ -403,9 +662,21 @@ export const OutlinedDefault: Story = {
   ),
 };
 
-export const CircularShortcutsCheckbox: Story = {
-  render: (args) => (
-    <DropdownMenu {...args}>
+export const CircularShortcutsCheckbox = () => {
+  const [state, setState] = React.useState({
+    select1: false,
+    select2: false,
+    select3: false,
+    select4: false,
+    select5: false,
+    select6: false,
+    select7: false,
+    select8: false,
+    select9: false,
+  });
+
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="outlined" visual="gray">
           Editor
@@ -414,43 +685,98 @@ export const CircularShortcutsCheckbox: Story = {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="min-w-[11.25rem]">
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select1}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select1: checked }))
+          }
+        >
           Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select2}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select2: checked }))
+          }
+        >
           Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select3}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select3: checked }))
+          }
+        >
           Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select4}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select4: checked }))
+          }
+        >
           Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select5}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select5: checked }))
+          }
+        >
           Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select6}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select6: checked }))
+          }
+        >
           Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select7}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select7: checked }))
+          }
+        >
           Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select8}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select8: checked }))
+          }
+        >
           Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem circular>
+        <DropdownMenuCheckboxItem
+          circular
+          checked={state.select9}
+          onCheckedChange={(checked) =>
+            setState((prevState) => ({ ...prevState, select9: checked }))
+          }
+        >
           Select <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  ),
+  );
 };
 
-export const ShortcutsRadioButton: Story = {
-  render: (args) => (
-    <DropdownMenu {...args}>
+export const ShortcutsRadioButton = () => {
+  const [value, setValue] = React.useState("");
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="outlined" visual="gray">
           Editor
@@ -459,7 +785,7 @@ export const ShortcutsRadioButton: Story = {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="min-w-[11.25rem]">
-        <DropdownMenuRadioGroup>
+        <DropdownMenuRadioGroup value={value} onValueChange={setValue}>
           <DropdownMenuRadioItem value="Select 1">
             Select<DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
           </DropdownMenuRadioItem>
@@ -492,7 +818,7 @@ export const ShortcutsRadioButton: Story = {
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  ),
+  );
 };
 
 export const AvatarsOutlinedDefault: Story = {
