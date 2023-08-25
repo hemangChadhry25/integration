@@ -64,6 +64,7 @@ import {
   CloseButton,
   AlertTitle,
   AlertDescription,
+  DisclosureContent,
 } from "@/components/ui";
 
 const meta: Meta = {
@@ -829,11 +830,11 @@ export const AvatarDetailedDefaultVariant: Story = {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button
-            className="h-6 px-1.5 py-1 text-gray-500"
+            className="h-8 px-1.5 py-1 text-gray-500"
             visual="gray"
             variant="ghost"
           >
-            <MoreHorizontal />
+            <MoreHorizontal className="h-5 w-5" />
           </Button>
         </DropdownMenuTrigger>
 
@@ -915,11 +916,11 @@ export const AvatarFallbackDefaultVariant: Story = {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button
-            className="h-6 px-1.5 py-1 text-gray-500"
+            className="h-8 px-1.5 py-1 text-gray-500"
             visual="gray"
             variant="ghost"
           >
-            <MoreHorizontal />
+            <MoreHorizontal className="h-5 w-5" />
           </Button>
         </DropdownMenuTrigger>
 
@@ -1018,11 +1019,11 @@ export const GoogleMeetConnected: Story = {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button
-                className="h-6 px-1.5 py-1 text-gray-500"
+                className="h-8 px-1.5 py-1 text-gray-500"
                 visual="gray"
                 variant="ghost"
               >
-                <MoreHorizontal />
+                <MoreHorizontal className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
 
@@ -1145,11 +1146,11 @@ export const GoogleMeetConnect: Story = {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button
-                className="h-6 px-1.5 py-1 text-gray-500"
+                className="h-8 px-1.5 py-1 text-gray-500"
                 visual="gray"
                 variant="ghost"
               >
-                <MoreHorizontal />
+                <MoreHorizontal className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
 
@@ -1257,11 +1258,11 @@ export const DetailedAvatarFullAccess: Story = {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button
-            className="h-6 px-1.5 py-1 text-gray-500"
+            className="h-8 px-1.5 py-1 text-gray-500"
             visual="gray"
             variant="ghost"
           >
-            <MoreHorizontal />
+            <MoreHorizontal className="h-5 w-5" />
           </Button>
         </DropdownMenuTrigger>
 
@@ -1429,13 +1430,15 @@ export const AccordionPassed = () => {
             </AlertDescription>
 
             <div className="mt-3">
-              <NextLink
-                className="flex items-center gap-x-2 text-sm font-semibold text-success-700 focus-visible:outline-none "
-                href="/"
-              >
-                View Data
-                <ChevronDown />
-              </NextLink>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="1" className="group/item">
+                  <AccordionTrigger className="flex items-center gap-x-2 text-sm font-semibold text-success-700">
+                    View Data
+                    <ChevronDown className="transition-transform group-data-[state=closed]/item:rotate-0 group-data-[state=open]/item:rotate-180" />
+                  </AccordionTrigger>
+                  <DisclosureContent />
+                </AccordionItem>
+              </Accordion>
             </div>
           </Alert>
         </AccordionContent>
@@ -1553,7 +1556,7 @@ export const AccordionError = () => {
 
           <Alert className="mt-4" variant="error">
             <NextLink
-              className="absolute right-4 top-4 inline-flex gap-x-2 text-sm font-semibold"
+              className="absolute right-4 top-4 inline-flex gap-x-2 text-sm font-semibold hover:underline"
               href="/"
             >
               Learn More <Link className="h-[15px] w-[15px]" />
@@ -1584,13 +1587,10 @@ export const AccordionError = () => {
 
             <div className="mt-4 flex items-center gap-x-4">
               <Button visual="error">Fix Error</Button>
-              <NextLink
-                className="flex items-center gap-x-2 text-sm font-semibold text-error-500 focus-visible:outline-none"
-                href="/"
-              >
+              <Button variant="link" visual="error">
                 <PlayCircle />
                 Show me how
-              </NextLink>
+              </Button>
             </div>
           </Alert>
         </AccordionContent>
@@ -1636,11 +1636,11 @@ export const CompletedTasks: Story = {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button
-            className="h-6 px-1.5 py-1 text-gray-500"
+            className="h-8 px-1.5 py-1 text-gray-500"
             visual="gray"
             variant="ghost"
           >
-            <MoreHorizontal />
+            <MoreHorizontal className="h-5 w-5" />
           </Button>
         </DropdownMenuTrigger>
 
@@ -1727,8 +1727,11 @@ export const TasksCompleted = () => {
         <span className="text-[18px] font-semibold leading-[21.78px] text-gray-800">
           20.8k
         </span>
-        <NextLink href="/" className="text-sm font-semibold text-gray-500">
-          view all
+        <NextLink
+          href="/"
+          className="text-sm font-semibold text-gray-500 hover:underline"
+        >
+          View All
         </NextLink>
       </div>
     </div>
@@ -1749,8 +1752,11 @@ export const TasksFailed = () => {
         <span className="text-[18px] font-semibold leading-[21.78px] text-gray-800">
           10.3k
         </span>
-        <NextLink href="/" className="text-sm font-semibold text-gray-500">
-          view all
+        <NextLink
+          href="/"
+          className="text-sm font-semibold text-gray-500 hover:underline"
+        >
+          View All
         </NextLink>
       </div>
     </div>
