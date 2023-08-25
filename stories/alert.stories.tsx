@@ -5,6 +5,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  Button,
   CircularProgress,
   CloseButton,
   Progress,
@@ -15,6 +16,7 @@ import {
   ArrowRight2,
   CheckCircle,
   ExternalLink,
+  X,
 } from "@/components/icons";
 import Image from "next/image";
 
@@ -52,11 +54,11 @@ export const Success: Story = {
         pariatur, ipsum similique veniam.
       </AlertDescription>
       <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="focus-visible:outline-none" href="/">
+        <Link className="hover:underline focus-visible:outline-none" href="/">
           Learn more
         </Link>
         <Link
-          className="flex items-center gap-x-2 text-success-600 focus-visible:outline-none "
+          className="flex items-center gap-x-2 text-success-600 hover:underline focus-visible:outline-none "
           href="/"
         >
           View changes
@@ -81,11 +83,11 @@ export const Primary: Story = {
         pariatur, ipsum similique veniam.
       </AlertDescription>
       <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="focus-visible:outline-none" href="/">
+        <Link className="hover:underline focus-visible:outline-none" href="/">
           Learn more
         </Link>
         <Link
-          className="flex items-center gap-x-2 text-primary-600 focus-visible:outline-none"
+          className="flex items-center gap-x-2 text-primary-600 hover:underline focus-visible:outline-none"
           href="/"
         >
           View changes
@@ -108,11 +110,11 @@ export const Default: Story = {
       </AlertDescription>
 
       <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="focus-visible:outline-none" href="/">
+        <Link className="hover:underline focus-visible:outline-none" href="/">
           Learn more
         </Link>
         <Link
-          className="flex items-center gap-x-2 text-gray-600 focus-visible:outline-none"
+          className="flex items-center gap-x-2 text-gray-600 hover:underline focus-visible:outline-none"
           href="/"
         >
           View changes
@@ -138,11 +140,11 @@ export const Error: Story = {
       </AlertDescription>
 
       <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="focus-visible:outline-none" href="/">
+        <Link className="hover:underline focus-visible:outline-none" href="/">
           Learn more
         </Link>
         <Link
-          className="flex items-center gap-x-2 text-error-600 focus-visible:outline-none"
+          className="flex items-center gap-x-2 text-error-600 hover:underline focus-visible:outline-none"
           href="/"
         >
           View changes
@@ -168,11 +170,11 @@ export const Warning: Story = {
       </AlertDescription>
 
       <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="focus-visible:outline-none" href="/">
+        <Link className="hover:underline focus-visible:outline-none" href="/">
           Learn more
         </Link>
         <Link
-          className="flex items-center gap-x-2 text-warning-600 focus-visible:outline-none"
+          className="flex items-center gap-x-2 text-warning-600 hover:underline focus-visible:outline-none"
           href="/"
         >
           View changes
@@ -256,7 +258,13 @@ export const DisasterRecovery = () => {
       className="relative max-w-[238px] rounded-lg bg-gray-100 px-4 py-[26px]"
       role="alert"
     >
-      <CloseButton className="absolute right-2 top-2 text-gray-500" />
+      <Button
+        visual="gray"
+        variant="ghost"
+        className="absolute right-2 top-2 px-2 text-gray-500"
+      >
+        <X className="h-5 w-5 text-gray-500" />
+      </Button>
       <div className="text-sm font-semibold text-gray-black">
         Disaster Recovery
       </div>
@@ -265,7 +273,7 @@ export const DisasterRecovery = () => {
         failure.
       </div>
       <Link
-        className="mt-3 inline-flex items-center gap-x-2 text-sm font-semibold text-primary-500 focus-visible:outline-none"
+        className="mt-3 inline-flex items-center gap-x-2 text-sm font-semibold text-primary-500 hover:underline focus-visible:outline-none"
         href="/"
       >
         Learn more
@@ -281,7 +289,13 @@ export const UsedSpaceLinearProgress = () => {
       className="relative max-w-[238px] rounded-lg bg-gray-100 px-4 py-[26px]"
       role="alert"
     >
-      <CloseButton className="absolute right-2 top-2 text-gray-500" />
+      <Button
+        visual="gray"
+        variant="ghost"
+        className="absolute right-2 top-2 px-2 text-gray-500"
+      >
+        <X className="h-5 w-5 text-gray-500" />
+      </Button>
       <div className="text-sm font-semibold text-gray-black">Used space</div>
       <div className="mt-1 text-sm text-gray-500">
         Your team has used 80% of your available space. Need more?
@@ -289,11 +303,11 @@ export const UsedSpaceLinearProgress = () => {
       <Progress className="mt-3 bg-gray-300" value={75} />
 
       <div className="mt-3 flex items-center gap-x-3">
-        <button className="text-sm font-semibold text-gray-600 focus-visible:outline-none">
+        <button className="text-sm font-semibold text-gray-600 hover:underline focus-visible:outline-none">
           Dismiss
         </button>
         <Link
-          className="text-sm font-semibold text-primary-500 focus-visible:outline-none"
+          className="text-sm font-semibold text-primary-500 hover:underline focus-visible:outline-none"
           href="/"
         >
           Upgrade plan
@@ -309,7 +323,13 @@ export const UsedSpaceCircularProgress = () => {
       className="relative max-w-[238px] rounded-lg bg-gray-100 px-4 py-[26px]"
       role="alert"
     >
-      <CloseButton className="absolute right-2 top-2 text-gray-500" />
+      <Button
+        visual="gray"
+        variant="ghost"
+        className="absolute right-2 top-2 px-2 text-gray-500"
+      >
+        <X className="h-5 w-5 text-gray-500" />
+      </Button>
       <CircularProgress
         className="text-gray-700"
         trackClassName="text-gray-300"
@@ -324,11 +344,11 @@ export const UsedSpaceCircularProgress = () => {
         Your team has used 80% of your available space. Need more?
       </div>
       <div className="mt-3 flex items-center gap-x-3">
-        <button className="text-sm font-semibold text-gray-600 focus-visible:outline-none">
+        <button className="text-sm font-semibold text-gray-600 hover:underline focus-visible:outline-none">
           Dismiss
         </button>
         <Link
-          className="text-sm font-semibold text-primary-500 focus-visible:outline-none"
+          className="text-sm font-semibold text-primary-500 hover:underline focus-visible:outline-none"
           href="/"
         >
           Upgrade plan
@@ -344,7 +364,13 @@ export const NewFeatureAvailable = () => {
       className="relative max-w-[238px] rounded-lg bg-gray-100 px-4 py-[26px]"
       role="alert"
     >
-      <CloseButton className="absolute right-2 top-2 text-gray-500" />
+      <Button
+        visual="gray"
+        variant="ghost"
+        className="absolute right-2 top-2 px-2 text-gray-500"
+      >
+        <X className="h-5 w-5 text-gray-500" />
+      </Button>
       <CircularProgress
         className="text-gray-700"
         trackClassName="text-gray-300"
@@ -367,11 +393,11 @@ export const NewFeatureAvailable = () => {
         />
       </div>
       <div className="mt-3 flex items-center gap-x-3">
-        <button className="text-sm font-semibold text-gray-600 focus-visible:outline-none">
+        <button className="text-sm font-semibold text-gray-600 hover:underline focus-visible:outline-none">
           Dismiss
         </button>
         <Link
-          className="text-sm font-semibold text-primary-500 focus-visible:outline-none"
+          className="text-sm font-semibold text-primary-500 hover:underline focus-visible:outline-none"
           href="/"
         >
           What&apos;s new?

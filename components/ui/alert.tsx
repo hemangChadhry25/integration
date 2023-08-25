@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn, createStrictContext } from "@/lib/utils";
 import { X2 } from "../icons";
 
 const alertVariants = cva(
@@ -22,16 +22,26 @@ const alertVariants = cva(
   }
 );
 
+const [AlertProvider, useAlertContext] = createStrictContext<
+  "default" | "primary" | "error" | "warning" | "success" | null
+>({
+  displayName: "AlertProvider",
+  errorMessage: `useAlertContext returned is 'undefined'. Seems you forgot to wrap the components in "<Alert />"`,
+  strict: false,
+});
+
 const Alert = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
 >(({ className, variant, ...props }, ref) => (
-  <div
-    ref={ref}
-    role="alert"
-    className={cn(alertVariants({ variant, className }))}
-    {...props}
-  />
+  <AlertProvider value={variant}>
+    <div
+      ref={ref}
+      role="alert"
+      className={cn(alertVariants({ variant, className }))}
+      {...props}
+    />
+  </AlertProvider>
 ));
 Alert.displayName = "Alert";
 
@@ -51,21 +61,37 @@ const AlertDescription = React.forwardRef<
 ));
 AlertDescription.displayName = "AlertDescription";
 
+const closeButtonVariants = cva(
+  "absolute right-2 top-2 flex h-9 w-9 items-center justify-center focus-visible:outline-none",
+  {
+    variants: {
+      variant: {
+        default: "text-gray-500 hover:text-gray-600",
+        primary: "text-primary-500 hover:text-primary-600",
+        success: "text-success-500 hover:text-success-600",
+        warning: "text-warning-500 hover:text-warning-600",
+        error: "text-error-500 hover:text-error-600",
+      },
+    },
+  }
+);
+
 const CloseButton = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ className, ...props }, ref) => (
-  <button
-    className={cn(
-      "absolute right-2 top-2 flex h-9 w-9 items-center justify-center focus-visible:outline-none",
-      className
-    )}
-    {...props}
-    ref={ref}
-  >
-    <X2 />
-  </button>
-));
+>(({ className, ...props }, ref) => {
+  const variant = useAlertContext();
+
+  return (
+    <button
+      className={cn(closeButtonVariants({ variant }))}
+      {...props}
+      ref={ref}
+    >
+      <X2 />
+    </button>
+  );
+});
 
 CloseButton.displayName = "CloseButton";
 

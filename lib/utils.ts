@@ -76,6 +76,31 @@ export const createContext = <TValue>({
   return [Context.Provider, useContext] as const;
 };
 
+export const createStrictContext = <TValue>({
+  value,
+  displayName,
+  errorMessage,
+  strict = true,
+}: {
+  value?: TValue;
+  strict?: boolean;
+  errorMessage?: string;
+  displayName?: string;
+}) => {
+  const Context = React.createContext(value);
+  Context.displayName = displayName;
+
+  const useContext = () => {
+    const context = React.useContext(Context);
+    if (!context && strict) {
+      throw new Error(errorMessage);
+    }
+    return context;
+  };
+
+  return [Context.Provider, useContext] as const;
+};
+
 export function verifyFileType(fileName: string, accepted: string[]): boolean {
   if (accepted.length === 0) {
     return false;
