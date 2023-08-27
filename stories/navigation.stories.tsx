@@ -50,6 +50,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui";
+import { first } from "@/lib/utils";
 
 const meta: Meta = {
   title: "Navigation",
@@ -638,7 +639,7 @@ export const WelcomeNav = () => {
     "Chris Torres",
     "Max",
   ]);
-  const [selected, setSelected] = React.useState(users[0]);
+  const [selected, setSelected] = React.useState(first(users));
   const [query, setQuery] = React.useState("");
 
   const filteredUsers =
@@ -658,23 +659,22 @@ export const WelcomeNav = () => {
       </span>
 
       <div className="flex items-center gap-x-3">
-        <Combobox className="w-[224px]" value={selected} onChange={setSelected}>
+        <Combobox value={selected} onChange={setSelected}>
           <ComboboxTrigger>
             <ComboboxInput
-              className="h-9 px-1.5 pl-9 pr-2.5"
-              defaultValue={(value: string) => value}
+              displayValue={(value: string) => value}
               onChange={(event) => setQuery(event.target.value)}
             />
-            <ComboboxButton className="left-3">
+            <ComboboxButton>
               <Search />
             </ComboboxButton>
           </ComboboxTrigger>
           <ScaleOutIn afterLeave={() => setQuery("")}>
             <ComboboxOptions>
               <ScrollArea className="h-[304px]">
-                {filteredUsers.map((user, key) => (
-                  <ComboboxOption key={key} value={user}>
-                    {user}
+                {filteredUsers.map((value, key) => (
+                  <ComboboxOption key={key} value={value}>
+                    {value}
                   </ComboboxOption>
                 ))}
               </ScrollArea>
@@ -686,7 +686,6 @@ export const WelcomeNav = () => {
           <UserPlus />
           Invite users
         </Button>
-
         <Button>
           <Plus2 />
           Invite users
@@ -700,9 +699,20 @@ export const AvatarGroupNav = () => {
   return (
     <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 px-[17px]">
       <div className="flex items-center gap-x-5">
-        <Button className="p-2.5" visual="gray" variant="outlined">
-          <ArrowLeft2 />
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className="p-2.5 text-gray-500 hover:text-gray-black"
+                variant="outlined"
+                visual="gray"
+              >
+                <ArrowLeft2 />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Back</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
         <ol className="flex items-center gap-x-2">
           <li className="text-sm font-semibold leading-6 text-gray-500">
@@ -748,9 +758,20 @@ export const AvatarGroupNav = () => {
         </AvatarGroup>
 
         <div className="flex items-center gap-x-3">
-          <Button className="p-2.5" variant="outlined" visual="gray">
-            <MoreHorizontal />
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  className="p-2.5 text-gray-500 hover:text-gray-black"
+                  variant="outlined"
+                  visual="gray"
+                >
+                  <MoreHorizontal />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className="font-semibold">Options</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
 
           <Button variant="outlined" visual="gray">
             <Users />
@@ -766,9 +787,20 @@ export const ChangeRoleNav = () => {
   return (
     <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 px-[17px]">
       <div className="flex items-center gap-x-5">
-        <Button className="p-2.5" visual="gray" variant="outlined">
-          <ArrowLeft2 />
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className="p-2.5 text-gray-500 hover:text-gray-black"
+                variant="outlined"
+                visual="gray"
+              >
+                <ArrowLeft2 />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Back</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
         <ol className="flex items-center gap-x-2">
           <li className="text-sm font-semibold leading-6 text-gray-500">
@@ -786,9 +818,20 @@ export const ChangeRoleNav = () => {
       </div>
 
       <div className="flex items-center gap-x-3">
-        <Button className="p-2.5" variant="outlined" visual="gray">
-          <MoreHorizontal />
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className="p-2.5 text-gray-500 hover:text-gray-black"
+                variant="outlined"
+                visual="gray"
+              >
+                <MoreHorizontal />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Options</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
         <Button variant="outlined" visual="gray">
           <ArrowRightLeft />
@@ -803,9 +846,20 @@ export const MyIntegrationNav = () => {
   return (
     <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 px-[17px]">
       <div className="flex items-center gap-x-5">
-        <Button className="p-2.5" visual="gray" variant="outlined">
-          <ArrowLeft2 />
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className="p-2.5 text-gray-500 hover:text-gray-black"
+                variant="outlined"
+                visual="gray"
+              >
+                <ArrowLeft2 />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Back</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
         <ol className="flex items-center gap-x-2">
           <li className="text-sm font-semibold leading-6 text-gray-500">

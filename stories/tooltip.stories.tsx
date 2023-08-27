@@ -1,6 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { ArrowLeft, HelpCircle, MoreHorizontal, X2 } from "@/components/icons";
+import {
+  ArrowLeft,
+  ArrowLeft2,
+  HelpCircle,
+  MoreHorizontal,
+  X2,
+} from "@/components/icons";
 import {
   Button,
   Tooltip,
@@ -117,18 +123,17 @@ export const WhiteMd: Story = {
   ),
 };
 
-export const ArrowLeftIcon: Story = {
+export const ArrowLeft2Icon: Story = {
   render: (args) => (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
           <Button
-            className="h-9 px-2.5 text-gray-500 hover:text-gray-black"
+            className="p-2.5 text-gray-500 hover:text-gray-black"
             variant="outlined"
             visual="gray"
-            size="md"
           >
-            <ArrowLeft />
+            <ArrowLeft2 />
           </Button>
         </TooltipTrigger>
         <TooltipContent {...args} className="font-semibold">
@@ -145,10 +150,9 @@ export const MoreHorizontalIcon: Story = {
       <Tooltip>
         <TooltipTrigger>
           <Button
-            className="h-9 px-2.5 text-gray-500 hover:text-gray-black"
+            className="p-2.5 text-gray-500 hover:text-gray-black"
             variant="outlined"
             visual="gray"
-            size="md"
           >
             <MoreHorizontal />
           </Button>
@@ -167,10 +171,9 @@ export const X2Icon: Story = {
       <Tooltip>
         <TooltipTrigger>
           <Button
-            className="h-9 px-2.5 text-gray-500 hover:text-gray-black"
+            className="p-2.5 text-gray-500 hover:text-gray-black"
             variant="outlined"
             visual="gray"
-            size="md"
           >
             <X2 className="h-4 w-4" />
           </Button>
