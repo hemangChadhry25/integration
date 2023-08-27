@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Combobox as ComboboxPrimitive, Transition } from "@headlessui/react";
+import { VariantProps, cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
 
 const ComboboxLabel = ComboboxPrimitive.Label;
 

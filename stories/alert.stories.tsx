@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Link from "next/link";
+import Image from "next/image";
 
 import {
   Alert,
@@ -18,7 +19,6 @@ import {
   ExternalLink,
   X,
 } from "@/components/icons";
-import Image from "next/image";
 
 const meta: Meta = {
   title: "Alert",

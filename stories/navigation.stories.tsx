@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/react";
 import * as React from "react";
+import Link from "next/link";
 
 import {
   ArrowLeft2,
@@ -23,7 +24,6 @@ import {
   UserPlus,
   Users,
 } from "@/components/icons";
-import Link from "next/link";
 import {
   Avatar,
   AvatarFallback,

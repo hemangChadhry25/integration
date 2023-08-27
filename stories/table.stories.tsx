@@ -10,6 +10,7 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import * as pagination from "@zag-js/pagination";
+import { mergeProps, normalizeProps, useMachine } from "@zag-js/react";
 
 import users from "public/mock/users.json";
 import uploadedFiles from "public/mock/uploaded-files.json";
@@ -49,7 +50,6 @@ import {
   BadgeGroup,
 } from "@/components/ui";
 import { cn, first, nope } from "@/lib/utils";
-import { mergeProps, normalizeProps, useMachine } from "@zag-js/react";
 
 const meta: Meta = {
   title: "Table",

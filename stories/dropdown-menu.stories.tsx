@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import {
@@ -14,8 +15,7 @@ import {
   Zap,
   PencilLine,
 } from "@/components/icons";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage, Button } from "@/components/ui";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,7 +29,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuCheckItem,
 } from "@/components/ui/dropdown-menu";
-import React, { useState } from "react";
 
 const meta: Meta = {
   title: "DropdownMenu",
