@@ -7,9 +7,13 @@ import {
   ArrowRightLeft,
   BarChartSquare,
   Belling,
+  Calendar,
+  ChevronDown,
   Dot,
+  Filter,
   FolderClosed,
   HelpCircle,
+  History,
   Home,
   LifeBouy,
   LogOut,
@@ -23,6 +27,7 @@ import {
   User,
   UserPlus,
   Users,
+  X2,
 } from "@/components/icons";
 import {
   Avatar,
@@ -30,6 +35,9 @@ import {
   AvatarGroup,
   AvatarImage,
   Badge,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
   Button,
   Combobox,
   ComboboxButton,
@@ -695,6 +703,122 @@ export const WelcomeNav = () => {
   );
 };
 
+export const RecentWorkflows = () => {
+  return (
+    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
+      <div className="flex items-center gap-x-5">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className="p-2.5 text-gray-500 hover:text-gray-black"
+                variant="outlined"
+                visual="gray"
+              >
+                <ArrowLeft2 />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Back</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Recent workflows</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="/">Projects</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </div>
+
+      <div className="flex items-center gap-x-3">
+        <span className="text-sm font-semibold text-gray-800">Sort by</span>
+        <Button visual="gray" variant="outlined">
+          Last Edited <ChevronDown className="h-5 w-5" />
+        </Button>
+        <Button visual="gray" variant="outlined">
+          <Calendar />
+          Date Modified
+        </Button>
+        <Button visual="gray" variant="outlined">
+          Owner <ChevronDown className="h-5 w-5" />
+        </Button>
+        <Button>
+          <Plus2 />
+          New Project
+        </Button>
+      </div>
+    </nav>
+  );
+};
+
+export const TestWorkflow = () => {
+  return (
+    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
+      <div className="flex items-center gap-x-5">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className="p-2.5 text-gray-500 hover:text-gray-black"
+                variant="outlined"
+                visual="gray"
+              >
+                <ArrowLeft2 />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Back</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Test workflows</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </div>
+
+      <div className="flex items-center gap-x-3">
+        <div className="flex items-center gap-x-2 px-3 py-2.5">
+          <History className="text-gray-500" />
+          <span className="text-xs leading-5 text-gray-700">
+            Saved at 10:38AM
+          </span>
+        </div>
+
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className="p-2.5 text-gray-500 hover:text-gray-black"
+                variant="outlined"
+                visual="gray"
+              >
+                <MoreHorizontal />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Options</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <Button>Publish</Button>
+
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button className="px-2.5" visual="gray" variant="ghost">
+                <X2 className="h-4 w-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Exit</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+    </nav>
+  );
+};
+
 export const AvatarGroupNav = () => {
   return (
     <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 px-[17px]">
@@ -714,19 +838,17 @@ export const AvatarGroupNav = () => {
           </Tooltip>
         </TooltipProvider>
 
-        <ol className="flex items-center gap-x-2">
-          <li className="text-sm font-semibold leading-6 text-gray-500">
-            <Link href="/">Settings</Link>
-          </li>
-          <li className="flex items-center gap-x-2 text-sm font-semibold leading-6 text-gray-500">
-            <span className="text-gray-500">/</span>
-            <Link href="/">Roles</Link>
-          </li>
-          <li className="flex items-center gap-x-2 text-sm font-semibold leading-6 text-gray-black">
-            <span className="text-gray-500">/</span>
-            <Link href="/">Edit Role</Link>
-          </li>
-        </ol>
+        <Breadcrumb spacing="0.5rem">
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Settings</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Roles</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="/">Edit Role</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
       </div>
 
       <div className="flex items-center gap-x-6">
@@ -783,6 +905,43 @@ export const AvatarGroupNav = () => {
   );
 };
 
+export const AddCustomRole = () => {
+  return (
+    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
+      <Breadcrumb spacing="0.5rem">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">Settings</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <BreadcrumbLink href="/">Roles</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+
+      <div className="flex items-center gap-x-3">
+        <span className="text-sm font-semibold text-gray-800">Sort by</span>
+        <Button
+          className="w-[148px] justify-between"
+          visual="gray"
+          variant="outlined"
+        >
+          Permissions <ChevronDown className="h-5 w-5" />
+        </Button>
+        <Button
+          className="w-[200px] justify-between"
+          visual="gray"
+          variant="outlined"
+        >
+          All Roles <ChevronDown className="h-5 w-5" />
+        </Button>
+        <Button>
+          <Plus2 />
+          Add Custom Role
+        </Button>
+      </div>
+    </nav>
+  );
+};
+
 export const ChangeRoleNav = () => {
   return (
     <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 px-[17px]">
@@ -802,19 +961,17 @@ export const ChangeRoleNav = () => {
           </Tooltip>
         </TooltipProvider>
 
-        <ol className="flex items-center gap-x-2">
-          <li className="text-sm font-semibold leading-6 text-gray-500">
-            <Link href="/">Settings</Link>
-          </li>
-          <li className="flex items-center gap-x-2 text-sm font-semibold leading-6 text-gray-500">
-            <span className="text-gray-500">/</span>
-            <Link href="/">Users</Link>
-          </li>
-          <li className="flex items-center gap-x-2 text-sm font-semibold leading-6 text-gray-black">
-            <span className="text-gray-500">/</span>
-            <Link href="/">Edit User</Link>
-          </li>
-        </ol>
+        <Breadcrumb spacing="0.5rem">
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Settings</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Users</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="/">Edit User</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
       </div>
 
       <div className="flex items-center gap-x-3">
@@ -861,21 +1018,23 @@ export const MyIntegrationNav = () => {
           </Tooltip>
         </TooltipProvider>
 
-        <ol className="flex items-center gap-x-2">
-          <li className="text-sm font-semibold leading-6 text-gray-500">
-            <Link href="/">Integrations</Link>
-          </li>
-          <li className="flex items-center gap-x-2 text-sm font-semibold leading-6 text-gray-black">
-            <span className="text-gray-500">/</span>
-            <Link href="/">MyIntegration1</Link>
-          </li>
-          <li>
-            <Badge size="lg" visual="gray">
-              <Dot />
-              Unpublished
-            </Badge>
-          </li>
-        </ol>
+        <Breadcrumb spacing="0.5rem">
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Integrations</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Roles</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="/" className="flex items-center gap-x-3">
+              MyIntegration1
+              <Badge size="lg" visual="gray">
+                <Dot />
+                Unpublished
+              </Badge>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
       </div>
 
       <div className="flex items-center gap-x-6">
@@ -892,6 +1051,93 @@ export const MyIntegrationNav = () => {
           </Button>
           <Button>Submit for Review</Button>
         </div>
+      </div>
+    </nav>
+  );
+};
+
+export const NewWorkflow = () => {
+  return (
+    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
+      <div className="flex items-center gap-x-5">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                className="p-2.5 text-gray-500 hover:text-gray-black"
+                variant="outlined"
+                visual="gray"
+              >
+                <ArrowLeft2 />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="font-semibold">Back</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Project Name</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="/">Recent workflows</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </div>
+
+      <div className="flex items-center gap-x-3">
+        <span className="text-sm font-semibold text-gray-800">Sort by</span>
+        <Button visual="gray" variant="outlined">
+          Activity <ChevronDown className="h-5 w-5" />
+        </Button>
+        <Button visual="gray" variant="outlined">
+          <Calendar />
+          All time
+        </Button>
+        <Button visual="gray" variant="outlined">
+          <Filter /> Filters
+        </Button>
+        <Button>
+          <Plus2 />
+          New Workflow
+        </Button>
+      </div>
+    </nav>
+  );
+};
+
+export const InviteUsers = () => {
+  return (
+    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px] py-[15px]">
+      <Breadcrumb spacing="0.5rem">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">Settings</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <BreadcrumbLink href="/">Users</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+
+      <div className="flex items-center gap-x-3">
+        <span className="text-sm font-semibold text-gray-800">Sort by</span>
+        <Button
+          className="w-[148px] justify-between"
+          visual="gray"
+          variant="outlined"
+        >
+          Permissions <ChevronDown className="h-5 w-5" />
+        </Button>
+        <Button
+          className="w-[200px] justify-between"
+          visual="gray"
+          variant="outlined"
+        >
+          All Roles <ChevronDown className="h-5 w-5" />
+        </Button>
+        <Button>
+          <Plus2 />
+          Invite Users
+        </Button>
       </div>
     </nav>
   );
