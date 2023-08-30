@@ -29,7 +29,7 @@ const ComboboxTrigger = React.forwardRef<
 
 ComboboxTrigger.displayName = "ComboboxTrigger";
 
-const comboboxInputVariants = cva("peer w-full rounded-[5px]", {
+export const comboboxInputVariants = cva("peer w-full rounded-[5px]", {
   variants: {
     visual: {
       default:
@@ -61,8 +61,8 @@ const ComboboxInput = React.forwardRef<
 
 ComboboxInput.displayName = "ComboboxInput";
 
-const comboboxButtonVariants = cva(
-  "absolute inset-y-0 my-auto text-gray-400 peer-hover:text-gray-500 peer-focus:text-primary-500 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 focus-visible:outline-none",
+export const comboboxButtonVariants = cva(
+  "inline-flex justify-center items-center absolute inset-y-0 my-auto text-gray-400 peer-hover:text-gray-500 peer-focus:text-primary-500 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 focus-visible:outline-none",
   {
     variants: {
       align: {

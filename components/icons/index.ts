@@ -76,3 +76,4 @@ export * from "./file";
 export * from "./move-left-right";
 export * from "./calendar";
 export * from "./filter";
+export * from "./shield-charged";

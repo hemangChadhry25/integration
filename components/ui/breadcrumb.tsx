@@ -1,8 +1,9 @@
 "use client";
 
-import { cn, createContext, getValidChildren } from "@/lib/utils";
 import Link from "next/link";
 import * as React from "react";
+
+import { cn, createContext, getValidChildren } from "@/lib/utils";
 
 const [BreadcrumbProvider, useBreadcrumbContext] = createContext<{
   separator?: React.ReactNode;

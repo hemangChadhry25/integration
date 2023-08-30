@@ -35,3 +35,4 @@ export * from "./breadcrumb";
 export * from "./calendar";
 export * from "./popover";
 export * from "./date-picker";
+export * from "./search-field";

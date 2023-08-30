@@ -7,7 +7,6 @@ import {
   ArrowRightLeft,
   BarChartSquare,
   Belling,
-  Calendar,
   ChevronDown,
   Dot,
   Filter,
@@ -69,8 +68,8 @@ export default meta;
 
 export const Main = () => {
   return (
-    <nav className="flex h-screen w-[70px] flex-col items-center border-r border-gray-200 bg-white">
-      <div className="py-[22px]">
+    <nav className="fixed inset-y-0 left-0 flex w-[70px] flex-col items-center border-r border-gray-200 bg-white">
+      <div className="flex justify-center self-stretch border-b border-gray-200 py-[22px]">
         <Link
           className="text-primary-500 focus:outline-none"
           aria-label="Logo"
@@ -79,7 +78,7 @@ export const Main = () => {
           <Logo />
         </Link>
       </div>
-      <div className="flex flex-auto flex-col items-center justify-between self-stretch border-t border-gray-200">
+      <div className="flex flex-auto flex-col items-center justify-between self-stretch">
         <div className="flex flex-col gap-y-5 pt-5">
           <TooltipProvider>
             <Tooltip>
