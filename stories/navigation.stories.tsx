@@ -57,6 +57,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  DatePicker,
 } from "@/components/ui";
 import { first } from "@/lib/utils";
 
@@ -737,10 +738,7 @@ export const RecentWorkflows = () => {
         <Button visual="gray" variant="outlined">
           Last Edited <ChevronDown className="h-5 w-5" />
         </Button>
-        <Button visual="gray" variant="outlined">
-          <Calendar />
-          Date Modified
-        </Button>
+        <DatePicker placeholder="Date modified" />
         <Button visual="gray" variant="outlined">
           Owner <ChevronDown className="h-5 w-5" />
         </Button>
@@ -1090,10 +1088,7 @@ export const NewWorkflow = () => {
         <Button visual="gray" variant="outlined">
           Activity <ChevronDown className="h-5 w-5" />
         </Button>
-        <Button visual="gray" variant="outlined">
-          <Calendar />
-          All time
-        </Button>
+        <DatePicker placeholder="All time" />
         <Button visual="gray" variant="outlined">
           <Filter /> Filters
         </Button>

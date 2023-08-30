@@ -32,3 +32,6 @@ export * from "./scroll-area";
 export * from "./accordion";
 export * from "./dialog";
 export * from "./breadcrumb";
+export * from "./calendar";
+export * from "./popover";
+export * from "./date-picker";

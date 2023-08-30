@@ -114,3 +114,10 @@ export function convertToKbOrMb(bytes: number) {
   const kbs = bytes / 1000;
   return kbs < 1000 ? `${kbs.toFixed(2)}KB` : `${(kbs / 1000).toFixed(2)}MB`;
 }
+
+export function len<T>(arg: number | string | T[]) {
+  if (typeof arg === "number" || typeof arg === "string") {
+    return String(arg).length;
+  }
+  return arg.length;
+}
