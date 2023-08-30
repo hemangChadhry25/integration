@@ -52,8 +52,8 @@ function Calendar({
         day_selected:
           "bg-primary-500 text-white hover:bg-primary-500 hover:text-white focus:bg-primary-500 focus:text-white",
         day_today: "bg-gray-100 text-gray-500",
-        day_outside: "text-[#667085]",
-        day_disabled: "text-[#667085]",
+        day_outside: "text-gray-500/100",
+        day_disabled: "text-gray-500/100",
         day_range_middle:
           "aria-selected:bg-primary-50 aria-selected:text-gray-700 hover:aria-selected:text-gray-700 hover:aria-selected:bg-primary-50 focus:aria-selected:text-gray-700 focus:aria-selected:bg-primary-50",
         day_hidden: "invisible",
