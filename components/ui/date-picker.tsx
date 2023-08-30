@@ -43,6 +43,7 @@ export function DatePicker({
   });
   const [inputValue, setInputValue] = React.useState("");
   const [selectValue, setSelectValue] = React.useState<string>();
+  const [open, onOpenChange] = React.useState(false);
 
   const onChange = (state: string) => {
     setInputValue(state);
@@ -61,7 +62,7 @@ export function DatePicker({
   };
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>
         <Button variant="outlined">
           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -129,7 +130,14 @@ export function DatePicker({
           className="mt-5 border-t border-gray-200 p-4"
           direction="horizontal"
         >
-          <Button variant="outlined" visual="gray" onClick={onCancel}>
+          <Button
+            variant="outlined"
+            visual="gray"
+            onClick={() => {
+              onOpenChange(false);
+              onCancel?.();
+            }}
+          >
             Cancel
           </Button>
           <Button onChange={onApply}>Apply</Button>
