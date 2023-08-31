@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { addDays, format, isValid, parse } from "date-fns";
-import { Caption } from "react-day-picker";
+import { Caption, SelectSingleEventHandler } from "react-day-picker";
 
 import { Calendar as CalendarIcon } from "@/components/icons";
 import {
@@ -45,9 +45,9 @@ export function DatePicker({
   const [selectValue, setSelectValue] = React.useState<string>();
   const [open, onOpenChange] = React.useState(false);
 
-  const onChange = (state: string) => {
-    setInputValue(state);
-    const date = parse(state, "PP", new Date());
+  const onChange = (value: string) => {
+    setInputValue(value);
+    const date = parse(value, "PP", new Date());
 
     if (isValid(date)) {
       setInternalSelected(date);
@@ -56,9 +56,20 @@ export function DatePicker({
     }
   };
 
-  const onValueChange = (state: string) => {
-    setSelectValue(state);
-    setInternalSelected(addDays(new Date(), parseInt(state)));
+  const onValueChange = (value: string) => {
+    setSelectValue(value);
+    const newDate = addDays(new Date(), parseInt(value));
+
+    setInternalSelected(newDate);
+    setInputValue(format(newDate, "PP"));
+  };
+
+  const onInternalSelected: SelectSingleEventHandler = (date) => {
+    setInternalSelected(date);
+
+    if (date) {
+      setInputValue(format(date, "PP"));
+    }
   };
 
   return (
@@ -69,7 +80,7 @@ export function DatePicker({
           {internalSelected ? (
             format(internalSelected, "PP")
           ) : (
-            <span>{placeholder ? placeholder : "Pick a date"}</span>
+            <>{placeholder ? placeholder : "Pick a date"}</>
           )}
         </Button>
       </PopoverTrigger>
@@ -77,7 +88,7 @@ export function DatePicker({
         <Calendar
           mode="single"
           selected={internalSelected}
-          onSelect={setInternalSelected}
+          onSelect={onInternalSelected}
           initialFocus
           components={{
             Caption: (props) => (
