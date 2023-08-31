@@ -68,7 +68,7 @@ export default meta;
 
 export const Main = () => {
   return (
-    <nav className="fixed inset-y-0 left-0 flex w-[70px] flex-col items-center border-r border-gray-200 bg-white">
+    <nav className="flex h-screen w-[70px] flex-col items-center border-r border-gray-200 bg-white">
       <div className="flex justify-center self-stretch border-b border-gray-200 py-[22px]">
         <Link
           className="text-primary-500 focus:outline-none"

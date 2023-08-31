@@ -51,7 +51,11 @@ const SearchFieldButton = React.forwardRef<
   const id = useSearchFieldContext();
   return (
     <label
-      className={cn(comboboxButtonVariants({ align, size, className }))}
+      aria-label="Search"
+      className={cn(
+        "cursor-pointer",
+        comboboxButtonVariants({ align, size, className })
+      )}
       htmlFor={id}
       {...props}
       ref={ref}
