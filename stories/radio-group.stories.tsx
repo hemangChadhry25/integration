@@ -193,15 +193,21 @@ export const SmRadioGroupItemSelector: Story = {
   render: (args) => (
     <RadioGroup className="gap-y-2" {...args}>
       <RadioGroupItemSelector value="Option 1">
-        <Label>Option 1</Label>
+        <Label asChild>
+          <span>Option 1</span>
+        </Label>
         <HelperText>Short description here</HelperText>
       </RadioGroupItemSelector>
       <RadioGroupItemSelector value="Option 2">
-        <Label>Option 2</Label>
+        <Label asChild>
+          <span>Option 2</span>
+        </Label>
         <HelperText>Short description here</HelperText>
       </RadioGroupItemSelector>
       <RadioGroupItemSelector value="Option 3">
-        <Label>Option 3</Label>
+        <Label asChild>
+          <span>Option 3</span>
+        </Label>
         <HelperText>Short description here</HelperText>
       </RadioGroupItemSelector>
     </RadioGroup>
@@ -212,15 +218,21 @@ export const MdRadioGroupItemSelector: Story = {
   render: (args) => (
     <RadioGroup {...args}>
       <RadioGroupItemSelector size="md" value="Option 1">
-        <Label size="sm">Option 1</Label>
+        <Label size="sm" asChild>
+          <span>Option 1</span>
+        </Label>
         <HelperText size="sm">Short description here</HelperText>
       </RadioGroupItemSelector>
       <RadioGroupItemSelector size="md" value="Option 2">
-        <Label size="sm">Option 2</Label>
+        <Label size="sm" asChild>
+          <span>Option 2</span>
+        </Label>
         <HelperText size="sm">Short description here</HelperText>
       </RadioGroupItemSelector>
       <RadioGroupItemSelector size="md" value="Option 3">
-        <Label size="sm">Option 3</Label>
+        <Label size="sm" asChild>
+          <span>Option 3</span>
+        </Label>
         <HelperText size="sm">Short description here</HelperText>
       </RadioGroupItemSelector>
     </RadioGroup>
@@ -231,15 +243,21 @@ export const LgRadioGroupItemSelector: Story = {
   render: (args) => (
     <RadioGroup className="gap-y-3" {...args}>
       <RadioGroupItemSelector size="lg" value="Option 1">
-        <Label size="md">Option 1</Label>
+        <Label size="md" asChild>
+          <span>Option 1</span>
+        </Label>
         <HelperText size="md">Short description here</HelperText>
       </RadioGroupItemSelector>
       <RadioGroupItemSelector size="lg" value="Option 2">
-        <Label size="md">Option 2</Label>
+        <Label size="md" asChild>
+          <span>Option 2</span>
+        </Label>
         <HelperText size="md">Short description here</HelperText>
       </RadioGroupItemSelector>
       <RadioGroupItemSelector size="lg" value="Option 3">
-        <Label size="md">Option 3</Label>
+        <Label size="md" asChild>
+          <span>Option 3</span>
+        </Label>
         <HelperText size="md">Short description here</HelperText>
       </RadioGroupItemSelector>
     </RadioGroup>
