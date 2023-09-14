@@ -65,7 +65,7 @@ const RadioGroupItemSelector = React.forwardRef<
         <Circle className={iconVariants({ size })} />
       </RadioGroupPrimitive.Indicator>
     </span>
-    <div>{children}</div>
+    <span className="block">{children}</span>
   </RadioGroupPrimitive.Item>
 ));
 
