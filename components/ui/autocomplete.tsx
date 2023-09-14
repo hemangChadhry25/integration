@@ -66,7 +66,7 @@ const AutocompleteInput = React.forwardRef<
       ref={ref}
       {...props}
     />
-    <span className="absolute inset-x-0 -bottom-0.5 hidden h-0.5 w-full bg-primary-100 peer-hover:peer-data-ui-open:block peer-focus:peer-data-ui-open:block" />
+    <span className="absolute inset-x-0 -bottom-1 hidden h-1 w-full bg-primary-50 peer-hover:peer-data-ui-open:block peer-focus:peer-data-ui-open:block" />
   </>
 ));
 
