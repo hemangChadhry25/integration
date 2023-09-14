@@ -38,3 +38,4 @@ export * from "./date-picker";
 export * from "./search-field";
 export * from "./icon-button";
 export * from "./dropzone";
+export * from "./autocomplete";

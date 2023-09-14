@@ -29,9 +29,9 @@ export const DefaultSm = () => {
     { id: 6, name: "Hellen Schmidt" },
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
-    { id: 8, name: "David" },
-    { id: 9, name: "Logan" },
-    { id: 10, name: "Andrew" },
+    { id: 9, name: "David" },
+    { id: 10, name: "Logan" },
+    { id: 11, name: "Andrew" },
   ]);
   const [selected, setSelected] = React.useState({});
   const [query, setQuery] = React.useState("");
@@ -82,9 +82,9 @@ export const DefaultSmRightIcon = () => {
     { id: 6, name: "Hellen Schmidt" },
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
-    { id: 8, name: "David" },
-    { id: 9, name: "Logan" },
-    { id: 10, name: "Andrew" },
+    { id: 9, name: "David" },
+    { id: 10, name: "Logan" },
+    { id: 11, name: "Andrew" },
   ]);
   const [selected, setSelected] = React.useState({});
   const [query, setQuery] = React.useState("");
@@ -136,9 +136,9 @@ export const DefaultLg = () => {
     { id: 6, name: "Hellen Schmidt" },
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
-    { id: 8, name: "David" },
-    { id: 9, name: "Logan" },
-    { id: 10, name: "Andrew" },
+    { id: 9, name: "David" },
+    { id: 10, name: "Logan" },
+    { id: 11, name: "Andrew" },
   ]);
   const [selected, setSelected] = React.useState({});
   const [query, setQuery] = React.useState("");
@@ -190,9 +190,9 @@ export const DefaultLgRightIcon = () => {
     { id: 6, name: "Hellen Schmidt" },
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
-    { id: 8, name: "David" },
-    { id: 9, name: "Logan" },
-    { id: 10, name: "Andrew" },
+    { id: 9, name: "David" },
+    { id: 10, name: "Logan" },
+    { id: 11, name: "Andrew" },
   ]);
   const [selected, setSelected] = React.useState({});
   const [query, setQuery] = React.useState("");
@@ -245,9 +245,9 @@ export const GraySm = () => {
     { id: 6, name: "Hellen Schmidt" },
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
-    { id: 8, name: "David" },
-    { id: 9, name: "Logan" },
-    { id: 10, name: "Andrew" },
+    { id: 9, name: "David" },
+    { id: 10, name: "Logan" },
+    { id: 11, name: "Andrew" },
   ]);
   const [selected, setSelected] = React.useState({});
   const [query, setQuery] = React.useState("");
@@ -299,9 +299,9 @@ export const GraySmRightIcon = () => {
     { id: 6, name: "Hellen Schmidt" },
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
-    { id: 8, name: "David" },
-    { id: 9, name: "Logan" },
-    { id: 10, name: "Andrew" },
+    { id: 9, name: "David" },
+    { id: 10, name: "Logan" },
+    { id: 11, name: "Andrew" },
   ]);
   const [selected, setSelected] = React.useState({});
   const [query, setQuery] = React.useState("");
@@ -354,9 +354,9 @@ export const GrayLg = () => {
     { id: 6, name: "Hellen Schmidt" },
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
-    { id: 8, name: "David" },
-    { id: 9, name: "Logan" },
-    { id: 10, name: "Andrew" },
+    { id: 9, name: "David" },
+    { id: 10, name: "Logan" },
+    { id: 11, name: "Andrew" },
   ]);
   const [selected, setSelected] = React.useState({});
   const [query, setQuery] = React.useState("");
@@ -409,9 +409,9 @@ export const GrayLgRightIcon = () => {
     { id: 6, name: "Hellen Schmidt" },
     { id: 7, name: "Chris Torres" },
     { id: 8, name: "Max" },
-    { id: 8, name: "David" },
-    { id: 9, name: "Logan" },
-    { id: 10, name: "Andrew" },
+    { id: 9, name: "David" },
+    { id: 10, name: "Logan" },
+    { id: 11, name: "Andrew" },
   ]);
   const [selected, setSelected] = React.useState({});
   const [query, setQuery] = React.useState("");

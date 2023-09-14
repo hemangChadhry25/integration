@@ -156,10 +156,10 @@ const ScaleOutIn = React.forwardRef<
   <Transition
     as={React.Fragment}
     appear
-    enter="transition ease-out duration-200"
+    enter="transition ease-out"
     enterFrom="opacity-0 scale-95"
     enterTo="opacity-100 scale-100"
-    leave="transition ease-in duration-100"
+    leave="transition ease-in duration-75"
     leaveFrom="opacity-100 scale-100"
     leaveTo="opacity-0 scale-95"
     {...props}
