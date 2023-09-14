@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 
 const labelVariants = cva(
-  "text-gray-800 font-medium peer-disabled:opacity-50 peer-disabled:cursor-not-allowed",
+  "block text-gray-800 font-medium peer-disabled:opacity-50 peer-disabled:cursor-not-allowed",
   {
     variants: {
       size: {

@@ -22,7 +22,7 @@ const radioGroupItemSelectorVariants = cva(
 );
 
 const radioGroupItemVariants = cva(
-  "inline-flex flex-none items-center justify-center rounded-full border-[1.5px] border-gray-300 group-hover:border-primary-400 group-hover:ring group-hover:ring-primary-50 group-focus:ring group-focus:ring-primary-50 group-data-[state=checked]:border-primary-500 group-data-[state=checked]:text-primary-500 group-disabled:group-data-[state=checked]:text-gray-200 group-disabled:border-gray-200 group-disabled:group-hover:border-gray-200 group-disabled:group-hover:ring-0 group-disabled:group-data-[state=checked]:bg-gray-50 group-disabled:group-data-[state=checked]:border-gray-200",
+  "inline-flex shrink-0 items-center justify-center rounded-full border-[1.5px] border-gray-300 group-hover:border-primary-400 group-hover:ring group-hover:ring-primary-50 group-focus:ring group-focus:ring-primary-50 group-data-[state=checked]:border-primary-500 group-data-[state=checked]:text-primary-500 group-disabled:group-data-[state=checked]:text-gray-200 group-disabled:border-gray-200 group-disabled:group-hover:border-gray-200 group-disabled:group-hover:ring-0 group-disabled:group-data-[state=checked]:bg-gray-50 group-disabled:group-data-[state=checked]:border-gray-200",
   {
     variants: {
       size: {
@@ -37,7 +37,7 @@ const radioGroupItemVariants = cva(
   }
 );
 
-const iconVariants = cva("fill-current text-current", {
+const iconVariants = cva("fill-current shrink-0 text-current", {
   variants: {
     size: {
       sm: "h-1.5 w-1.5",
@@ -61,11 +61,11 @@ const RadioGroupItemSelector = React.forwardRef<
     ref={ref}
   >
     <span className={radioGroupItemVariants({ size, className })}>
-      <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
+      <RadioGroupPrimitive.Indicator className="flex shrink-0 items-center justify-center">
         <Circle className={iconVariants({ size })} />
       </RadioGroupPrimitive.Indicator>
     </span>
-    <div className="flex flex-auto flex-col">{children}</div>
+    <div>{children}</div>
   </RadioGroupPrimitive.Item>
 ));
 

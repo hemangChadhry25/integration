@@ -101,23 +101,87 @@ export const createStrictContext = <TValue>({
   return [Context.Provider, useContext] as const;
 };
 
-export function verifyFileType(fileName: string, accepted: string[]): boolean {
-  if (accepted.length === 0) {
+export function verifyFileType(
+  fileName: string,
+  extensions: string[]
+): boolean {
+  if (extensions.length === 0) {
     return false;
   }
-  return fileName.endsWith(first(accepted))
+  const [extension, ...remainExtensions] = extensions;
+  return fileName.endsWith(extension)
     ? true
-    : verifyFileType(fileName, accepted.slice(1));
+    : verifyFileType(fileName, remainExtensions);
 }
+
+export const isImg = (name: string) => {
+  return verifyFileType(name, [
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+    ".gif",
+    ".svg",
+  ]);
+};
+
+export const isVideo = (name: string) => {
+  return verifyFileType(name, [".mp4"]);
+};
+
+export const isDoc = (name: string) => {
+  return verifyFileType(name, [".pdf"]);
+};
 
 export function convertToKbOrMb(bytes: number) {
   const kbs = bytes / 1000;
   return kbs < 1000 ? `${kbs.toFixed(2)}KB` : `${(kbs / 1000).toFixed(2)}MB`;
 }
 
-export function len<T>(arg: number | string | T[]) {
-  if (typeof arg === "number" || typeof arg === "string") {
+export function isArray(arg: any): arg is any[] {
+  return Array.isArray(arg);
+}
+
+export function len(
+  arg:
+    | string
+    | number
+    | any[]
+    | { [key: string]: any }
+    | ((...args: any[]) => any)
+): number {
+  if (typeof arg === "number") {
     return String(arg).length;
+  } else if (typeof arg === "string") {
+    return arg.length;
+  } else if (typeof arg === "function") {
+    return 1;
+  } else if (isArray(arg)) {
+    return arg.length;
   }
-  return arg.length;
+  return 1;
+}
+
+export function isUndefined(arg: any): arg is undefined {
+  return typeof arg === "undefined";
+}
+
+export function isNotUndefined(arg: any): arg is undefined {
+  return typeof arg !== "undefined";
+}
+
+export function isNull(arg: any): arg is null {
+  return arg === null;
+}
+
+export function isNumber(arg: any): arg is number {
+  return typeof arg === "number";
+}
+
+export function toPxIfNumber(arg: string | number) {
+  if (isNumber(arg)) {
+    return `${arg}px`;
+  }
+
+  return arg;
 }

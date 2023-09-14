@@ -15,6 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./tooltip";
+import { useIsomorphicLayoutEffect } from "@/lib/hooks";
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
@@ -25,9 +26,11 @@ const Progress = React.forwardRef<
 >(({ className, value = 0, bubble = true, ...props }, ref) => {
   const indicatorRef =
     React.useRef<React.ElementRef<typeof ProgressPrimitive.Indicator>>(null);
+  const contentRef =
+    React.useRef<React.ElementRef<typeof TooltipContent>>(null);
   const [alignOffset, setAlignOffset] = React.useState<number>();
 
-  React.useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const indicator = indicatorRef.current;
 
     if (!indicator) return;
@@ -57,6 +60,7 @@ const Progress = React.forwardRef<
           </ProgressPrimitive.Root>
         </TooltipTrigger>
         <TooltipContent
+          ref={contentRef}
           className={cn(
             "relative overflow-visible px-3 py-2 text-xs font-semibold leading-[18px] shadow-lg after:absolute after:inset-x-0 after:-bottom-1 after:mx-auto after:h-3 after:w-3 after:-rotate-45 after:rounded-[1.5px] after:bg-white",
             bubble ? "after:content-['']" : "after:content-none"

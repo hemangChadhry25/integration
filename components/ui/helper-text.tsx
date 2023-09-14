@@ -6,7 +6,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const helperTextVariants = cva(
-  "inline-block text-gray-500 font-normal peer-disabled:opacity-50",
+  "block text-gray-500 font-normal peer-disabled:opacity-50",
   {
     variants: {
       size: {

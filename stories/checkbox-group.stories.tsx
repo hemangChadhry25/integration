@@ -28,17 +28,13 @@ export const SmLabel: Story = {
     return (
       <CheckboxGroup {...args}>
         <div className="flex gap-x-3">
-          <Label className="order-2" htmlFor="option-one">
-            Option 1
-          </Label>
-          <Checkbox className="order-1" value="Option 1" id="option-one" />
+          <Checkbox value="Option 1" id="option-one" />
+          <Label htmlFor="option-one">Option 1</Label>
         </div>
 
         <div className="flex gap-x-3">
-          <Label className="order-2" htmlFor="option-two">
-            Option 2
-          </Label>
-          <Checkbox className="order-1" value="Option 2" id="option-two" />
+          <Checkbox value="Option 2" id="option-two" />
+          <Label htmlFor="option-two">Option 2</Label>
         </div>
       </CheckboxGroup>
     );
@@ -50,27 +46,17 @@ export const MdLabel: Story = {
     return (
       <CheckboxGroup className="space-y-3" {...args}>
         <div className="flex gap-x-3.5">
-          <Label className="order-2" size="sm" htmlFor="option-one">
+          <Checkbox size="md" value="Option 1" id="option-one" />
+          <Label size="sm" htmlFor="option-one">
             Option 1
           </Label>
-          <Checkbox
-            className="order-1"
-            size="md"
-            value="Option 1"
-            id="option-one"
-          />
         </div>
 
         <div className="flex gap-x-3.5">
-          <Label className="order-2" size="sm" htmlFor="option-two">
+          <Checkbox size="md" value="Option 2" id="option-two" />
+          <Label size="sm" htmlFor="option-two">
             Option 2
           </Label>
-          <Checkbox
-            className="order-1"
-            size="md"
-            value="Option 2"
-            id="option-two"
-          />
         </div>
       </CheckboxGroup>
     );
@@ -82,27 +68,17 @@ export const LgLabel: Story = {
     return (
       <CheckboxGroup className="space-y-3.5" {...args}>
         <div className="flex gap-x-4">
-          <Label className="order-2" size="md" htmlFor="option-one">
+          <Checkbox size="lg" value="Option 1" id="option-one" />
+          <Label size="md" htmlFor="option-one">
             Option 1
           </Label>
-          <Checkbox
-            className="order-1"
-            size="lg"
-            value="Option 1"
-            id="option-one"
-          />
         </div>
 
         <div className="flex gap-x-4">
-          <Label className="order-2" size="md" htmlFor="option-two">
+          <Checkbox size="lg" value="Option 2" id="option-two" />
+          <Label size="md" htmlFor="option-two">
             Option 2
           </Label>
-          <Checkbox
-            className="order-1"
-            size="lg"
-            value="Option 2"
-            id="option-two"
-          />
         </div>
       </CheckboxGroup>
     );
@@ -114,17 +90,17 @@ export const SmLabelHelperText: Story = {
     return (
       <CheckboxGroup {...args}>
         <div className="flex gap-x-3">
-          <Label className="order-2 flex flex-col" htmlFor="option-one">
+          <Checkbox value="Option 1" id="option-one" />
+          <Label className="flex flex-col" htmlFor="option-one">
             Option 1<HelperText>Short description here</HelperText>
           </Label>
-          <Checkbox className="order-1" value="Option 1" id="option-one" />
         </div>
 
         <div className="flex gap-x-3">
-          <Label className="order-2 flex flex-col" htmlFor="option-two">
+          <Checkbox value="Option 2" id="option-two" />
+          <Label className="flex flex-col" htmlFor="option-two">
             Option 2<HelperText>Short description here</HelperText>
           </Label>
-          <Checkbox className="order-1" value="Option 2" id="option-two" />
         </div>
       </CheckboxGroup>
     );
@@ -136,35 +112,17 @@ export const MdLabelHelperText: Story = {
     return (
       <CheckboxGroup className="space-y-3" {...args}>
         <div className="flex gap-x-3.5">
-          <Label
-            size="sm"
-            className="order-2 flex flex-col"
-            htmlFor="option-one"
-          >
+          <Checkbox size="md" value="Option 1" id="option-one" />
+          <Label size="sm" className="flex flex-col" htmlFor="option-one">
             Option 1 <HelperText size="sm">Short description here</HelperText>
           </Label>
-          <Checkbox
-            className="order-1"
-            size="md"
-            value="Option 1"
-            id="option-one"
-          />
         </div>
 
         <div className="flex gap-x-3.5">
-          <Label
-            size="sm"
-            className="order-2 flex flex-col"
-            htmlFor="option-two"
-          >
+          <Checkbox size="md" value="Option 2" id="option-two" />
+          <Label size="sm" className="flex flex-col" htmlFor="option-two">
             Option 2 <HelperText size="sm">Short description here</HelperText>
           </Label>
-          <Checkbox
-            className="order-1"
-            size="md"
-            value="Option 2"
-            id="option-two"
-          />
         </div>
       </CheckboxGroup>
     );
@@ -176,35 +134,17 @@ export const LgLabelHelperText: Story = {
     return (
       <CheckboxGroup className="space-y-3.5" {...args}>
         <div className="flex gap-x-4">
-          <Label
-            className="order-2 flex flex-col"
-            size="md"
-            htmlFor="option-one"
-          >
+          <Checkbox size="lg" value="Option 1" id="option-one" />
+          <Label className="flex flex-col" size="md" htmlFor="option-one">
             Option 1 <HelperText size="md">Short description here</HelperText>
           </Label>
-          <Checkbox
-            className="order-1"
-            size="lg"
-            value="Option 1"
-            id="option-one"
-          />
         </div>
 
         <div className="flex gap-x-4">
-          <Label
-            className="order-2 flex flex-col"
-            size="md"
-            htmlFor="option-two"
-          >
+          <Checkbox size="lg" value="Option 2" id="option-two" />
+          <Label className="flex flex-col" size="md" htmlFor="option-two">
             Option 2 <HelperText size="md">Short description here</HelperText>
           </Label>
-          <Checkbox
-            className="order-1"
-            size="lg"
-            value="Option 2"
-            id="option-two"
-          />
         </div>
       </CheckboxGroup>
     );

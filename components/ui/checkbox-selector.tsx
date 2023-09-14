@@ -63,7 +63,7 @@ export const CheckboxSelector = React.forwardRef<
         <Check className={iconVariants({ size })} />
       </CheckboxPrimitive.Indicator>
     </span>
-    <div className="flex flex-auto flex-col">{children}</div>
+    <div>{children}</div>
   </CheckboxPrimitive.Root>
 ));
 

@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -5,7 +7,7 @@ import { cn, createStrictContext } from "@/lib/utils";
 import { X2 } from "../icons";
 
 const alertVariants = cva(
-  "relative w-full [&>svg~*]:pl-12 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 rounded-lg border py-4",
+  "relative w-full flex items-start gap-x-3 rounded-lg border p-4",
   {
     variants: {
       variant: {
@@ -45,6 +47,22 @@ const Alert = React.forwardRef<
 ));
 Alert.displayName = "Alert";
 
+const AlertContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>((props, ref) => <div className={cn("flex-auto")} ref={ref} {...props} />);
+
+AlertContent.displayName = "AlertContent";
+
+const AlertIcon = React.forwardRef<
+  HTMLSpanElement,
+  React.HTMLAttributes<HTMLSpanElement>
+>(({ className, ...props }, ref) => (
+  <span className={cn("inline-block", className)} ref={ref} {...props} />
+));
+
+AlertIcon.displayName = "AlertIcon";
+
 const AlertTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
@@ -62,7 +80,7 @@ const AlertDescription = React.forwardRef<
 AlertDescription.displayName = "AlertDescription";
 
 const closeButtonVariants = cva(
-  "absolute right-2 top-2 flex h-9 w-9 items-center justify-center focus-visible:outline-none",
+  "inline-flex h-5 w-5 items-center justify-center focus-visible:outline-none",
   {
     variants: {
       variant: {
@@ -78,13 +96,14 @@ const closeButtonVariants = cva(
 
 const CloseButton = React.forwardRef<
   HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement>
+  React.ButtonHTMLAttributes<HTMLButtonElement> &
+    VariantProps<typeof closeButtonVariants>
 >(({ className, ...props }, ref) => {
   const variant = useAlertContext();
 
   return (
     <button
-      className={cn(closeButtonVariants({ variant }))}
+      className={cn(closeButtonVariants({ variant: props.variant ?? variant }))}
       {...props}
       ref={ref}
     >
@@ -95,4 +114,11 @@ const CloseButton = React.forwardRef<
 
 CloseButton.displayName = "CloseButton";
 
-export { Alert, AlertTitle, AlertDescription, CloseButton };
+export {
+  Alert,
+  AlertContent,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CloseButton,
+};

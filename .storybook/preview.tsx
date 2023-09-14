@@ -5,9 +5,9 @@ import { Inter } from "next/font/google";
 
 import "@/app/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-const Font = (props: React.HTMLAttributes<HTMLDivElement>) => {
+const Font = ({ children }: { children: React.ReactNode }) => {
   const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -16,10 +16,10 @@ const Font = (props: React.HTMLAttributes<HTMLDivElement>) => {
     if (!element) return;
 
     const doc = element.ownerDocument;
-    doc.documentElement.classList.add(inter.className);
+    doc.documentElement.classList.add(inter.variable);
   }, []);
 
-  return <div ref={ref} {...props} />;
+  return <div ref={ref}>{children}</div>;
 };
 
 const preview: Preview = {
@@ -40,7 +40,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <Font className={inter.className}>
+      <Font>
         <Story />
       </Font>
     ),

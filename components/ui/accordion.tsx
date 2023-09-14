@@ -13,7 +13,7 @@ const AccordionItem = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
-    className={cn("group", className)}
+    className={cn("group/item", className)}
     {...props}
   />
 ));
@@ -26,7 +26,7 @@ const AccordionTrigger = React.forwardRef<
   <AccordionPrimitive.Header asChild>
     <AccordionPrimitive.Trigger
       ref={ref}
-      className={cn("group focus-visible:outline-none", className)}
+      className={cn("group/trigger focus-visible:outline-none", className)}
       {...props}
     >
       {children}
@@ -52,7 +52,22 @@ const AccordionContent = React.forwardRef<
 ));
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-const DisclosureContent = AccordionPrimitive.Content;
+const DisclosureContent = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
+>(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Content
+    ref={ref}
+    className={cn(
+      "overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+      className
+    )}
+    {...props}
+  >
+    {children}
+  </AccordionPrimitive.Content>
+));
+DisclosureContent.displayName = AccordionPrimitive.Content.displayName;
 
 export {
   Accordion,

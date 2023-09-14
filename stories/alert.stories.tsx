@@ -4,7 +4,9 @@ import Image from "next/image";
 
 import {
   Alert,
+  AlertContent,
   AlertDescription,
+  AlertIcon,
   AlertTitle,
   Button,
   CircularProgress,
@@ -46,25 +48,29 @@ export const Success: Story = {
   },
   render: (args) => (
     <Alert {...args}>
+      <AlertIcon>
+        <AlertTriangle className="h-5 w-5" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle>Successfully updated profile</AlertTitle>
+        <AlertDescription>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+          pariatur, ipsum similique veniam.
+        </AlertDescription>
+        <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
+          <Link className="hover:underline focus-visible:outline-none" href="/">
+            Learn more
+          </Link>
+          <Link
+            className="flex items-center gap-x-2 text-success-600 hover:underline focus-visible:outline-none "
+            href="/"
+          >
+            View changes
+            <ArrowRight2 />
+          </Link>
+        </div>
+      </AlertContent>
       <CloseButton />
-      <AlertTriangle className="h-5 w-5" />
-      <AlertTitle>Successfully updated profile</AlertTitle>
-      <AlertDescription>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-        pariatur, ipsum similique veniam.
-      </AlertDescription>
-      <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="hover:underline focus-visible:outline-none" href="/">
-          Learn more
-        </Link>
-        <Link
-          className="flex items-center gap-x-2 text-success-600 hover:underline focus-visible:outline-none "
-          href="/"
-        >
-          View changes
-          <ArrowRight2 />
-        </Link>
-      </div>
     </Alert>
   ),
 };
@@ -75,25 +81,29 @@ export const Primary: Story = {
   },
   render: (args) => (
     <Alert {...args}>
+      <AlertIcon>
+        <AlertTriangle className="h-5 w-5" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle>Successfully updated profile</AlertTitle>
+        <AlertDescription>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+          pariatur, ipsum similique veniam.
+        </AlertDescription>
+        <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
+          <Link className="hover:underline focus-visible:outline-none" href="/">
+            Learn more
+          </Link>
+          <Link
+            className="flex items-center gap-x-2 text-primary-600 hover:underline focus-visible:outline-none"
+            href="/"
+          >
+            View changes
+            <ArrowRight2 />
+          </Link>
+        </div>
+      </AlertContent>
       <CloseButton />
-      <AlertTriangle className="h-5 w-5" />
-      <AlertTitle>Successfully updated profile</AlertTitle>
-      <AlertDescription>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-        pariatur, ipsum similique veniam.
-      </AlertDescription>
-      <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="hover:underline focus-visible:outline-none" href="/">
-          Learn more
-        </Link>
-        <Link
-          className="flex items-center gap-x-2 text-primary-600 hover:underline focus-visible:outline-none"
-          href="/"
-        >
-          View changes
-          <ArrowRight2 />
-        </Link>
-      </div>
     </Alert>
   ),
 };
@@ -101,26 +111,30 @@ export const Primary: Story = {
 export const Default: Story = {
   render: (args) => (
     <Alert {...args}>
-      <CloseButton />
-      <AlertCircle className="h-5 w-5" />
-      <AlertTitle>We’ve just released a new feature</AlertTitle>
-      <AlertDescription>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-        pariatur, ipsum similique veniam.
-      </AlertDescription>
+      <AlertIcon>
+        <AlertCircle className="h-5 w-5" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle>We’ve just released a new feature</AlertTitle>
+        <AlertDescription>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+          pariatur, ipsum similique veniam.
+        </AlertDescription>
 
-      <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="hover:underline focus-visible:outline-none" href="/">
-          Learn more
-        </Link>
-        <Link
-          className="flex items-center gap-x-2 text-gray-600 hover:underline focus-visible:outline-none"
-          href="/"
-        >
-          View changes
-          <ArrowRight2 />
-        </Link>
-      </div>
+        <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
+          <Link className="hover:underline focus-visible:outline-none" href="/">
+            Learn more
+          </Link>
+          <Link
+            className="flex items-center gap-x-2 text-gray-600 hover:underline focus-visible:outline-none"
+            href="/"
+          >
+            View changes
+            <ArrowRight2 />
+          </Link>
+        </div>
+      </AlertContent>
+      <CloseButton />
     </Alert>
   ),
 };
@@ -131,26 +145,29 @@ export const Error: Story = {
   },
   render: (args) => (
     <Alert {...args}>
+      <AlertIcon>
+        <AlertCircle className="h-5 w-5" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle>We’ve just released a new feature</AlertTitle>
+        <AlertDescription>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+          pariatur, ipsum similique veniam.
+        </AlertDescription>
+        <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
+          <Link className="hover:underline focus-visible:outline-none" href="/">
+            Learn more
+          </Link>
+          <Link
+            className="flex items-center gap-x-2 text-error-600 hover:underline focus-visible:outline-none"
+            href="/"
+          >
+            View changes
+            <ArrowRight2 />
+          </Link>
+        </div>
+      </AlertContent>
       <CloseButton />
-      <AlertCircle className="h-5 w-5" />
-      <AlertTitle>We’ve just released a new feature</AlertTitle>
-      <AlertDescription>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-        pariatur, ipsum similique veniam.
-      </AlertDescription>
-
-      <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="hover:underline focus-visible:outline-none" href="/">
-          Learn more
-        </Link>
-        <Link
-          className="flex items-center gap-x-2 text-error-600 hover:underline focus-visible:outline-none"
-          href="/"
-        >
-          View changes
-          <ArrowRight2 />
-        </Link>
-      </div>
     </Alert>
   ),
 };
@@ -161,26 +178,29 @@ export const Warning: Story = {
   },
   render: (args) => (
     <Alert {...args}>
+      <AlertIcon>
+        <AlertTriangle className="h-5 w-5" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle>Just to let you know this might be a problem</AlertTitle>
+        <AlertDescription>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+          pariatur, ipsum similique veniam.
+        </AlertDescription>
+        <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
+          <Link className="hover:underline focus-visible:outline-none" href="/">
+            Learn more
+          </Link>
+          <Link
+            className="flex items-center gap-x-2 text-warning-600 hover:underline focus-visible:outline-none"
+            href="/"
+          >
+            View changes
+            <ArrowRight2 />
+          </Link>
+        </div>
+      </AlertContent>
       <CloseButton />
-      <AlertTriangle className="h-5 w-5" />
-      <AlertTitle>Just to let you know this might be a problem</AlertTitle>
-      <AlertDescription>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-        pariatur, ipsum similique veniam.
-      </AlertDescription>
-
-      <div className="mt-3 flex items-center gap-x-3 text-sm font-semibold">
-        <Link className="hover:underline focus-visible:outline-none" href="/">
-          Learn more
-        </Link>
-        <Link
-          className="flex items-center gap-x-2 text-warning-600 hover:underline focus-visible:outline-none"
-          href="/"
-        >
-          View changes
-          <ArrowRight2 />
-        </Link>
-      </div>
     </Alert>
   ),
 };
@@ -191,10 +211,14 @@ export const SuccessAction: Story = {
   },
   render: (args) => (
     <Alert {...args}>
-      <CheckCircle className="h-5 w-5 flex-none" />
-      <AlertTitle className="text-success-600">
-        We’ve just released a new feature
-      </AlertTitle>
+      <AlertIcon>
+        <CheckCircle className="h-5 w-5 flex-none" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle className="text-success-600">
+          We’ve just released a new feature
+        </AlertTitle>
+      </AlertContent>
     </Alert>
   ),
 };
@@ -205,10 +229,14 @@ export const ErrorAction: Story = {
   },
   render: (args) => (
     <Alert {...args}>
-      <CheckCircle className="h-5 w-5 flex-none" />
-      <AlertTitle className="text-error-600">
-        We’ve just released a new feature
-      </AlertTitle>
+      <AlertIcon>
+        <CheckCircle className="h-5 w-5 flex-none" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle className="text-error-600">
+          We’ve just released a new feature
+        </AlertTitle>
+      </AlertContent>
     </Alert>
   ),
 };
@@ -219,10 +247,14 @@ export const PrimaryAction: Story = {
   },
   render: (args) => (
     <Alert {...args}>
-      <CheckCircle className="h-5 w-5 flex-none" />
-      <AlertTitle className="text-primary-600">
-        We’ve just released a new feature
-      </AlertTitle>
+      <AlertIcon>
+        <CheckCircle className="h-5 w-5 flex-none" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle className="text-primary-600">
+          We’ve just released a new feature
+        </AlertTitle>
+      </AlertContent>
     </Alert>
   ),
 };
@@ -233,10 +265,14 @@ export const WarningAction: Story = {
   },
   render: (args) => (
     <Alert {...args}>
-      <CheckCircle className="h-5 w-5 flex-none" />
-      <AlertTitle className="text-warning-600">
-        We’ve just released a new feature
-      </AlertTitle>
+      <AlertIcon>
+        <CheckCircle className="h-5 w-5 flex-none" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle className="text-warning-600">
+          We’ve just released a new feature
+        </AlertTitle>
+      </AlertContent>
     </Alert>
   ),
 };
@@ -244,10 +280,14 @@ export const WarningAction: Story = {
 export const DefaultAction: Story = {
   render: (args) => (
     <Alert {...args}>
-      <CheckCircle className="h-5 w-5 flex-none" />
-      <AlertTitle className="text-gray-600">
-        We’ve just released a new feature
-      </AlertTitle>
+      <AlertIcon>
+        <CheckCircle className="h-5 w-5 flex-none" />
+      </AlertIcon>
+      <AlertContent>
+        <AlertTitle className="text-gray-600">
+          We’ve just released a new feature
+        </AlertTitle>
+      </AlertContent>
     </Alert>
   ),
 };

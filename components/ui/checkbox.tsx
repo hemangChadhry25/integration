@@ -29,7 +29,7 @@ const checkboxVariants = cva(
 );
 
 const checkIconVariants = cva(
-  "hidden stroke-[2.5px] group-data-[state=checked]:inline-flex",
+  "hidden stroke-[2.5px] shrink-0 group-data-[state=checked]:block",
   {
     variants: {
       size: {
@@ -45,7 +45,7 @@ const checkIconVariants = cva(
 );
 
 const minusIconVariants = cva(
-  "hidden stroke-[2.5px] group-data-[state=indeterminate]:inline-flex",
+  "hidden stroke-[2.5px] shrink-0 group-data-[state=indeterminate]:block",
   {
     variants: {
       size: {

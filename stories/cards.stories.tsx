@@ -1361,7 +1361,7 @@ export const AccordionPassed = () => {
           </Avatar>
 
           <AccordionTrigger>
-            <ChevronDown className="h-5 w-5 text-gray-500 transition-transform group-data-[state=closed]:rotate-0 group-data-[state=open]:rotate-180" />
+            <ChevronDown className="h-5 w-5 text-gray-500 transition-transform group-data-[state=closed]/trigger:rotate-0 group-data-[state=open]/trigger:rotate-180" />
           </AccordionTrigger>
         </div>
         <AccordionContent>
@@ -1428,10 +1428,10 @@ export const AccordionPassed = () => {
 
             <div className="mt-3">
               <Accordion type="single" collapsible>
-                <AccordionItem value="1" className="group/item">
+                <AccordionItem value="1">
                   <AccordionTrigger className="flex items-center gap-x-2 text-sm font-semibold text-success-700">
                     View Data
-                    <ChevronDown className="transition-transform group-data-[state=closed]/item:rotate-0 group-data-[state=open]/item:rotate-180" />
+                    <ChevronDown className="transition-transform group-data-[state=closed]/trigger:rotate-0 group-data-[state=open]/trigger:rotate-180" />
                   </AccordionTrigger>
                   <DisclosureContent />
                 </AccordionItem>
@@ -1497,7 +1497,7 @@ export const AccordionError = () => {
           </Avatar>
 
           <AccordionTrigger>
-            <ChevronDown className="h-5 w-5 text-gray-500 transition-transform group-data-[state=closed]:rotate-0 group-data-[state=open]:rotate-180" />
+            <ChevronDown className="h-5 w-5 text-gray-500 transition-transform group-data-[state=closed]/trigger:rotate-0 group-data-[state=open]/trigger:rotate-180" />
           </AccordionTrigger>
         </div>
         <AccordionContent>

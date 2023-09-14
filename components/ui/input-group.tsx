@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { cn, createContext, getValidChildren } from "@/lib/utils";
+import { cn, createContext, getValidChildren, toPxIfNumber } from "@/lib/utils";
 
 const [InputGroupProvider, useInputGroupContext] = createContext<{
   [key: string]: string;
@@ -13,7 +13,7 @@ const [InputGroupProvider, useInputGroupContext] = createContext<{
 
 const InputGroup = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { fieldHeight?: string }
+  React.HTMLAttributes<HTMLDivElement> & { fieldHeight?: string | number }
 >(({ children, className, fieldHeight = "2.75rem", ...props }, ref) => {
   const validChildren = getValidChildren(children);
   let fieldStyles: { [key: string]: string } = {};
@@ -23,13 +23,13 @@ const InputGroup = React.forwardRef<
     if (id === "InputLeftElement") {
       fieldStyles = {
         ...fieldStyles,
-        "--pl": fieldHeight,
+        "--pl": toPxIfNumber(fieldHeight),
       };
     }
     if (id === "InputRightElement") {
       fieldStyles = {
         ...fieldStyles,
-        "--pr": fieldHeight,
+        "--pr": toPxIfNumber(fieldHeight),
       };
     }
     if (id === "InputLeftAddon") {
@@ -53,7 +53,7 @@ const InputGroup = React.forwardRef<
   });
 
   return (
-    <InputGroupProvider value={{ fieldHeight }}>
+    <InputGroupProvider value={{ fieldHeight: toPxIfNumber(fieldHeight) }}>
       <div
         className={cn("relative flex items-center", className)}
         ref={ref}

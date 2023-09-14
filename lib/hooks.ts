@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useCallback, useEffect, useRef } from "react";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useLayoutEffect } from "react";
 
 export function useDebounce<TValue>(value: TValue, delay?: number) {
   const [state, setState] = React.useState(value);
@@ -75,4 +75,42 @@ export function useControllableState<T>(props: UseControllableStateProps<T>) {
   );
 
   return [value, setValue] as [T, React.Dispatch<React.SetStateAction<T>>];
+}
+
+export const useToggle = (defaultValue = false) => {
+  const [state, setState] = useState(defaultValue);
+
+  const off = useCallback(() => setState(false), []);
+  const on = useCallback(() => setState(true), []);
+  const toggle = useCallback(() => setState((prevState) => !prevState), []);
+
+  return [state, { on, off, toggle }] as const;
+};
+
+export const useIsomorphicLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+export function useUpdateEffect(
+  callback: React.EffectCallback,
+  deps: React.DependencyList
+) {
+  const renderCycleRef = useRef(false);
+  const effectCycleRef = useRef(false);
+
+  useEffect(() => {
+    const mounted = renderCycleRef.current;
+    const run = mounted && effectCycleRef.current;
+    if (run) {
+      return callback();
+    }
+    effectCycleRef.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+
+  useEffect(() => {
+    renderCycleRef.current = true;
+    return () => {
+      renderCycleRef.current = false;
+    };
+  }, []);
 }

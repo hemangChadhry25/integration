@@ -69,7 +69,7 @@ export default meta;
 export const Main = () => {
   return (
     <nav className="flex h-screen w-[70px] flex-col items-center border-r border-gray-200 bg-white">
-      <div className="flex justify-center self-stretch border-b border-gray-200 py-[22px]">
+      <div className="flex h-[70px] flex-none items-center justify-center self-stretch border-b border-gray-200">
         <Link
           className="text-primary-500 focus:outline-none"
           aria-label="Logo"
@@ -78,7 +78,7 @@ export const Main = () => {
           <Logo />
         </Link>
       </div>
-      <div className="flex flex-auto flex-col items-center justify-between self-stretch">
+      <div className="flex flex-auto flex-col items-center justify-between gap-y-5 self-stretch">
         <div className="flex flex-col gap-y-5 pt-5">
           <TooltipProvider>
             <Tooltip>
@@ -661,7 +661,7 @@ export const WelcomeNav = () => {
         );
 
   return (
-    <nav className="flex h-[66px] items-center justify-between border-b border-gray-200 pl-[26px] pr-[15px]">
+    <nav className="flex h-[66px] items-center justify-between border-b border-gray-200 bg-white pl-[26px] pr-[15px]">
       <span className="text-sm font-semibold leading-4 text-gray-black">
         Welcome to Blend Metrics!
       </span>
@@ -709,7 +709,7 @@ export const RecentWorkflows = () => {
       <div className="flex items-center gap-x-5">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="p-2.5 text-gray-500 hover:text-gray-black"
                 variant="outlined"
@@ -756,7 +756,7 @@ export const TestWorkflow = () => {
       <div className="flex items-center gap-x-5">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="p-2.5 text-gray-500 hover:text-gray-black"
                 variant="outlined"
@@ -786,7 +786,7 @@ export const TestWorkflow = () => {
 
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="p-2.5 text-gray-500 hover:text-gray-black"
                 variant="outlined"
@@ -803,7 +803,7 @@ export const TestWorkflow = () => {
 
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button className="px-2.5" visual="gray" variant="ghost">
                 <X2 className="h-4 w-4" />
               </Button>
@@ -818,11 +818,11 @@ export const TestWorkflow = () => {
 
 export const AvatarGroupNav = () => {
   return (
-    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 px-[17px]">
+    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
       <div className="flex items-center gap-x-5">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="p-2.5 text-gray-500 hover:text-gray-black"
                 variant="outlined"
@@ -879,7 +879,7 @@ export const AvatarGroupNav = () => {
         <div className="flex items-center gap-x-3">
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button
                   className="p-2.5 text-gray-500 hover:text-gray-black"
                   variant="outlined"
@@ -941,11 +941,11 @@ export const AddCustomRole = () => {
 
 export const ChangeRoleNav = () => {
   return (
-    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 px-[17px]">
+    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
       <div className="flex items-center gap-x-5">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="p-2.5 text-gray-500 hover:text-gray-black"
                 variant="outlined"
@@ -974,7 +974,7 @@ export const ChangeRoleNav = () => {
       <div className="flex items-center gap-x-3">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="p-2.5 text-gray-500 hover:text-gray-black"
                 variant="outlined"
@@ -998,11 +998,11 @@ export const ChangeRoleNav = () => {
 
 export const MyIntegrationNav = () => {
   return (
-    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 px-[17px]">
+    <nav className="flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
       <div className="flex items-center gap-x-5">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="p-2.5 text-gray-500 hover:text-gray-black"
                 variant="outlined"
@@ -1059,7 +1059,7 @@ export const NewWorkflow = () => {
       <div className="flex items-center gap-x-5">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="p-2.5 text-gray-500 hover:text-gray-black"
                 variant="outlined"
