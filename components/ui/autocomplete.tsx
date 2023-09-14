@@ -48,7 +48,7 @@ const AutocompleteTrigger = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div className={cn("relative", className)} ref={ref} {...props} />
+  <div className={cn("relative z-10", className)} ref={ref} {...props} />
 ));
 
 AutocompleteTrigger.displayName = "AutocompleteTrigger";
@@ -57,14 +57,17 @@ const AutocompleteInput = React.forwardRef<
   React.ComponentRef<typeof AutocompletePrimitives.Input>,
   React.ComponentProps<typeof AutocompletePrimitives.Input>
 >(({ className, ...props }, ref) => (
-  <AutocompletePrimitives.Input
-    className={cn(
-      "h-11 w-full rounded-[5px] border-gray-300 bg-white px-3 py-2.5 text-sm leading-6 text-gray-black shadow-xs ui-open:rounded-b-none ui-open:rounded-t-lg ui-open:border-0 ui-open:border-b ui-open:pl-[42px] ui-open:shadow-[0px_4px_25px_0px_rgba(0,0,0,0.10)] ui-not-open:pr-[42px] focus:border-gray-300 focus:ring-0",
-      className
-    )}
-    ref={ref}
-    {...props}
-  />
+  <>
+    <AutocompletePrimitives.Input
+      className={cn(
+        "peer h-11 w-full rounded-[5px] border-gray-300 bg-white px-3 py-2.5 text-sm leading-6 text-gray-black shadow-xs ui-open:rounded-b-none ui-open:rounded-t-lg ui-open:border-0 ui-open:border-b ui-open:pl-[42px] ui-open:shadow-[0px_0px_25px_0px_rgba(0,0,0,0.10)] ui-not-open:pr-[42px] ui-open:hover:border-primary-200 focus:border-gray-300 focus:ring-0 ui-open:focus:border-primary-500",
+        className
+      )}
+      ref={ref}
+      {...props}
+    />
+    <span className="absolute inset-x-0 -bottom-0.5 hidden h-0.5 w-full bg-primary-100 peer-hover:peer-data-ui-open:block peer-focus:peer-data-ui-open:block" />
+  </>
 ));
 
 AutocompleteInput.displayName = "AutocompleteInput";
@@ -91,7 +94,7 @@ const AutocompleteOptions = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AutocompletePrimitives.Options
     className={cn(
-      "absolute top-full h-[320px] w-full overflow-y-auto rounded-b-lg bg-white shadow-xs scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-[13px] ui-open:shadow-[0px_4px_25px_0px_rgba(0,0,0,0.10)]",
+      "absolute top-full h-[320px] w-full overflow-y-auto rounded-b-lg bg-white shadow-xs scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-[13px] ui-open:shadow-[0px_8px_25px_0px_rgba(0,0,0,0.10)]",
       className
     )}
     ref={ref}
