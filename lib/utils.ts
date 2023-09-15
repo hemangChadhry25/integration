@@ -178,6 +178,10 @@ export function isNumber(arg: any): arg is number {
   return typeof arg === "number";
 }
 
+export function isFn(arg: any): arg is (...args: any[]) => any {
+  return typeof arg === "function";
+}
+
 export function toPxIfNumber(arg: string | number) {
   if (isNumber(arg)) {
     return `${arg}px`;

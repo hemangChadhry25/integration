@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as LabelPrimitive from "@radix-ui/react-label";
 import { Combobox as AutocompletePrimitives } from "@headlessui/react";
 
 import { cn } from "@/lib/utils";
@@ -111,15 +110,18 @@ const AutocompleteOption = React.forwardRef<
   }
 >(({ className, children, ...props }, ref) => (
   <AutocompletePrimitives.Option
-    className={cn("h-10 px-3.5 py-2", className)}
+    className={cn(
+      "flex h-10 cursor-pointer items-center gap-x-3 px-3.5 py-2 text-sm text-gray-500",
+      className
+    )}
     ref={ref}
     {...props}
   >
     {({ selected }) => (
-      <LabelPrimitive.Root className="flex items-center gap-x-3 text-sm text-gray-500">
+      <>
         <Checkbox checked={selected} />
         {children}
-      </LabelPrimitive.Root>
+      </>
     )}
   </AutocompletePrimitives.Option>
 ));

@@ -142,7 +142,7 @@ export const Dropzone = ({
                     hasError && "text-error-500"
                   )}
                 >
-                  {hasError ? name : "Upload failed, please try again"}
+                  {hasError ? "Upload failed, please try again" : name}
                 </span>
                 <span
                   className={cn(
@@ -150,7 +150,7 @@ export const Dropzone = ({
                     hasError && "text-error-500"
                   )}
                 >
-                  {hasError ? size : name}
+                  {hasError ? name : size}
                 </span>
               </div>
             </div>
