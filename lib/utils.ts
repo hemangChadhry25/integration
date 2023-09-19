@@ -189,3 +189,28 @@ export function toPxIfNumber(arg: string | number) {
 
   return arg;
 }
+
+export function chunk<T extends unknown[]>(arr: T, size: number): T[] {
+  const recursion = (arr: T, size: number, result = [] as T[]): T[] => {
+    if (size >= arr.length) {
+      return [...result, [...arr]] as T[];
+    }
+
+    const remainArr = arr.slice(size);
+    const sliced = arr.slice(0, size);
+
+    return recursion(remainArr as T, size, [...result, sliced] as T[]);
+  };
+  return recursion(arr, size);
+}
+
+export function add(...nums: number[]): number {
+  function recursion(nums: number[], left = 0, result = 0): number {
+    if (nums.length === left) {
+      return result;
+    }
+    const newResult = result + nums[left];
+    return recursion(nums, left + 1, newResult);
+  }
+  return recursion(nums);
+}
