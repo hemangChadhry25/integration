@@ -166,7 +166,7 @@ export function isUndefined(arg: any): arg is undefined {
   return typeof arg === "undefined";
 }
 
-export function isNotUndefined(arg: any): arg is undefined {
+export function isNotUndefined(arg: any) {
   return typeof arg !== "undefined";
 }
 
@@ -190,7 +190,7 @@ export function toPxIfNumber(arg: string | number) {
   return arg;
 }
 
-export function chunk<T extends unknown[]>(arr: T, size: number): T[] {
+export function chunk<T extends unknown[]>(arr: T, size = 2): T[] {
   const recursion = (arr: T, size: number, result = [] as T[]): T[] => {
     if (size >= arr.length) {
       return [...result, [...arr]] as T[];
@@ -201,6 +201,11 @@ export function chunk<T extends unknown[]>(arr: T, size: number): T[] {
 
     return recursion(remainArr as T, size, [...result, sliced] as T[]);
   };
+
+  if (isEmpty(arr)) {
+    return [] as T[];
+  }
+
   return recursion(arr, size);
 }
 
@@ -213,4 +218,12 @@ export function add(...nums: number[]): number {
     return recursion(nums, left + 1, newResult);
   }
   return recursion(nums);
+}
+
+export function isEmpty<T extends unknown[]>(arr: T): boolean {
+  return arr.length === 0;
+}
+
+export function isNotEmpty<T extends unknown[]>(arr: T): boolean {
+  return arr.length > 0;
 }

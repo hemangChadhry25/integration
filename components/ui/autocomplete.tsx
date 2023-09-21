@@ -1,23 +1,15 @@
 import * as React from "react";
 import { Combobox as AutocompletePrimitives } from "@headlessui/react";
+import { CheckIcon } from "lucide-react";
+import { VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 import { labelVariants } from "./label";
-import { Checkbox } from "./checkbox";
 
 const AutocompleteRoot = React.forwardRef<
   React.ComponentRef<typeof AutocompletePrimitives>,
-  React.ComponentPropsWithoutRef<typeof AutocompletePrimitives> & {
-    multiple?: boolean;
-  }
->(({ className, as = "div", ...props }, ref) => (
-  <AutocompletePrimitives
-    className={cn("group", className)}
-    ref={ref}
-    as={as}
-    {...props}
-  />
-));
+  React.ComponentPropsWithoutRef<typeof AutocompletePrimitives>
+>(({ ...props }, ref) => <AutocompletePrimitives ref={ref} {...props} />);
 
 AutocompleteRoot.displayName = "AutocompleteRoot";
 
@@ -32,10 +24,11 @@ Autocomplete.displayName = "Autocomplete";
 
 const AutocompleteLabel = React.forwardRef<
   React.ComponentRef<typeof AutocompletePrimitives.Label>,
-  React.ComponentProps<typeof AutocompletePrimitives.Label>
->(({ className, ...props }, ref) => (
+  React.ComponentProps<typeof AutocompletePrimitives.Label> &
+    VariantProps<typeof labelVariants>
+>(({ className, size, ...props }, ref) => (
   <AutocompletePrimitives.Label
-    className={cn(labelVariants({ className }))}
+    className={cn(labelVariants({ className, size }))}
     ref={ref}
     {...props}
   />
@@ -56,17 +49,14 @@ const AutocompleteInput = React.forwardRef<
   React.ComponentRef<typeof AutocompletePrimitives.Input>,
   React.ComponentProps<typeof AutocompletePrimitives.Input>
 >(({ className, ...props }, ref) => (
-  <>
-    <AutocompletePrimitives.Input
-      className={cn(
-        "peer h-11 w-full rounded-[5px] border-gray-300 bg-white px-3 py-2.5 text-sm leading-6 text-gray-black shadow-xs ui-open:rounded-b-none ui-open:rounded-t-lg ui-open:border-0 ui-open:border-b ui-open:pl-[42px] ui-open:shadow-[0px_0px_25px_0px_rgba(0,0,0,0.10)] ui-not-open:pr-[42px] ui-open:hover:border-primary-200 focus:border-gray-300 focus:ring-0 ui-open:focus:border-primary-500",
-        className
-      )}
-      ref={ref}
-      {...props}
-    />
-    <span className="absolute inset-x-0 -bottom-1 hidden h-1 w-full bg-primary-50 peer-hover:peer-data-ui-open:block peer-focus:peer-data-ui-open:block" />
-  </>
+  <AutocompletePrimitives.Input
+    className={cn(
+      "h-11 w-full rounded-[5px] border-gray-300 bg-white px-3 py-2.5 text-sm leading-6 text-gray-black shadow-xs ui-open:rounded-b-none ui-open:rounded-t-lg ui-open:border-0 ui-open:pl-[42px] ui-open:shadow-[0px_-14px_25px_0px_rgba(0,0,0,0.10)] ui-open:ring-0 ui-not-open:pr-[42px]",
+      className
+    )}
+    ref={ref}
+    {...props}
+  />
 ));
 
 AutocompleteInput.displayName = "AutocompleteInput";
@@ -77,7 +67,7 @@ const AutocompleteButton = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AutocompletePrimitives.Button
     className={cn(
-      "absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 group-data-ui-open:left-3.5 group-data-ui-open:right-auto group-data-ui-open:text-gray-400",
+      "absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 ui-open:left-3.5 ui-open:right-auto ui-open:text-gray-400",
       className
     )}
     ref={ref}
@@ -93,7 +83,7 @@ const AutocompleteOptions = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AutocompletePrimitives.Options
     className={cn(
-      "absolute top-full h-[320px] w-full overflow-y-auto rounded-b-lg bg-white shadow-xs scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-[13px] ui-open:shadow-[0px_8px_25px_0px_rgba(0,0,0,0.10)]",
+      "absolute top-full z-10 h-[320px] w-full overflow-y-auto rounded-b-lg bg-white shadow-xs scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-[13px] ui-open:shadow-[0px_22px_25px_0px_rgba(0,0,0,0.10)]",
       className
     )}
     ref={ref}
@@ -117,9 +107,23 @@ const AutocompleteOption = React.forwardRef<
     ref={ref}
     {...props}
   >
-    {({ selected }) => (
+    {({ selected, active }) => (
       <>
-        <Checkbox checked={selected} />
+        <div
+          className={cn(
+            "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-[5px] border-[1.5px] border-gray-300 bg-white",
+            {
+              "border-primary-400 ring-4 ring-primary-50": active,
+              "border-primary-500 bg-primary-500": selected,
+            }
+          )}
+        >
+          <CheckIcon
+            className={cn("hidden h-3 w-3 shrink-0 stroke-[2.5px] text-white", {
+              block: selected,
+            })}
+          />
+        </div>
         {children}
       </>
     )}

@@ -6,3 +6,18 @@ export const ACCEPTED_FILE_TYPES = {
 };
 
 export const EVENTS_PAGE_PATHNAME = "/integration/metrics/triggers/events";
+
+export const METRICS_OPTIONS = [
+  "Name",
+  "Resource Type",
+  "Description",
+  "Tag Type",
+  "ID",
+  "Tag Category",
+  "Creation Date",
+  "Country",
+];
+
+export const EXIT_ANIMATION = {
+  opacity: 0,
+};

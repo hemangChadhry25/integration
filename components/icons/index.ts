@@ -90,3 +90,4 @@ export * from "./arrow-down-a-z";
 export * from "./grip-vertical";
 export * from "./chevron-left";
 export * from "./two-branch";
+export * from "./grip-vertical-2";

@@ -1,9 +1,17 @@
 import * as React from "react";
 import { Reorder, useDragControls, DragControls } from "framer-motion";
 
-import { isFn } from "@/lib/utils";
+import { cn, isFn } from "@/lib/utils";
+import { EXIT_ANIMATION } from "@/lib/constants";
 
-const ReorderGroup = Reorder.Group;
+const ReorderGroup = React.forwardRef<
+  React.ComponentRef<typeof Reorder.Group>,
+  React.ComponentPropsWithoutRef<typeof Reorder.Group>
+>(({ ...props }, ref) => (
+  <Reorder.Group exit={EXIT_ANIMATION} {...props} ref={ref} />
+));
+
+ReorderGroup.displayName = "ReorderGroup";
 
 const ReorderItem = React.forwardRef<
   React.ComponentRef<typeof Reorder.Item>,
@@ -20,6 +28,7 @@ const ReorderItem = React.forwardRef<
     <Reorder.Item
       dragListener={shouldUseRenderProps ? false : undefined}
       dragControls={shouldUseRenderProps ? dragControls : undefined}
+      exit={EXIT_ANIMATION}
       {...props}
       ref={ref}
     >

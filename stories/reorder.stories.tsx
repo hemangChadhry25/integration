@@ -1,12 +1,11 @@
 import * as React from "react";
-import { Fragment } from "react";
 import { Meta } from "@storybook/react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { Badge, ReorderGroup, ReorderItem } from "@/components/ui";
-import { GripVertical, X } from "@/components/icons";
-import { add, chunk } from "@/lib/utils";
-import { useToggle } from "@/lib/hooks";
+import { GridVertical2, GripVertical, X } from "@/components/icons";
+import { chunk, isEmpty, isNotEmpty } from "@/lib/utils";
+import { EXIT_ANIMATION } from "@/lib/constants";
 
 const meta: Meta = {
   title: "Reorder",
@@ -21,94 +20,86 @@ const meta: Meta = {
 export default meta;
 
 export const Default = () => {
-  const [itemsArr, setItemsArr] = React.useState(() =>
-    chunk(["🍅 Tomato", "🥒 Cucumber", "🧀 Cheese", "🥬 Lettuce"], 2)
-  );
-  const [show, { on, off }] = useToggle();
+  const [state, setState] = React.useState([
+    "🍅 Tomato",
+    "🥒 Cucumber",
+    "🧀 Cheese",
+    "🥬 Lettuce",
+  ]);
+  const itemsArr = chunk(state);
+  const showClearAll = isNotEmpty(itemsArr);
 
-  React.useEffect(() => {
-    const isNotEmpty = itemsArr.length > 0;
-
-    if (isNotEmpty) {
-      on();
-    } else {
-      off();
-    }
-  }, [itemsArr, on, off]);
-
-  const setItems = (newOrder: any[], index: number) => {
-    const clone = [...itemsArr];
-    clone[index] = newOrder;
-    setItemsArr(clone);
+  const setItems = (newOrder: string[], index: number) => {
+    const newItemsArr = itemsArr.map((chunk, i) =>
+      i === index ? newOrder : chunk
+    );
+    setState(newItemsArr.flat(1));
   };
 
   const removeItem = (index: number, removalIndex: number) => {
-    let clone = [...itemsArr];
+    const items = itemsArr[index];
+    const filteredItems = items.filter((item, i) => i !== removalIndex);
 
-    const items = clone[index];
-    const filteredItems = items.filter((item, index) => index !== removalIndex);
-    const isEmpty = filteredItems.length === 0;
-
-    if (isEmpty) {
-      clone = clone.filter((value, i) => i !== index);
+    if (isEmpty(filteredItems)) {
+      const filteredItemsArr = itemsArr.filter((chunk, i) => i !== index);
+      setState(filteredItemsArr.flat(1));
     } else {
-      clone[index] = filteredItems;
+      const newChunkMetrics = itemsArr.map((chunk, i) =>
+        i === index ? filteredItems : chunk
+      );
+      setState(newChunkMetrics.flat(1));
     }
-
-    setItemsArr(clone);
   };
 
-  const clearAll = () => {
-    setItemsArr([]);
-  };
+  const clearAll = () => setState([]);
 
   return (
-    <div className="flex w-full flex-col space-y-[5px]">
+    <div className="space-y-3">
       <AnimatePresence>
         {itemsArr.map((items, index) => (
-          <ReorderGroup
-            className="flex w-full max-w-[320px] flex-grow items-center gap-x-1.5 gap-y-3"
-            onReorder={(newOrder) => setItems(newOrder, index)}
-            values={items}
-            key={index}
-            exit={{ opacity: 0 }}
-          >
+          <div className="flex items-center" key={index}>
             <motion.span
-              className="text-sm text-gray-500"
-              exit={{ opacity: 0 }}
+              className="mr-1.5 select-none text-sm text-gray-500"
+              exit={EXIT_ANIMATION}
             >
-              {add(index, 1)}
+              {index + 1}
             </motion.span>
 
-            {items.map((item, i) => (
-              <Fragment key={item}>
-                <ReorderItem layout drag value={item} exit={{ opacity: 0 }}>
-                  {({ dragControls }) => (
-                    <Badge className="select-none" visual="primary">
-                      <GripVertical
-                        className="cursor-pointer opacity-60"
-                        onPointerDown={(event) => dragControls.start(event)}
-                      />
-                      {item}
-                      <X
-                        className="cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100"
-                        onClick={() => removeItem(index, i)}
-                      />
-                    </Badge>
-                  )}
-                </ReorderItem>
-                <motion.span
-                  className="inline-block h-1 w-1 flex-none rounded-full bg-gray-400 last-of-type:hidden"
-                  exit={{ opacity: 0 }}
-                />
-              </Fragment>
-            ))}
-          </ReorderGroup>
+            <ReorderGroup
+              className="flex flex-wrap items-center gap-x-1.5"
+              onReorder={(newOrder) => setItems(newOrder, index)}
+              values={items}
+            >
+              {items.map((item, i) => (
+                <React.Fragment key={item}>
+                  <ReorderItem layout drag value={item}>
+                    {({ dragControls }) => (
+                      <Badge className="select-none" visual="primary">
+                        <GripVertical
+                          className="cursor-pointer opacity-60"
+                          onPointerDown={(event) => dragControls.start(event)}
+                        />
+                        {item}
+                        <X
+                          className="cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100"
+                          onClick={() => removeItem(index, i)}
+                        />
+                      </Badge>
+                    )}
+                  </ReorderItem>
+                  <motion.span
+                    className="inline-block h-1 w-1 flex-none rounded-full bg-gray-400 last-of-type:hidden"
+                    exit={EXIT_ANIMATION}
+                  />
+                </React.Fragment>
+              ))}
+            </ReorderGroup>
+          </div>
         ))}
-        {show && (
+        {showClearAll && (
           <motion.button
             className="mt-4 inline-flex text-sm font-semibold text-primary-500 focus-visible:outline-none"
-            exit={{ opacity: 0 }}
+            exit={EXIT_ANIMATION}
             onClick={clearAll}
           >
             Clear all
@@ -116,5 +107,111 @@ export const Default = () => {
         )}
       </AnimatePresence>
     </div>
+  );
+};
+
+export const TwoWays = () => {
+  const [state, setState] = React.useState([
+    "🍅 Tomato",
+    "🥒 Cucumber",
+    "🧀 Cheese",
+    "🥬 Lettuce",
+  ]);
+  const itemsArr = chunk(state);
+  const showClearAll = isNotEmpty(itemsArr);
+
+  const setItemsArr = (newOrder: string[][]) => {
+    setState(newOrder.flat(1));
+  };
+
+  const setItems = (newOrder: string[], index: number) => {
+    const newItemsArr = itemsArr.map((chunk, i) =>
+      i === index ? newOrder : chunk
+    );
+    setState(newItemsArr.flat(1));
+  };
+
+  const removeItem = (index: number, removalIndex: number) => {
+    const items = itemsArr[index];
+    const filteredItems = items.filter((item, i) => i !== removalIndex);
+
+    if (isEmpty(filteredItems)) {
+      const filteredItemsArr = itemsArr.filter((chunk, i) => i !== index);
+      setState(filteredItemsArr.flat(1));
+    } else {
+      const newChunkMetrics = itemsArr.map((chunk, i) =>
+        i === index ? filteredItems : chunk
+      );
+      setState(newChunkMetrics.flat(1));
+    }
+  };
+
+  const clearAll = () => setState([]);
+
+  return (
+    <ReorderGroup
+      values={itemsArr}
+      onReorder={setItemsArr}
+      className="space-y-3"
+    >
+      <AnimatePresence>
+        {itemsArr.map((items, index) => (
+          <ReorderItem className="flex items-center" value={items} key={index}>
+            <motion.span
+              className="flex-none select-none"
+              exit={EXIT_ANIMATION}
+            >
+              <GridVertical2 className="text-gray-500" />
+            </motion.span>
+
+            <motion.span
+              className="mr-1.5 select-none text-sm text-gray-500"
+              exit={EXIT_ANIMATION}
+            >
+              {index + 1}
+            </motion.span>
+
+            <ReorderGroup
+              className="flex flex-grow flex-wrap items-center gap-x-1.5 gap-y-3"
+              onReorder={(newOrder) => setItems(newOrder, index)}
+              values={items}
+            >
+              {items.map((item, i) => (
+                <React.Fragment key={item}>
+                  <ReorderItem layout drag value={item}>
+                    {({ dragControls }) => (
+                      <Badge className="select-none" visual="primary">
+                        <GripVertical
+                          className="cursor-pointer opacity-60"
+                          onPointerDown={(event) => dragControls.start(event)}
+                        />
+                        {item}
+                        <X
+                          className="cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100"
+                          onClick={() => removeItem(index, i)}
+                        />
+                      </Badge>
+                    )}
+                  </ReorderItem>
+                  <motion.span
+                    className="inline-block h-1 w-1 flex-none rounded-full bg-gray-400 last-of-type:hidden"
+                    exit={EXIT_ANIMATION}
+                  />
+                </React.Fragment>
+              ))}
+            </ReorderGroup>
+          </ReorderItem>
+        ))}
+        {showClearAll && (
+          <motion.button
+            className="mt-4 inline-flex text-sm font-semibold text-primary-500 focus-visible:outline-none"
+            exit={EXIT_ANIMATION}
+            onClick={clearAll}
+          >
+            Clear all
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </ReorderGroup>
   );
 };
