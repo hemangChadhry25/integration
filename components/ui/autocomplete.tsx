@@ -51,7 +51,7 @@ const AutocompleteInput = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AutocompletePrimitives.Input
     className={cn(
-      "h-11 w-full rounded-[5px] border-gray-300 bg-white px-3 py-2.5 text-sm leading-6 text-gray-black shadow-xs ui-open:rounded-b-none ui-open:rounded-t-lg ui-open:border-0 ui-open:pl-[42px] ui-open:shadow-[0px_-14px_25px_0px_rgba(0,0,0,0.10)] ui-open:ring-0 ui-not-open:pr-[42px]",
+      "h-11 w-full rounded-[5px] border-gray-300 bg-white px-3 py-2.5 text-base leading-6 text-gray-black shadow-xs ui-open:rounded-b-none ui-open:rounded-t-lg ui-open:border-0 ui-open:pl-[42px] ui-open:text-sm ui-open:shadow-[0px_-14px_25px_0px_rgba(0,0,0,0.10)] ui-open:ring-0 ui-not-open:pr-[42px]",
       className
     )}
     ref={ref}

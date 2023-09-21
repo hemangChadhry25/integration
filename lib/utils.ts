@@ -142,20 +142,15 @@ export function isArray(arg: any): arg is any[] {
   return Array.isArray(arg);
 }
 
-export function len(
-  arg:
-    | string
-    | number
-    | any[]
-    | { [key: string]: any }
-    | ((...args: any[]) => any)
+export function countCharacters(
+  arg: string | number | any[] | Record<any, any> | null | undefined
 ): number {
-  if (typeof arg === "number") {
-    return String(arg).length;
-  } else if (typeof arg === "string") {
+  if (isNull(arg) || isUndefined(arg)) {
+    return 0;
+  } else if (isNumber(arg)) {
+    return arg;
+  } else if (isString(arg)) {
     return arg.length;
-  } else if (typeof arg === "function") {
-    return 1;
   } else if (isArray(arg)) {
     return arg.length;
   }

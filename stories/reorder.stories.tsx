@@ -160,7 +160,7 @@ export const TwoWays = () => {
             {({ dragControls }) => (
               <>
                 <motion.span
-                  className="flex-none select-none"
+                  className="flex-none cursor-pointer select-none"
                   exit={EXIT_ANIMATION}
                   onPointerDown={(event) => dragControls.start(event)}
                 >
