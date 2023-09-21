@@ -157,49 +157,56 @@ export const TwoWays = () => {
       <AnimatePresence>
         {itemsArr.map((items, index) => (
           <ReorderItem className="flex items-center" value={items} key={index}>
-            <motion.span
-              className="flex-none select-none"
-              exit={EXIT_ANIMATION}
-            >
-              <GridVertical2 className="text-gray-500" />
-            </motion.span>
+            {({ dragControls }) => (
+              <>
+                <motion.span
+                  className="flex-none select-none"
+                  exit={EXIT_ANIMATION}
+                  onPointerDown={(event) => dragControls.start(event)}
+                >
+                  <GridVertical2 className="text-gray-500" />
+                </motion.span>
 
-            <motion.span
-              className="mr-1.5 select-none text-sm text-gray-500"
-              exit={EXIT_ANIMATION}
-            >
-              {index + 1}
-            </motion.span>
+                <motion.span
+                  className="mr-1.5 select-none text-sm text-gray-500"
+                  exit={EXIT_ANIMATION}
+                >
+                  {index + 1}
+                </motion.span>
 
-            <ReorderGroup
-              className="flex flex-grow flex-wrap items-center gap-x-1.5 gap-y-3"
-              onReorder={(newOrder) => setItems(newOrder, index)}
-              values={items}
-            >
-              {items.map((item, i) => (
-                <React.Fragment key={item}>
-                  <ReorderItem layout drag value={item}>
-                    {({ dragControls }) => (
-                      <Badge className="select-none" visual="primary">
-                        <GripVertical
-                          className="cursor-pointer opacity-60"
-                          onPointerDown={(event) => dragControls.start(event)}
-                        />
-                        {item}
-                        <X
-                          className="cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100"
-                          onClick={() => removeItem(index, i)}
-                        />
-                      </Badge>
-                    )}
-                  </ReorderItem>
-                  <motion.span
-                    className="inline-block h-1 w-1 flex-none rounded-full bg-gray-400 last-of-type:hidden"
-                    exit={EXIT_ANIMATION}
-                  />
-                </React.Fragment>
-              ))}
-            </ReorderGroup>
+                <ReorderGroup
+                  className="flex flex-grow flex-wrap items-center gap-x-1.5 gap-y-3"
+                  onReorder={(newOrder) => setItems(newOrder, index)}
+                  values={items}
+                >
+                  {items.map((item, i) => (
+                    <React.Fragment key={item}>
+                      <ReorderItem layout drag value={item}>
+                        {({ dragControls }) => (
+                          <Badge className="select-none" visual="primary">
+                            <GripVertical
+                              className="cursor-pointer opacity-60"
+                              onPointerDown={(event) =>
+                                dragControls.start(event)
+                              }
+                            />
+                            {item}
+                            <X
+                              className="cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100"
+                              onClick={() => removeItem(index, i)}
+                            />
+                          </Badge>
+                        )}
+                      </ReorderItem>
+                      <motion.span
+                        className="inline-block h-1 w-1 flex-none rounded-full bg-gray-400 last-of-type:hidden"
+                        exit={EXIT_ANIMATION}
+                      />
+                    </React.Fragment>
+                  ))}
+                </ReorderGroup>
+              </>
+            )}
           </ReorderItem>
         ))}
         {showClearAll && (
