@@ -26,6 +26,10 @@ const meta: Meta = {
   title: "Command",
   parameters: {
     layout: "centered",
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/file/kZ8j7MB6ONYIOy27cG290j/BM---Workflow---Development?type=design&node-id=961-72439&mode=design&t=eSRdYRP0E2StqRM1-4",
+    },
   },
 };
 
