@@ -40,3 +40,5 @@ export * from "./icon-button";
 export * from "./dropzone";
 export * from "./autocomplete";
 export * from "./reorder";
+export * from "./command";
+export * from "./hover-card";

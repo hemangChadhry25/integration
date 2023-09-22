@@ -110,9 +110,6 @@ module.exports = {
         "2xl": "0px 24px 48px -12px rgba(16, 24, 40, 0.18)",
         "3xl": "0px 32px 64px -12px rgba(16, 24, 40, 0.14)",
       },
-      data: {
-        "ui-open": 'headlessui-state="open"',
-      },
     },
   },
   plugins: [

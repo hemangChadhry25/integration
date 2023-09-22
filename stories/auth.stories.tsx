@@ -30,7 +30,7 @@ export default meta;
 
 export const Default = () => {
   return (
-    <div className="mx-auto max-w-[387px] px-4 pt-[46px]">
+    <div className="mx-auto max-w-[404px] px-4 pt-[46px]">
       <div className="flex items-center justify-center gap-x-3">
         <Gmail className="flex-none" />
         <ArrowRightLeft className="h-5 w-5 flex-none text-gray-300" />
@@ -102,7 +102,7 @@ export const ApiKey = () => {
   const [show, { toggle }] = useToggle();
 
   return (
-    <div className="mx-auto max-w-[387px] px-4 pt-[46px]">
+    <div className="mx-auto max-w-[404px] px-4 pt-[46px]">
       <div className="flex items-center justify-center gap-x-3">
         <Gmail className="flex-none" />
         <ArrowRightLeft className="h-5 w-5 flex-none text-gray-300" />
