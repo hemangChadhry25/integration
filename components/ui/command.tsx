@@ -61,15 +61,17 @@ CommandInput.displayName = CommandPrimitive.Input.displayName;
 const CommandList = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <CommandPrimitive.List
     ref={ref}
     className={cn(
-      "max-h-[236px] overflow-y-auto overflow-x-hidden px-2.5 pt-2.5 scrollbar-none",
+      "max-h-[236px] overflow-y-auto overflow-x-hidden scrollbar-none",
       className
     )}
     {...props}
-  />
+  >
+    <div className="py-2.5 pl-2.5">{children}</div>
+  </CommandPrimitive.List>
 ));
 
 CommandList.displayName = CommandPrimitive.List.displayName;
@@ -80,7 +82,7 @@ const CommandEmpty = React.forwardRef<
 >((props, ref) => (
   <CommandPrimitive.Empty
     ref={ref}
-    className="py-3.5 text-center text-sm"
+    className="py-3.5 text-center text-sm text-gray-900"
     {...props}
   />
 ));
@@ -94,7 +96,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cn(
-      "overflow-hidden pb-4 [&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-gray-800",
+      "overflow-hidden [&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-gray-800",
       className
     )}
     {...props}

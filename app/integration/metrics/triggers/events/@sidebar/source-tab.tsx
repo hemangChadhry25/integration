@@ -4,6 +4,7 @@ import * as React from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "framer-motion";
 
 import {
   ArrowDownAZ,
@@ -16,7 +17,6 @@ import {
   Autocomplete,
   AutocompleteButton,
   AutocompleteInput,
-  AutocompleteLabel,
   AutocompleteOption,
   AutocompleteOptions,
   AutocompleteRoot,
@@ -29,16 +29,8 @@ import {
   ScaleOutIn,
   inputVariants,
 } from "@/components/ui";
-import {
-  chunk,
-  cn,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-  isUndefined,
-} from "@/lib/utils";
+import { chunk, cn, isEmpty, isNotEmpty } from "@/lib/utils";
 import { EXIT_ANIMATION, METRICS_OPTIONS } from "@/lib/constants";
-import { AnimatePresence, motion } from "framer-motion";
 
 const schema = z.object({
   dataSet: z.string(),
@@ -79,40 +71,38 @@ const SourceTab = () => {
   const dataSet = watch("dataSet");
   const category = watch("category");
   const metrics = watch("metrics");
-  const isMetricsNotEmpty = isNotUndefined(metrics)
-    ? isNotEmpty(metrics)
-    : false;
-  const chunkedMetrics = isNotUndefined(metrics) ? chunk(metrics) : undefined;
+  const isMetricsNotEmpty = metrics ? isNotEmpty(metrics) : false;
+  const itemsArr = metrics ? chunk(metrics) : undefined;
 
   const onSubmit: SubmitHandler<FormValues> = (variables) => {};
 
   const clearAll = () => setValue("metrics", []);
 
-  const setItems = (newOrder: string[], index: number) => {
-    if (isUndefined(chunkedMetrics)) return;
+  const setItems = (newItems: string[], itemsIndex: number) => {
+    if (!itemsArr) return;
 
-    const newChunkedMetrics = chunkedMetrics.map((chunk, i) =>
-      i === index ? newOrder : chunk
+    const newItemsArr = itemsArr.map((items, i) =>
+      i === itemsIndex ? newItems : items
     );
-    setValue("metrics", newChunkedMetrics.flat(1));
+    setValue("metrics", newItemsArr.flat(1));
   };
 
-  const removeItem = (index: number, removalIndex: number) => {
-    if (isUndefined(chunkedMetrics)) return;
+  const removeItem = (itemsIndex: number, itemIndex: number) => {
+    if (!itemsArr) return;
 
-    const items = chunkedMetrics[index];
-    const filteredItems = items.filter((item, i) => i !== removalIndex);
+    const items = itemsArr[itemsIndex];
+    const filteredItems = items.filter((item, index) => index !== itemIndex);
 
     if (isEmpty(filteredItems)) {
-      const filteredChunkedMetrics = chunkedMetrics.filter(
-        (chunk, i) => i !== index
+      const filteredItemsArr = itemsArr.filter(
+        (items, index) => index !== itemsIndex
       );
-      setValue("metrics", filteredChunkedMetrics.flat(1));
+      setValue("metrics", filteredItemsArr.flat(1));
     } else {
-      const newChunkMetrics = chunkedMetrics.map((chunk, i) =>
-        i === index ? filteredItems : chunk
+      const newItemsArr = itemsArr.map((items, index) =>
+        index === itemsIndex ? filteredItems : items
       );
-      setValue("metrics", newChunkMetrics.flat(1));
+      setValue("metrics", newItemsArr.flat(1));
     }
   };
 
@@ -186,21 +176,21 @@ const SourceTab = () => {
 
             <div className="flex w-full flex-col space-y-[5px]">
               <AnimatePresence>
-                {chunkedMetrics?.map((items, index) => (
+                {itemsArr?.map((items, itemsIndex) => (
                   <ReorderGroup
                     className="flex w-full max-w-[320px] flex-grow flex-wrap items-center gap-x-1.5 gap-y-3"
-                    key={index}
-                    onReorder={(newOrder) => setItems(newOrder, index)}
+                    key={itemsIndex}
+                    onReorder={(newItems) => setItems(newItems, itemsIndex)}
                     values={items}
                   >
                     <motion.span
                       className="text-sm text-gray-500"
                       exit={EXIT_ANIMATION}
                     >
-                      {index + 1}
+                      {itemsIndex + 1}
                     </motion.span>
 
-                    {items.map((item, i) => (
+                    {items.map((item, itemIndex) => (
                       <React.Fragment key={item}>
                         <ReorderItem layout drag value={item}>
                           {({ dragControls }) => (
@@ -214,7 +204,9 @@ const SourceTab = () => {
                               {item}
                               <X
                                 className="cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100"
-                                onClick={() => removeItem(index, i)}
+                                onClick={() =>
+                                  removeItem(itemsIndex, itemIndex)
+                                }
                               />
                             </Badge>
                           )}

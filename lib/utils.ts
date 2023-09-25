@@ -1,6 +1,7 @@
 import * as React from "react";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { FieldPath, FieldErrors, get } from "react-hook-form";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -221,4 +222,49 @@ export function isEmpty<T extends unknown[]>(arr: T): boolean {
 
 export function isNotEmpty<T extends unknown[]>(arr: T): boolean {
   return arr.length > 0;
+}
+
+export function getHookFormError<
+  TFormValues extends Record<string, any> = Record<string, any>
+>(errors: FieldErrors<TFormValues>, key: FieldPath<TFormValues>) {
+  return errors[key];
+}
+
+export function hookFormHasError<
+  TFormValues extends Record<string, any> = Record<string, any>
+>({
+  errors,
+  name,
+}: {
+  errors: FieldErrors<TFormValues>;
+  name: FieldPath<TFormValues>;
+}) {
+  const error = get(errors, name);
+  return error ? true : false;
+}
+
+export function debounce(cb: () => void, wait?: number) {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined = setTimeout(
+    cb,
+    wait
+  );
+
+  function cancel() {
+    clearTimeout(timeoutId);
+    timeoutId = undefined;
+  }
+
+  function flush() {
+    cancel();
+    cb();
+  }
+
+  return {
+    cancel,
+    flush,
+  };
+}
+
+export function getUniqueId() {
+  return ((uniqueId = 1) => uniqueId++)();
 }

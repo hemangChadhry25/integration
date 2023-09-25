@@ -42,3 +42,4 @@ export * from "./autocomplete";
 export * from "./reorder";
 export * from "./command";
 export * from "./hover-card";
+export * from "./command-palette";

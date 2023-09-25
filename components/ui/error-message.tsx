@@ -4,7 +4,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const errorMessageVariants = cva(
-  "text-error-500 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed",
+  "block text-error-500 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed",
   {
     variants: {
       size: {

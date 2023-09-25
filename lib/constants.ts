@@ -21,3 +21,5 @@ export const METRICS_OPTIONS = [
 export const EXIT_ANIMATION = {
   opacity: 0,
 };
+
+export const ONE_SECOND = 1000;

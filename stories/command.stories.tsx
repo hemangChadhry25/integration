@@ -43,7 +43,7 @@ export const Default = () => {
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Workflow Steps">
+        <CommandGroup className="pb-4" heading="Workflow Steps">
           <HoverCard>
             <HoverCardTrigger asChild>
               <CommandItem value="slack">
@@ -174,6 +174,20 @@ export const Default = () => {
             </div>
           </CommandItem>
         </CommandGroup>
+
+        <div className="p-2.5">
+          <span className="text-xs leading-[14.52px] text-gray-400">
+            Can&apos;t find what you need?{" "}
+            <Link className="text-primary-500 underline" href="#">
+              Connect an app
+            </Link>{" "}
+            or{" "}
+            <Link className="text-primary-500 underline" href="#">
+              {" "}
+              create an integration.
+            </Link>
+          </span>
+        </div>
       </CommandList>
     </Command>
   );

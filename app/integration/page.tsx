@@ -5,8 +5,10 @@ import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { ErrorMessage as HookFormErrorMessage } from "@hookform/error-message";
 
 import {
+  AlertCircle,
   BarChartSquare,
   Belling,
   ChevronDown,
@@ -60,8 +62,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
   IconButton,
+  InputGroup,
+  InputRightElement,
+  ErrorMessage,
 } from "@/components/ui";
 import { RemainCharacters } from "@/components/remain-characters";
+import { hookFormHasError } from "@/lib/utils";
+
+const schema = z.object({
+  name: z.string().max(30, "Must contain at most 30 character(s)"),
+  description: z.string().max(200, "Must contain at most 200 character(s)"),
+});
 
 interface FormValues {
   name: string;
@@ -69,13 +80,14 @@ interface FormValues {
 }
 
 function Overview() {
-  const { register, handleSubmit, control } = useForm<FormValues>({
-    resolver: zodResolver(
-      z.object({
-        name: z.string().max(30),
-        description: z.string().max(200),
-      })
-    ),
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({
+    mode: "onChange",
+    resolver: zodResolver(schema),
   });
 
   const onSubmit: SubmitHandler<FormValues> = (variables) => {};
@@ -280,11 +292,29 @@ function Overview() {
                       <RemainCharacters
                         control={control}
                         name="name"
-                        max={50}
+                        max={30}
                       />
                     </HelperText>
                   </div>
-                  <Input id="name" {...register("name")} />
+                  <InputGroup>
+                    <Input
+                      id="name"
+                      isInvalid={hookFormHasError({ errors, name: "name" })}
+                      {...register("name")}
+                    />
+                    <InputRightElement>
+                      {hookFormHasError({ errors, name: "name" }) && (
+                        <AlertCircle className="text-error-500" />
+                      )}
+                    </InputRightElement>
+                  </InputGroup>
+                  <HookFormErrorMessage
+                    errors={errors}
+                    name="name"
+                    render={({ message }) => (
+                      <ErrorMessage size="sm">{message}</ErrorMessage>
+                    )}
+                  />
                 </div>
 
                 <div className="mt-6 space-y-1.5">
@@ -308,7 +338,18 @@ function Overview() {
                   <Textarea
                     className="h-[116px]"
                     id="desc"
+                    isInvalid={hookFormHasError({
+                      errors,
+                      name: "description",
+                    })}
                     {...register("description")}
+                  />
+                  <HookFormErrorMessage
+                    errors={errors}
+                    name="description"
+                    render={({ message }) => (
+                      <ErrorMessage>{message}</ErrorMessage>
+                    )}
                   />
                 </div>
 
@@ -390,7 +431,7 @@ function Overview() {
                   <td className="border-y border-gray-200 px-3 align-middle text-sm text-gray-500 first:rounded-l-lg first:border-l first:pl-6 last:rounded-r-lg last:border-r last:pr-6 last:text-right">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                           <IconButton
                             className="h-8 w-8 text-gray-500"
                             variant="ghost"
@@ -431,7 +472,7 @@ function Overview() {
                   <td className="border-y border-gray-200 px-3 align-middle text-sm text-gray-500 first:rounded-l-lg first:border-l first:pl-6 last:rounded-r-lg last:border-r last:pr-6 last:text-right">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                           <IconButton
                             className="h-8 w-8 text-gray-500"
                             variant="ghost"
