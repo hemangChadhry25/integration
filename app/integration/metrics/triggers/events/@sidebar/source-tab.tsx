@@ -5,7 +5,6 @@ import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
-
 import {
   ArrowDownAZ,
   ChevronDown,
@@ -29,11 +28,12 @@ import {
   ScaleOutIn,
   inputVariants,
 } from "@/components/ui";
-import { chunk, cn, isEmpty, isNotEmpty } from "@/lib/utils";
+import { chunk, cn, isEmptyArray, isNotEmptyArray, flatten } from "@/lib/utils";
 import { EXIT_ANIMATION, METRICS_OPTIONS } from "@/lib/constants";
+import { useWatched } from "@/lib/hooks";
 
 const schema = z.object({
-  dataSet: z.string(),
+  dataset: z.string(),
   category: z.string(),
   metrics: z.array(
     z.enum([
@@ -47,14 +47,14 @@ const schema = z.object({
       "Country",
     ])
   ),
-  sortBy: z.enum(["asc", "desc"]),
+  sort: z.enum(["asc", "desc"]),
 });
 
 interface FormValues {
-  dataSet: string;
+  dataset: string;
   category: string;
   metrics: string[];
-  sortBy: string;
+  sort: string;
 }
 
 const SourceTab = () => {
@@ -63,46 +63,48 @@ const SourceTab = () => {
       shouldUnregister: true,
       resolver: zodResolver(schema),
       defaultValues: {
-        sortBy: "asc",
-        metrics: [],
+        sort: "asc",
       },
     });
 
-  const dataSet = watch("dataSet");
+  const dataset = watch("dataset");
   const category = watch("category");
   const metrics = watch("metrics");
-  const isMetricsNotEmpty = metrics ? isNotEmpty(metrics) : false;
-  const itemsArr = metrics ? chunk(metrics) : undefined;
 
   const onSubmit: SubmitHandler<FormValues> = (variables) => {};
 
   const clearAll = () => setValue("metrics", []);
 
-  const setItems = (newItems: string[], itemsIndex: number) => {
-    if (!itemsArr) return;
+  const isMetricsNotEmpty = metrics ? isNotEmptyArray(metrics) : false;
+  const metricsArr = metrics ? chunk(metrics) : undefined;
 
-    const newItemsArr = itemsArr.map((items, i) =>
-      i === itemsIndex ? newItems : items
+  const setMetrics = (newMetrics: string[], metricsIndex: number) => {
+    if (!metricsArr) return;
+
+    const newMetricsArr = metricsArr.map((metrics, i) =>
+      i === metricsIndex ? newMetrics : metrics
     );
-    setValue("metrics", newItemsArr.flat(1));
+    setValue("metrics", flatten(newMetricsArr));
   };
 
-  const removeItem = (itemsIndex: number, itemIndex: number) => {
-    if (!itemsArr) return;
+  const removeMetric = (metricsIndex: number, removalIndex: number) => {
+    if (!metricsArr) return;
 
-    const items = itemsArr[itemsIndex];
-    const filteredItems = items.filter((item, index) => index !== itemIndex);
+    const metrics = metricsArr[metricsIndex];
+    const filteredMetrics = metrics.filter(
+      (metrics, index) => index !== removalIndex
+    );
 
-    if (isEmpty(filteredItems)) {
-      const filteredItemsArr = itemsArr.filter(
-        (items, index) => index !== itemsIndex
+    if (isEmptyArray(filteredMetrics)) {
+      const filteredMetricsArr = metricsArr.filter(
+        (metrics, index) => index !== metricsIndex
       );
-      setValue("metrics", filteredItemsArr.flat(1));
+      setValue("metrics", flatten(filteredMetricsArr));
     } else {
-      const newItemsArr = itemsArr.map((items, index) =>
-        index === itemsIndex ? filteredItems : items
+      const newMetricsArr = metricsArr.map((metrics, index) =>
+        index === metricsIndex ? filteredMetrics : metrics
       );
-      setValue("metrics", newItemsArr.flat(1));
+      setValue("metrics", flatten(newMetricsArr));
     }
   };
 
@@ -119,14 +121,14 @@ const SourceTab = () => {
           <select
             className={inputVariants()}
             id="data-set"
-            {...register("dataSet")}
+            {...register("dataset")}
           >
             <option value="">Select Data Set</option>
             <option value="Data Set 1">Data Set 1</option>
           </select>
         </div>
 
-        {dataSet && (
+        {dataset && (
           <div className="space-y-1.5">
             <Label className="text-gray-700" htmlFor="category" size="sm">
               Category
@@ -176,23 +178,25 @@ const SourceTab = () => {
 
             <div className="flex w-full flex-col space-y-[5px]">
               <AnimatePresence>
-                {itemsArr?.map((items, itemsIndex) => (
+                {metricsArr?.map((metrics, metricsIndex) => (
                   <ReorderGroup
                     className="flex w-full max-w-[320px] flex-grow flex-wrap items-center gap-x-1.5 gap-y-3"
-                    key={itemsIndex}
-                    onReorder={(newItems) => setItems(newItems, itemsIndex)}
-                    values={items}
+                    key={metricsIndex}
+                    onReorder={(newMetrics) =>
+                      setMetrics(newMetrics, metricsIndex)
+                    }
+                    values={metrics}
                   >
                     <motion.span
                       className="text-sm text-gray-500"
                       exit={EXIT_ANIMATION}
                     >
-                      {itemsIndex + 1}
+                      {metricsIndex + 1}
                     </motion.span>
 
-                    {items.map((item, itemIndex) => (
-                      <React.Fragment key={item}>
-                        <ReorderItem layout drag value={item}>
+                    {metrics.map((metric, metricIndex) => (
+                      <React.Fragment key={metric}>
+                        <ReorderItem layout drag value={metric}>
                           {({ dragControls }) => (
                             <Badge className="select-none" visual="primary">
                               <GripVertical
@@ -201,11 +205,11 @@ const SourceTab = () => {
                                   dragControls.start(event)
                                 }
                               />
-                              {item}
+                              {metric}
                               <X
                                 className="cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100"
                                 onClick={() =>
-                                  removeItem(itemsIndex, itemIndex)
+                                  removeMetric(metricsIndex, metricIndex)
                                 }
                               />
                             </Badge>
@@ -249,7 +253,7 @@ const SourceTab = () => {
             <select
               className={cn(inputVariants({ className: "pl-[46px]" }))}
               id="sort-by"
-              {...register("sortBy")}
+              {...register("sort")}
             >
               <option value="asc">Default - A to Z</option>
               <option value="desc">Descending - Z to A</option>

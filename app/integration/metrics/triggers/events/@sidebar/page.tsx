@@ -10,17 +10,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui";
 const SourceTab = dynamic(() => import("./source-tab"));
 const SetupTab = dynamic(() => import("./setup-tab"));
 const TestTab = dynamic(() => import("./test-tab"));
-const ConditionsTab = dynamic(() => import("./conditions-tab"));
 
 function Panels({
   sourceTab,
-  conditionsTab,
   setupTab,
   testTab,
 }: {
   sourceTab?: React.ReactNode;
   setupTab?: React.ReactNode;
-  conditionsTab?: React.ReactNode;
   testTab?: React.ReactNode;
 }) {
   return (
@@ -31,8 +28,6 @@ function Panels({
       <TabsList className="h-11 w-full justify-between">
         <TabsTrigger value="source">Source</TabsTrigger>
         <TabsTrigger value="setup">Setup</TabsTrigger>
-        {/* TODO: work later */}
-        {/* <TabsTrigger value="conditions">Conditions</TabsTrigger> */}
         <TabsTrigger value="test">Test</TabsTrigger>
       </TabsList>
       {/* TODO: add functionality to close sidebar */}
@@ -51,13 +46,6 @@ function Panels({
       >
         {setupTab}
       </TabsContent>
-      {/* TODO: work later */}
-      {/* <TabsContent
-        className="scrollbar-thumb h-[calc(theme(height.full)-theme(height.11))] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-lg"
-        value="conditions"
-      >
-        {conditionsTab}
-      </TabsContent> */}
       <TabsContent
         className="scrollbar-thumb h-[calc(theme(height.full)-theme(height.11))] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-lg"
         value="test"
@@ -84,7 +72,6 @@ export default function Sidebar() {
       <Panels
         sourceTab={<SourceTab />}
         setupTab={<SetupTab />}
-        conditionsTab={<ConditionsTab />}
         testTab={<TestTab />}
       />
     </Portal.Root>

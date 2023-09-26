@@ -2,6 +2,13 @@ import * as React from "react";
 
 import { addEvent } from "./dom";
 import { debounce } from "./utils";
+import {
+  Control,
+  FieldPath,
+  FieldPathValue,
+  PathValue,
+  useWatch,
+} from "react-hook-form";
 
 export function useDebounce<TValue>(value: TValue, wait?: number) {
   const [state, setState] = React.useState(value);
@@ -198,4 +205,29 @@ export function useUnmountEffect(cleanup: () => void) {
   const cleanupCallbackRef = useCallbackRef(cleanup);
 
   React.useEffect(() => cleanupCallbackRef, [cleanupCallbackRef]);
+}
+
+export function useWatched<
+  TFieldValues extends Record<string, any>,
+  TFieldName extends FieldPath<TFieldValues>
+>({
+  control,
+  name,
+  onValueChange,
+}: {
+  control: Control<TFieldValues>;
+  name: TFieldName;
+  onValueChange: (value: FieldPathValue<TFieldValues, TFieldName>) => void;
+}) {
+  const watched = useWatch({
+    control,
+    name,
+  });
+  const onValueChangeCallbackRef = useCallbackRef(onValueChange);
+
+  useUpdateEffect(() => {
+    onValueChangeCallbackRef(watched);
+  }, [watched, onValueChangeCallbackRef]);
+
+  return watched;
 }

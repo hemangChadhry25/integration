@@ -3,8 +3,8 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn, combine, createStrictContext } from "@/lib/utils";
 import { X2 } from "../icons";
+import { cn, createStrictContext } from "@/lib/utils";
 import { useControllableState } from "@/lib/hooks";
 
 const alertVariants = cva(

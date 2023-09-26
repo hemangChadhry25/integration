@@ -198,7 +198,7 @@ export function chunk<T extends unknown[]>(arr: T, size = 2): T[] {
     return recursion(remainArr as T, size, [...result, sliced] as T[]);
   };
 
-  if (isEmpty(arr)) {
+  if (isEmptyArray(arr)) {
     return [] as T[];
   }
 
@@ -216,11 +216,11 @@ export function add(...nums: number[]): number {
   return recursion(nums);
 }
 
-export function isEmpty<T extends unknown[]>(arr: T): boolean {
+export function isEmptyArray<T extends unknown[]>(arr: T): boolean {
   return arr.length === 0;
 }
 
-export function isNotEmpty<T extends unknown[]>(arr: T): boolean {
+export function isNotEmptyArray<T extends unknown[]>(arr: T): boolean {
   return arr.length > 0;
 }
 
@@ -259,8 +259,8 @@ export function debounce(cb: () => void, wait?: number) {
   };
 }
 
-export function getUniqueId() {
-  return ((uniqueId = 1) => uniqueId++)();
+export function getId() {
+  return ((id = 1) => id++)();
 }
 
 export function combine<
@@ -268,4 +268,8 @@ export function combine<
   K extends ((...args: T) => void) | undefined
 >(...fns: K[]) {
   return (...args: T) => fns.forEach((fn) => fn?.(...args));
+}
+
+export function flatten<T extends any[]>(arr: T) {
+  return arr.flat(1);
 }

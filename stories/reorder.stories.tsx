@@ -32,7 +32,7 @@ import {
   Trash,
   X,
 } from "@/components/icons";
-import { chunk, isEmpty, isNotEmpty } from "@/lib/utils";
+import { chunk, flatten, isEmptyArray, isNotEmptyArray } from "@/lib/utils";
 import { EXIT_ANIMATION } from "@/lib/constants";
 
 const meta: Meta = {
@@ -54,32 +54,33 @@ export const Default = () => {
     "🧀 Cheese",
     "🥬 Lettuce",
   ]);
+
+  const clearAll = () => setState([]);
+
   const itemsArr = chunk(state);
-  const showClearAll = isNotEmpty(itemsArr);
+  const showClearAll = isNotEmptyArray(itemsArr);
 
   const setItems = (newItems: string[], itemsIndex: number) => {
     const newItemsArr = itemsArr.map((items, index) =>
       index === itemsIndex ? newItems : items
     );
-    setState(newItemsArr.flat(1));
+    setState(flatten(newItemsArr));
   };
 
-  const removeItem = (itemsIndex: number, itemIndex: number) => {
+  const removeItem = (itemsIndex: number, removalIndex: number) => {
     const items = itemsArr[itemsIndex];
-    const filteredItems = items.filter((item, i) => i !== itemIndex);
+    const filteredItems = items.filter((item, i) => i !== removalIndex);
 
-    if (isEmpty(filteredItems)) {
+    if (isEmptyArray(filteredItems)) {
       const filteredItemsArr = itemsArr.filter((items, i) => i !== itemsIndex);
-      setState(filteredItemsArr.flat(1));
+      setState(flatten(filteredItemsArr));
     } else {
       const newItemsArr = itemsArr.map((items, i) =>
         i === itemsIndex ? filteredItems : items
       );
-      setState(newItemsArr.flat(1));
+      setState(flatten(newItemsArr));
     }
   };
-
-  const clearAll = () => setState([]);
 
   return (
     <div className="space-y-3">
@@ -145,38 +146,39 @@ export const ReorderOnBothAxes = () => {
     "🧀 Cheese",
     "🥬 Lettuce",
   ]);
+
+  const clearAll = () => setState([]);
+
   const itemsArr = chunk(state);
-  const showClearAll = isNotEmpty(itemsArr);
+  const showClearAll = isNotEmptyArray(itemsArr);
 
   const setItemsArr = (newOrder: string[][]) => {
-    setState(newOrder.flat(1));
+    setState(flatten(newOrder));
   };
 
   const setItems = (newItems: string[], itemsIndex: number) => {
     const newItemsArr = itemsArr.map((items, i) =>
       i === itemsIndex ? newItems : items
     );
-    setState(newItemsArr.flat(1));
+    setState(flatten(newItemsArr));
   };
 
   const removeItem = (itemsIndex: number, itemIndex: number) => {
     const items = itemsArr[itemsIndex];
     const filteredItems = items.filter((item, i) => i !== itemIndex);
 
-    if (isEmpty(filteredItems)) {
+    if (isEmptyArray(filteredItems)) {
       const filteredItemsArr = itemsArr.filter(
         (items, index) => index !== itemsIndex
       );
-      setState(filteredItemsArr.flat(1));
+      setState(flatten(filteredItemsArr));
     } else {
       const newChunkMetrics = itemsArr.map((items, index) =>
         index === itemsIndex ? filteredItems : items
       );
-      setState(newChunkMetrics.flat(1));
+      setState(flatten(newChunkMetrics));
     }
   };
-
-  const clearAll = () => setState([]);
 
   return (
     <ReorderGroup

@@ -17,13 +17,13 @@ import {
 import { useUpdateEffect } from "@/lib/hooks";
 
 const schema = z.object({
-  fieldLabel: z.string().max(30),
-  radio: z.enum(["single", "multiple"]),
-  optionalField: z.boolean(),
-  placeholderText: z.string().max(30),
-  hintText: z.string().max(30),
+  label: z.string().max(30),
+  singleOrMultiSelect: z.enum(["single", "multiple"]),
+  optional: z.boolean(),
+  placeholder: z.string().max(30),
+  hint: z.string().max(30),
   tooltip: z.string().max(50),
-  limitedSelections: z.boolean().optional(),
+  limitSelections: z.boolean().optional(),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -33,19 +33,19 @@ export default function SetupTab() {
     useForm<FormValues>({
       resolver: zodResolver(schema),
       defaultValues: {
-        radio: "single",
-        optionalField: false,
+        singleOrMultiSelect: "single",
+        optional: false,
       },
     });
-  const radio = watch("radio");
+  const singleOrMultiSelect = watch("singleOrMultiSelect");
 
   useUpdateEffect(() => {
-    if (radio === "multiple") {
-      setValue("limitedSelections", false);
+    if (singleOrMultiSelect === "multiple") {
+      setValue("limitSelections", false);
     } else {
-      setValue("limitedSelections", undefined);
+      setValue("limitSelections", undefined);
     }
-  }, [radio]);
+  }, [singleOrMultiSelect]);
 
   const onSubmit: SubmitHandler<FormValues> = (variables) => {};
 
@@ -60,16 +60,12 @@ export default function SetupTab() {
             <HelperText size="sm">Enter a user friendly name.</HelperText>
             <HelperText size="xs">0/30</HelperText>
           </div>
-          <Input
-            {...register("fieldLabel")}
-            id="field-label"
-            placeholder="Search"
-          />
+          <Input {...register("label")} id="field-label" placeholder="Search" />
         </div>
 
         <Controller
           control={control}
-          name="radio"
+          name="singleOrMultiSelect"
           render={({ field: { onChange, ...props } }) => (
             <RadioGroup
               className="grid-cols-2 gap-x-2"
@@ -91,7 +87,7 @@ export default function SetupTab() {
         />
 
         <div className="space-y-5">
-          {radio === "multiple" && (
+          {singleOrMultiSelect === "multiple" && (
             <div className="flex items-start justify-between">
               <Label
                 className="inline-flex items-center gap-x-2 text-gray-700"
@@ -105,7 +101,7 @@ export default function SetupTab() {
               </Label>
               <Controller
                 control={control}
-                name="limitedSelections"
+                name="limitSelections"
                 render={({ field: { value, onChange, ...props } }) => (
                   <Switch
                     checked={value}
@@ -130,7 +126,7 @@ export default function SetupTab() {
             </Label>
             <Controller
               control={control}
-              name="optionalField"
+              name="optional"
               render={({ field: { value, onChange, ...props } }) => (
                 <Switch
                   checked={value}
@@ -153,7 +149,7 @@ export default function SetupTab() {
             <HelperText size="sm">Add a clear placeholder text.</HelperText>
             <HelperText className="leading-5">0/30</HelperText>
           </div>
-          <Input {...register("placeholderText")} id="placeholder-text" />
+          <Input {...register("placeholder")} id="placeholder-text" />
         </div>
 
         <div className="space-y-1.5">
@@ -166,7 +162,7 @@ export default function SetupTab() {
             </HelperText>
             <HelperText className="leading-5">0/30</HelperText>
           </div>
-          <Input {...register("hintText")} id="hint-text" />
+          <Input {...register("hint")} id="hint-text" />
         </div>
 
         <div className="space-y-1.5">
