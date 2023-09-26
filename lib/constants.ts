@@ -7,6 +7,8 @@ export const ACCEPTED_FILE_TYPES = {
 
 export const EVENTS_PAGE_PATHNAME = "/integration/metrics/triggers/events";
 
+export const INTEGRATION_PAGE_PATHNAME = "/integration";
+
 export const METRICS_OPTIONS = [
   "Name",
   "Resource Type",

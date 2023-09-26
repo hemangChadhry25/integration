@@ -3,8 +3,9 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn, createStrictContext } from "@/lib/utils";
+import { cn, combine, createStrictContext } from "@/lib/utils";
 import { X2 } from "../icons";
+import { useControllableState } from "@/lib/hooks";
 
 const alertVariants = cva(
   "relative w-full flex items-start gap-x-3 rounded-lg border p-4",
@@ -24,9 +25,11 @@ const alertVariants = cva(
   }
 );
 
-const [AlertProvider, useAlertContext] = createStrictContext<
-  "default" | "primary" | "error" | "warning" | "success" | null
->({
+const [AlertProvider, useAlertContext] = createStrictContext<{
+  variant?: "default" | "primary" | "error" | "warning" | "success" | null;
+  onValueChange: (value: boolean) => void;
+  value: boolean;
+}>({
   displayName: "AlertProvider",
   errorMessage: `useAlertContext returned is 'undefined'. Seems you forgot to wrap the components in "<Alert />"`,
   strict: false,
@@ -34,17 +37,37 @@ const [AlertProvider, useAlertContext] = createStrictContext<
 
 const Alert = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
->(({ className, variant, ...props }, ref) => (
-  <AlertProvider value={variant}>
-    <div
-      ref={ref}
-      role="alert"
-      className={cn(alertVariants({ variant, className }))}
-      {...props}
-    />
-  </AlertProvider>
-));
+  React.HTMLAttributes<HTMLDivElement> &
+    VariantProps<typeof alertVariants> & {
+      value?: boolean;
+      onValueChange?: (value: boolean) => void;
+    }
+>(({ className, variant, ...props }, ref) => {
+  const [value, onValueChange] = useControllableState({
+    value: props.value,
+    onChange: props.onValueChange,
+    defaultValue: true,
+  });
+
+  return (
+    <AlertProvider
+      value={{
+        variant,
+        onValueChange,
+        value,
+      }}
+    >
+      {value && (
+        <div
+          ref={ref}
+          role="alert"
+          className={cn(alertVariants({ variant, className }))}
+          {...props}
+        />
+      )}
+    </AlertProvider>
+  );
+});
 Alert.displayName = "Alert";
 
 const AlertContent = React.forwardRef<
@@ -99,11 +122,16 @@ const CloseButton = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement> &
     VariantProps<typeof closeButtonVariants>
 >(({ className, ...props }, ref) => {
-  const variant = useAlertContext();
+  const context = useAlertContext();
+
+  const closeAlert = () => context?.onValueChange(false);
 
   return (
     <button
-      className={cn(closeButtonVariants({ variant: props.variant ?? variant }))}
+      className={cn(
+        closeButtonVariants({ variant: props.variant ?? context?.variant })
+      )}
+      onClick={closeAlert}
       {...props}
       ref={ref}
     >

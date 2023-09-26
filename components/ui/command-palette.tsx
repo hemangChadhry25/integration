@@ -7,50 +7,82 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Command as CommandPalettePrimitive } from "cmdk";
 import { VariantProps } from "class-variance-authority";
 
-import { cn, createContext } from "@/lib/utils";
+import { cn, combine, createContext } from "@/lib/utils";
 import { Dialog, DialogContent } from "@/components/ui";
 import { inputVariants } from "./input";
-
-const [CommandPaletteProvider, useCommandPaletteContext] = createContext<{
-  open: boolean;
-  on: () => void;
-  off: () => void;
-}>({
-  errorMessage: `useCommandPaletteContext returned is 'undefined'. Seems you forgot to wrap the components in "<CommandPaletteDialog />"`,
-  displayName: "CommandPaletteContext",
-});
+import { useControllableState } from "@/lib/hooks";
 
 const CommandPaletteDialogClose = DialogPrimitive.Close;
 
 const CommandPaletteDialogTrigger = DialogPrimitive.Trigger;
 
+const [CommandPaletteProvider, useCommandPaletteContext] = createContext<{
+  selected: string;
+  onSelectedChange?: (value: string) => void;
+}>({
+  displayName: "CommandPaletteProvider",
+  errorMessage: `useCommandPaletteContext returned is 'undefined'. Seems you forgot to wrap the components in "<CommandPalette />"`,
+});
+
 const CommandPalette = React.forwardRef<
   React.ElementRef<typeof CommandPalettePrimitive>,
-  React.ComponentPropsWithoutRef<typeof CommandPalettePrimitive>
->(({ className, ...props }, ref) => (
-  <CommandPalettePrimitive
-    ref={ref}
-    className={cn(
-      "w-full max-w-[728px] rounded-xl bg-white pt-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.1)]",
-      className
-    )}
-    {...props}
-  />
-));
+  React.ComponentPropsWithoutRef<typeof CommandPalettePrimitive> & {
+    selected?: string;
+    onSelectedChange?: (value: string) => void;
+  }
+>(({ className, selected, onSelectedChange, ...props }, ref) => {
+  const [state, setState] = useControllableState({
+    value: selected,
+    onChange: onSelectedChange,
+  });
+
+  return (
+    <CommandPaletteProvider
+      value={{
+        selected: state,
+        onSelectedChange: setState,
+      }}
+    >
+      <CommandPalettePrimitive
+        ref={ref}
+        className={cn(
+          "w-full max-w-[728px] rounded-xl bg-white pt-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.1)]",
+          className
+        )}
+        {...props}
+      />
+    </CommandPaletteProvider>
+  );
+});
 CommandPalette.displayName = CommandPalettePrimitive.displayName;
+
+const [CommandPaletteDialogProvider, useCommandPaletteDialogContext] =
+  createContext<{
+    open: boolean;
+    onOpenChange: (value: boolean) => void;
+  }>({
+    displayName: "CommandPaletteDialogProvider",
+    errorMessage: `useCommandPaletteDialogContext returned is 'undefined'. Seems you forgot to wrap the components in "<CommandPaletteDialog />"`,
+  });
 
 interface CommandPaletteDialogProps extends DialogProps {}
 
 const CommandPaletteDialog = (props: CommandPaletteDialogProps) => {
-  const [open, setOpen] = React.useState(false);
-  const on = React.useCallback(() => setOpen(true), []);
-  const off = React.useCallback(() => setOpen(false), []);
-  const value = React.useMemo(() => ({ open, off, on }), [open, off, on]);
+  const [open, onOpenChange] = useControllableState({
+    value: props.open,
+    onChange: props.onOpenChange,
+    defaultValue: false,
+  });
 
   return (
-    <CommandPaletteProvider value={value}>
-      <Dialog open={open} onOpenChange={setOpen} {...props} />
-    </CommandPaletteProvider>
+    <CommandPaletteDialogProvider
+      value={{
+        open,
+        onOpenChange,
+      }}
+    >
+      <Dialog {...props} />
+    </CommandPaletteDialogProvider>
   );
 };
 
@@ -106,6 +138,7 @@ const CommandPaletteInput = React.forwardRef<
       <MagnifyingGlassIcon className="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
       <CommandPalettePrimitive.Input
         ref={ref}
+        placeholder="Search Field Types"
         className={cn(
           inputVariants({ variant, className: "pl-[42px]" }),
           className
@@ -179,12 +212,16 @@ CommandPaletteSeparator.displayName =
 const CommandPaletteItem = React.forwardRef<
   React.ElementRef<typeof CommandPalettePrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof CommandPalettePrimitive.Item>
->(({ className, onClick, ...props }, ref) => {
-  const { off } = useCommandPaletteContext();
+>(({ className, ...props }, ref) => {
+  const { onOpenChange } = useCommandPaletteDialogContext();
+  const { onSelectedChange } = useCommandPaletteContext();
+
+  const closeCommandPaletteDialog = () => onOpenChange(false);
+
   return (
     <CommandPalettePrimitive.Item
       ref={ref}
-      onSelect={off}
+      onSelect={combine(onSelectedChange, closeCommandPaletteDialog)}
       className={cn(
         "flex h-[68px] cursor-pointer select-none items-center gap-x-3 rounded-lg border border-gray-200 p-[13px] shadow-[0px_1px_4px_0px_rgba(0,0,0,0.03)] outline-none transition duration-300 hover:border-2 hover:border-gray-300 hover:p-3",
         className

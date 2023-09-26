@@ -47,6 +47,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { INTEGRATION_PAGE_PATHNAME } from "@/lib/constants";
 
 const ActiveLink = ({
   href,
@@ -77,10 +78,7 @@ export default function IntegrationLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-
-  if (pathname === "/integration") {
-    return <>{children}</>;
-  }
+  const isNotIntegrationPage = pathname !== INTEGRATION_PAGE_PATHNAME;
 
   return (
     <>
@@ -216,101 +214,116 @@ export default function IntegrationLayout({
         </div>
       </nav>
 
-      <nav className="fixed inset-x-0 left-[70px] top-0 z-20 flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
-        <div className="flex items-center gap-x-5">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  className="p-2.5 text-gray-500 hover:text-gray-black"
-                  variant="outlined"
-                  visual="gray"
-                >
-                  <ArrowLeft2 />
+      {isNotIntegrationPage ? (
+        <>
+          <nav className="fixed inset-x-0 left-[70px] top-0 z-20 flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px]">
+            <div className="flex items-center gap-x-5">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      className="p-2.5 text-gray-500 hover:text-gray-black"
+                      variant="outlined"
+                      visual="gray"
+                    >
+                      <ArrowLeft2 />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent className="font-semibold">
+                    Back
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              <Breadcrumb spacing="0.5rem">
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/integration">
+                    Integrations
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbItem isCurrentPage>
+                  <BreadcrumbLink
+                    href="/"
+                    className="flex items-center gap-x-3"
+                  >
+                    MyIntegration1
+                    <Badge size="lg" visual="gray">
+                      <Dot />
+                      Unpublished
+                    </Badge>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </Breadcrumb>
+            </div>
+
+            <div className="flex items-center gap-x-6">
+              <span className="text-sm font-semibold text-gray-500">
+                Version 1.0.0
+              </span>
+
+              <div className="flex items-center gap-x-3">
+                <Button className="p-2.5" variant="outlined" visual="gray">
+                  <HelpCircle />
                 </Button>
-              </TooltipTrigger>
-              <TooltipContent className="font-semibold">Back</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
-          <Breadcrumb spacing="0.5rem">
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/integration">Integrations</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink href="/" className="flex items-center gap-x-3">
-                MyIntegration1
-                <Badge size="lg" visual="gray">
-                  <Dot />
-                  Unpublished
-                </Badge>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
-        </div>
-
-        <div className="flex items-center gap-x-6">
-          <span className="text-sm font-semibold text-gray-500">
-            Version 1.0.0
-          </span>
-
-          <div className="flex items-center gap-x-3">
-            <Button className="p-2.5" variant="outlined" visual="gray">
-              <HelpCircle />
-            </Button>
-            <Button className="p-2.5" variant="outlined" visual="gray">
-              <Settings />
-            </Button>
-            <Button>Submit for Review</Button>
-          </div>
-        </div>
-      </nav>
-
-      <nav className="fixed inset-y-0 left-[70px] top-[70px] z-20 w-[244px] border-r border-gray-200">
-        <div className="space-y-[15px] p-[15px] pb-0">
-          <ActiveLink href="/integration/getting-started">
-            <Bulb />
-            Getting Started
-          </ActiveLink>
-
-          <div className="space-y-2">
-            <span className="text-xs font-medium uppercase leading-5 text-gray-500">
-              Configure
-            </span>
-            <div className="space-y-1">
-              <ActiveLink href="/integration/general">
-                <Settings2 />
-                General
-              </ActiveLink>
-              <ActiveLink href="/integration/metrics/connect">
-                <Lamp />
-                Data
-              </ActiveLink>
-              <ActiveLink href="/integration/metrics/triggers">
-                <Zap className="h-[18px] w-[18px]" />
-                Triggers
-              </ActiveLink>
-              <ActiveLink href="/integration/metrics/actions">
-                <MousePointerClick />
-                Actions
-              </ActiveLink>
+                <Button className="p-2.5" variant="outlined" visual="gray">
+                  <Settings />
+                </Button>
+                <Button>Submit for Review</Button>
+              </div>
             </div>
-          </div>
+          </nav>
 
-          <div className="space-y-2">
-            <span className="text-xs font-medium uppercase leading-5 text-gray-500">
-              Test and Publish
-            </span>
-            <div className="space-y-1">
-              <ActiveLink href="/integration/test">
-                <SquareCode />
-                Test
+          <nav className="fixed inset-y-0 left-[70px] top-[70px] z-20 w-[244px] border-r border-gray-200 bg-gray-50">
+            <div className="space-y-[15px] p-[15px] pb-0">
+              <ActiveLink href="/integration/getting-started">
+                <Bulb />
+                Getting Started
               </ActiveLink>
+
+              <div className="space-y-2">
+                <span className="text-xs font-medium uppercase leading-5 text-gray-500">
+                  Configure
+                </span>
+                <div className="space-y-1">
+                  <ActiveLink href="/integration/general">
+                    <Settings2 />
+                    General
+                  </ActiveLink>
+                  <ActiveLink href="/integration/metrics/connect">
+                    <Lamp />
+                    Data
+                  </ActiveLink>
+                  <ActiveLink href="/integration/metrics/triggers">
+                    <Zap className="h-[18px] w-[18px]" />
+                    Triggers
+                  </ActiveLink>
+                  <ActiveLink href="/integration/metrics/actions">
+                    <MousePointerClick />
+                    Actions
+                  </ActiveLink>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-xs font-medium uppercase leading-5 text-gray-500">
+                  Test and Publish
+                </span>
+                <div className="space-y-1">
+                  <ActiveLink href="/integration/test">
+                    <SquareCode />
+                    Test
+                  </ActiveLink>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </nav>
-      <main className="relative pl-[314px] pt-[70px]">{children}</main>
+          </nav>
+          <main className="relative min-h-screen bg-gray-50 pl-[314px] pt-[70px]">
+            {children}
+          </main>
+        </>
+      ) : (
+        <>{children}</>
+      )}
     </>
   );
 }

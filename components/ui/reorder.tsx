@@ -20,12 +20,13 @@ const ReorderItem = React.forwardRef<
       | (({ dragControls }: { dragControls: DragControls }) => React.ReactNode)
       | React.ReactNode;
   }
->(({ children, ...props }, ref) => {
+>(({ children, className, ...props }, ref) => {
   const dragControls = useDragControls();
   const shouldUseRenderProps = isFn(children);
 
   return (
     <Reorder.Item
+      className={cn("relative", className)}
       dragListener={shouldUseRenderProps ? false : undefined}
       dragControls={shouldUseRenderProps ? dragControls : undefined}
       exit={EXIT_ANIMATION}

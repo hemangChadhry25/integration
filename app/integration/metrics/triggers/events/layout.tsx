@@ -58,7 +58,7 @@ export default function Layout({
               {basicSetup}
               {advancedSettings}
             </div>
-            {preview}
+            <div className="sticky top-[70px]">{preview}</div>
           </div>
         </>
       )}

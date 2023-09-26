@@ -1,15 +1,16 @@
 import * as React from "react";
-import { useCallback, useEffect, useRef } from "react";
-import { useMemo, useState, useLayoutEffect } from "react";
 
-export function useDebounce<TValue>(value: TValue, delay?: number) {
+import { addEvent } from "./dom";
+import { debounce } from "./utils";
+
+export function useDebounce<TValue>(value: TValue, wait?: number) {
   const [state, setState] = React.useState(value);
 
   React.useEffect(() => {
-    const timeoutId = setTimeout(() => setState(value), delay);
+    const { cancel } = debounce(() => setState(value), wait);
 
-    return () => clearTimeout(timeoutId);
-  }, [value, delay]);
+    return () => cancel();
+  }, [value, wait]);
 
   return state;
 }
@@ -18,20 +19,26 @@ export function useCallbackRef<T extends (...args: any[]) => any>(
   callback: T | undefined,
   deps: React.DependencyList = []
 ) {
-  const callbackRef = useRef(callback);
+  const callbackRef = React.useRef(callback);
 
-  useEffect(() => {
+  React.useEffect(() => {
     callbackRef.current = callback;
   });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  return useCallback(((...args) => callbackRef.current?.(...args)) as T, deps);
+  return React.useCallback(
+    ((...args) => callbackRef.current?.(...args)) as T,
+    deps
+  );
 }
 
 export function useControllableProp<T>(prop: T | undefined, state: T) {
   const controlled = typeof prop !== "undefined";
   const value = controlled ? prop : state;
-  return useMemo<[boolean, T]>(() => [controlled, value], [controlled, value]);
+  return React.useMemo<[boolean, T]>(
+    () => [controlled, value],
+    [controlled, value]
+  );
 }
 
 export interface UseControllableStateProps<T> {
@@ -52,7 +59,9 @@ export function useControllableState<T>(props: UseControllableStateProps<T>) {
   const onChangeProp = useCallbackRef(onChange);
   const shouldUpdateProp = useCallbackRef(shouldUpdate);
 
-  const [uncontrolledState, setUncontrolledState] = useState(defaultValue as T);
+  const [uncontrolledState, setUncontrolledState] = React.useState(
+    defaultValue as T
+  );
   const controlled = valueProp !== undefined;
   const value = controlled ? valueProp : uncontrolledState;
 
@@ -78,26 +87,29 @@ export function useControllableState<T>(props: UseControllableStateProps<T>) {
 }
 
 export const useToggle = (defaultValue = false) => {
-  const [state, setState] = useState(defaultValue);
+  const [state, setState] = React.useState(defaultValue);
 
-  const off = useCallback(() => setState(false), []);
-  const on = useCallback(() => setState(true), []);
-  const toggle = useCallback(() => setState((prevState) => !prevState), []);
+  const off = React.useCallback(() => setState(false), []);
+  const on = React.useCallback(() => setState(true), []);
+  const toggle = React.useCallback(
+    () => setState((prevState) => !prevState),
+    []
+  );
 
   return [state, { on, off, toggle }] as const;
 };
 
 export const useIsomorphicLayoutEffect =
-  typeof window === "undefined" ? useEffect : useLayoutEffect;
+  typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
 
 export function useUpdateEffect(
   callback: React.EffectCallback,
   deps: React.DependencyList
 ) {
-  const renderCycleRef = useRef(false);
-  const effectCycleRef = useRef(false);
+  const renderCycleRef = React.useRef(false);
+  const effectCycleRef = React.useRef(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const mounted = renderCycleRef.current;
     const run = mounted && effectCycleRef.current;
     if (run) {
@@ -107,10 +119,83 @@ export function useUpdateEffect(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  useEffect(() => {
+  React.useEffect(() => {
     renderCycleRef.current = true;
     return () => {
       renderCycleRef.current = false;
     };
   }, []);
+}
+
+export function useAddEvent<
+  TTarget extends EventTarget,
+  TListener extends (...args: any[]) => any,
+  TEvent extends string = string
+>({
+  event,
+  listener,
+  target,
+  options,
+}: {
+  target: TTarget;
+  event: TEvent;
+  listener?: TListener;
+  options?: boolean | AddEventListenerOptions;
+}) {
+  const listenerCallbackRef = useCallbackRef(listener);
+  const optionsRef = React.useRef(options);
+
+  React.useEffect(() => {
+    optionsRef.current = options;
+  });
+
+  React.useEffect(() => {
+    const cleanup = addEvent({
+      target,
+      event,
+      listener: listenerCallbackRef,
+      options: optionsRef.current,
+    });
+
+    return () => cleanup();
+  }, [target, event, optionsRef, listenerCallbackRef]);
+}
+
+export function useDocument<TEvent extends keyof DocumentEventMap>(
+  event: TEvent,
+  listener?: (event: DocumentEventMap[TEvent]) => void
+) {
+  useAddEvent({
+    target: document,
+    event,
+    listener,
+  });
+}
+
+export function useWindow<TEvent extends keyof WindowEventMap>(
+  event: TEvent,
+  listener?: (event: WindowEventMap[TEvent]) => void
+) {
+  useAddEvent({
+    target: window,
+    event,
+    listener,
+  });
+}
+
+export function useKeyboard({
+  onKeyDown,
+  onKeyUp,
+}: {
+  onKeyDown?: (event: KeyboardEvent) => void;
+  onKeyUp?: (event: KeyboardEvent) => void;
+} = {}) {
+  useDocument("keydown", onKeyDown);
+  useDocument("keyup", onKeyUp);
+}
+
+export function useUnmountEffect(cleanup: () => void) {
+  const cleanupCallbackRef = useCallbackRef(cleanup);
+
+  React.useEffect(() => cleanupCallbackRef, [cleanupCallbackRef]);
 }

@@ -224,12 +224,6 @@ export function isNotEmpty<T extends unknown[]>(arr: T): boolean {
   return arr.length > 0;
 }
 
-export function getHookFormError<
-  TFormValues extends Record<string, any> = Record<string, any>
->(errors: FieldErrors<TFormValues>, key: FieldPath<TFormValues>) {
-  return errors[key];
-}
-
 export function hookFormHasError<
   TFormValues extends Record<string, any> = Record<string, any>
 >({
@@ -267,4 +261,11 @@ export function debounce(cb: () => void, wait?: number) {
 
 export function getUniqueId() {
   return ((uniqueId = 1) => uniqueId++)();
+}
+
+export function combine<
+  T extends any[],
+  K extends ((...args: T) => void) | undefined
+>(...fns: K[]) {
+  return (...args: T) => fns.forEach((fn) => fn?.(...args));
 }

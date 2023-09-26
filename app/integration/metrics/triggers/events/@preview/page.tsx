@@ -78,12 +78,64 @@ export default function Preview() {
 
       <Tabs defaultValue="setup" className="flex flex-auto flex-col">
         <TabsList className="w-full justify-between border-t">
-          <TabsTrigger value="setup">
+          <TabsTrigger
+            className="disabled:opacity-100 disabled:data-[state=active]:border-b-primary-500 disabled:data-[state=active]:text-primary-500"
+            value="setup"
+            disabled
+          >
             Setup <AlertCircle2 className="text-error-500" />
           </TabsTrigger>
-          <TabsTrigger value="filters">Filters</TabsTrigger>
-          <TabsTrigger value="conditions">Conditions</TabsTrigger>
-          <TabsTrigger value="test">Test</TabsTrigger>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <TabsTrigger
+                  className="disabled:opacity-100 disabled:data-[state=active]:border-b-primary-500 disabled:data-[state=active]:text-primary-500"
+                  value="filters"
+                  disabled
+                >
+                  Filters
+                </TabsTrigger>
+              </TooltipTrigger>
+              <TooltipContent>
+                Tabs are disabled in a preview mode
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <TabsTrigger
+                  className="disabled:opacity-100 disabled:data-[state=active]:border-b-primary-500 disabled:data-[state=active]:text-primary-500"
+                  value="conditions"
+                  disabled
+                >
+                  Conditions
+                </TabsTrigger>
+              </TooltipTrigger>
+              <TooltipContent>
+                Tabs are disabled in a preview mode
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <TabsTrigger
+                  className="disabled:opacity-100 disabled:data-[state=active]:border-b-primary-500 disabled:data-[state=active]:text-primary-500"
+                  value="test"
+                  disabled
+                >
+                  Test
+                </TabsTrigger>
+              </TooltipTrigger>
+              <TooltipContent>
+                Tabs are disabled in a preview mode
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </TabsList>
         <TabsContent className="flex flex-auto flex-col p-5" value="setup">
           <h3 className="text-sm font-medium text-gray-900">
@@ -91,14 +143,38 @@ export default function Preview() {
           </h3>
 
           <RadioGroup className="mt-3 gap-y-2" defaultValue="Option 1">
-            <RadioGroupItemSelector value="Option 1">
-              <Label>Assign a Tag</Label>
-              <HelperText>Add a tag in the workflow</HelperText>
-            </RadioGroupItemSelector>
-            <RadioGroupItemSelector value="Option 2">
-              <Label>Unassign a Tag</Label>
-              <HelperText>Remove a tag in the workflow</HelperText>
-            </RadioGroupItemSelector>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="grid">
+                    <RadioGroupItemSelector value="Option 1">
+                      <Label>Assign a Tag</Label>
+                      <HelperText>Add a tag in the workflow</HelperText>
+                    </RadioGroupItemSelector>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" align="center">
+                  This is the event that you are currently working on
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="grid">
+                    <RadioGroupItemSelector value="Option 2">
+                      <Label>Unassign a Tag</Label>
+                      <HelperText>Remove a tag in the workflow</HelperText>
+                    </RadioGroupItemSelector>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" align="center">
+                  Go back to events list in order to setup settings for another
+                  event
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </RadioGroup>
 
           <div className="mt-auto">
@@ -124,10 +200,24 @@ export default function Preview() {
                 </h3>
               </div>
 
-              <Button variant="outlined" visual="gray">
-                <Plus2 />
-                Connect
-              </Button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      className="disabled:pointer-events-auto disabled:opacity-100"
+                      variant="outlined"
+                      visual="gray"
+                      disabled
+                    >
+                      <Plus2 />
+                      Connect
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Button is disabled in a preview mode
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
         </TabsContent>

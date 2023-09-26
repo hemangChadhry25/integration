@@ -31,7 +31,8 @@ function Panels({
       <TabsList className="h-11 w-full justify-between">
         <TabsTrigger value="source">Source</TabsTrigger>
         <TabsTrigger value="setup">Setup</TabsTrigger>
-        <TabsTrigger value="conditions">Conditions</TabsTrigger>
+        {/* TODO: work later */}
+        {/* <TabsTrigger value="conditions">Conditions</TabsTrigger> */}
         <TabsTrigger value="test">Test</TabsTrigger>
       </TabsList>
       {/* TODO: add functionality to close sidebar */}
@@ -50,12 +51,13 @@ function Panels({
       >
         {setupTab}
       </TabsContent>
-      <TabsContent
+      {/* TODO: work later */}
+      {/* <TabsContent
         className="scrollbar-thumb h-[calc(theme(height.full)-theme(height.11))] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-lg"
         value="conditions"
       >
         {conditionsTab}
-      </TabsContent>
+      </TabsContent> */}
       <TabsContent
         className="scrollbar-thumb h-[calc(theme(height.full)-theme(height.11))] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-lg"
         value="test"
@@ -70,10 +72,10 @@ export default function Sidebar() {
   return (
     <Portal.Root className="fixed inset-y-0 left-0 top-[70px] z-40 h-[calc(theme(height.full)-70px)] w-[370px] border-r border-gray-200 bg-white">
       <div className="flex items-center justify-between p-5 pb-2">
-        <button className="inline-flex flex-none items-center gap-x-2 text-base font-medium text-gray-900 focus-visible:outline-none">
+        <div className="inline-flex flex-none items-center gap-x-2 text-base font-medium text-gray-900 focus-visible:outline-none">
           <Search className="h-[18px] w-[18px] flex-none" />
           Search
-        </button>
+        </div>
         <button className="inline-flex items-center justify-center gap-x-2 text-sm font-semibold text-primary-500 focus-visible:outline-none">
           <PlayCircle className="h-[15px] w-[15px]" />
           Overview

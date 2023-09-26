@@ -271,7 +271,7 @@ export const ReorderCards = () => {
       axis="y"
     >
       {values.map((value) => (
-        <ReorderItem className="relative" value={value} key={value}>
+        <ReorderItem value={value} key={value}>
           {({ dragControls }) => (
             <article className="flex h-[116px] items-start gap-x-3 rounded-[10px] border border-gray-200 bg-white p-[21px] pl-[13px] transition duration-300 hover:border-2 hover:border-gray-300 hover:p-5 hover:pl-3 active:border-primary-500 active:p-5 active:pl-3">
               <button
@@ -333,7 +333,7 @@ export const ReorderHelpCircleCards = () => {
       axis="y"
     >
       {values.map((value) => (
-        <ReorderItem className="relative" value={value} key={value}>
+        <ReorderItem value={value} key={value}>
           {({ dragControls }) => (
             <article className="flex h-[142px] items-start gap-x-3 rounded-[10px] border border-gray-200 bg-white p-[21px] pl-[13px] transition duration-300 hover:border-2 hover:border-gray-300 hover:p-5 hover:pl-3 active:border-primary-500 active:p-5 active:pl-3">
               <button
@@ -399,7 +399,7 @@ export const ReorderHiddenCards = () => {
       axis="y"
     >
       {values.map((value) => (
-        <ReorderItem className="relative" value={value} key={value}>
+        <ReorderItem value={value} key={value}>
           {({ dragControls }) => (
             <article className="flex h-[116px] items-start gap-x-3 rounded-[10px] border border-gray-200 bg-white p-[21px] pl-[13px] transition duration-300 hover:border-2 hover:border-gray-300 hover:p-5 hover:pl-3 active:border-primary-500 active:p-5 active:pl-3">
               <button
@@ -481,7 +481,7 @@ export const ReorderHelpCircleHiddenCards = () => {
       axis="y"
     >
       {values.map((value) => (
-        <ReorderItem className="relative" value={value} key={value}>
+        <ReorderItem value={value} key={value}>
           {({ dragControls }) => (
             <article className="flex h-[142px] items-start gap-x-3 rounded-[10px] border border-gray-200 bg-white p-[21px] pl-[13px] transition duration-300 hover:border-2 hover:border-gray-300 hover:p-5 hover:pl-3 active:border-primary-500 active:p-5 active:pl-3">
               <button

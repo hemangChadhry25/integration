@@ -84,7 +84,7 @@ function Overview() {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormValues>({
     mode: "onChange",
     resolver: zodResolver(schema),
@@ -94,138 +94,6 @@ function Overview() {
 
   return (
     <>
-      <nav className="fixed inset-y-0 left-0 z-[25] flex w-[70px] flex-col items-center border-r border-gray-200 bg-white">
-        <div className="flex justify-center self-stretch border-b border-gray-200 py-[22px]">
-          <Link
-            className="text-primary-500 focus:outline-none"
-            aria-label="Logo"
-            href="/"
-          >
-            <Logo />
-          </Link>
-        </div>
-        <div className="flex flex-auto flex-col items-center justify-between self-stretch">
-          <div className="flex flex-col gap-y-5 pt-5">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] text-gray-500 transition-colors hover:bg-primary-50 hover:text-primary-500 focus:outline-none">
-                  <Home />
-                </TooltipTrigger>
-                <TooltipContent className="font-semibold" side="right">
-                  Home
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] text-gray-500 transition-colors hover:bg-primary-50 hover:text-primary-500 focus:outline-none">
-                  <BarChartSquare />
-                </TooltipTrigger>
-                <TooltipContent className="font-semibold" side="right">
-                  Stats
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] text-gray-500 transition-colors hover:bg-primary-50 hover:text-primary-500 focus:outline-none">
-                  <ThreeLayers />
-                </TooltipTrigger>
-                <TooltipContent className="font-semibold" side="right">
-                  Projects
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] text-gray-500 transition-colors hover:bg-primary-50 hover:text-primary-500 focus:outline-none">
-                  <Users />
-                </TooltipTrigger>
-                <TooltipContent className="font-semibold" side="right">
-                  Team
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-
-          <div className="flex flex-col gap-y-5">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] text-gray-500 transition-colors hover:bg-primary-50 hover:text-primary-500 focus:outline-none">
-                  <LifeBouy />
-                </TooltipTrigger>
-                <TooltipContent className="font-semibold" side="right">
-                  Support
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] text-gray-500 transition-colors hover:bg-primary-50 hover:text-primary-500 focus:outline-none">
-                  <Settings className="h-[18px] w-[18px]" />
-                </TooltipTrigger>
-                <TooltipContent className="font-semibold" side="right">
-                  Settings
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src="/man.jpg" alt="Man" />
-                  <AvatarFallback>M</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent side="right">
-                <DropdownMenuLabel className="font-normal" size="md">
-                  <div className="inline-flex items-center gap-x-3">
-                    <Avatar size="md">
-                      <AvatarImage src="/man.jpg" alt="Man" />
-                      <AvatarFallback>M</AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-gray-700">
-                        Christopher Torres
-                      </span>
-                      <span className="text-sm text-gray-500">
-                        chris@blendmetrics.com
-                      </span>
-                    </div>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuItem>
-                  <User />
-                  View Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings />
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <UserPlus />
-                  Invite Team members
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Belling />
-                  Belling
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <HelpCircle />
-                  Support
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <LogOut />
-                  Log out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-      </nav>
-
       <nav className="fixed inset-x-0 left-[70px] z-20 flex h-[70px] items-center justify-between border-b border-gray-200 bg-white px-[17px] py-[15px]">
         <Breadcrumb spacing="0.5rem">
           <BreadcrumbItem>
@@ -348,13 +216,15 @@ function Overview() {
                     errors={errors}
                     name="description"
                     render={({ message }) => (
-                      <ErrorMessage>{message}</ErrorMessage>
+                      <ErrorMessage size="sm">{message}</ErrorMessage>
                     )}
                   />
                 </div>
 
                 <div className="mt-12 flex justify-end">
-                  <Button type="submit">Create Integration</Button>
+                  <Button type="submit" disabled={!isValid}>
+                    Create Integration
+                  </Button>
                 </div>
               </form>
             </DialogContent>
@@ -362,7 +232,7 @@ function Overview() {
         </div>
       </nav>
 
-      <nav className="fixed bottom-0 left-[70px] top-[70px] z-20 w-[224px] overflow-y-auto border-r border-gray-200 p-[15px] pb-0 scrollbar-thin scrollbar-thumb-rounded-lg">
+      <nav className="fixed bottom-0 left-[70px] top-[70px] z-20 w-[224px] overflow-y-auto border-r border-gray-200 bg-gray-50 p-[15px] pb-0 scrollbar-thin scrollbar-thumb-rounded-lg">
         <ul className="grid gap-2">
           <li>
             <Link
@@ -385,7 +255,7 @@ function Overview() {
         </ul>
       </nav>
 
-      <main className="scrollbar-rounded-lg relative overflow-y-auto pl-[294px] pt-[70px] scrollbar-thin">
+      <main className="scrollbar-rounded-lg relative min-h-screen overflow-y-auto bg-gray-50 pl-[294px] pt-[70px] scrollbar-thin">
         <div className="p-8">
           <div className="flex items-end justify-between">
             <div className="space-y-1">
