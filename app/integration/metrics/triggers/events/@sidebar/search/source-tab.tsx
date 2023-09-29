@@ -1,10 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import { SubmitHandler, useForm, Controller, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
+
 import {
   ArrowDownAZ,
   ChevronDown,
@@ -28,9 +29,8 @@ import {
   ScaleOutIn,
   inputVariants,
 } from "@/components/ui";
-import { chunk, cn, isEmptyArray, isNotEmptyArray, flatten } from "@/lib/utils";
+import { chunk, cn, isEmpty, isNotEmpty, flatten } from "@/lib/utils";
 import { EXIT_ANIMATION, METRICS_OPTIONS } from "@/lib/constants";
-import { useWatched } from "@/lib/hooks";
 
 const schema = z.object({
   dataset: z.string(),
@@ -54,33 +54,46 @@ interface FormValues {
   dataset: string;
   category: string;
   metrics: string[];
-  sort: string;
+  sort: "asc" | "desc";
 }
 
 const SourceTab = () => {
-  const { handleSubmit, register, control, watch, setValue } =
-    useForm<FormValues>({
-      shouldUnregister: true,
-      resolver: zodResolver(schema),
-      defaultValues: {
-        sort: "asc",
-      },
-    });
+  const {
+    handleSubmit,
+    register,
+    control,
+    setValue,
+    watch,
+    getValues,
+    resetField,
+  } = useForm<FormValues>({
+    shouldUnregister: true,
+    resolver: zodResolver(schema),
+    defaultValues: {
+      dataset: "",
+      category: "",
+      sort: "asc",
+      metrics: [],
+    },
+  });
 
-  const dataset = watch("dataset");
-  const category = watch("category");
-  const metrics = watch("metrics");
+  useWatch({
+    control,
+  });
+
+  // TODO: replace this method with watch when its bug is fixed
+  const dataset = getValues("dataset");
+  const category = getValues("category");
+  const metrics = getValues("metrics");
 
   const onSubmit: SubmitHandler<FormValues> = (variables) => {};
 
-  const clearAll = () => setValue("metrics", []);
+  const clearAll = () => resetField("metrics");
 
-  const isMetricsNotEmpty = metrics ? isNotEmptyArray(metrics) : false;
-  const metricsArr = metrics ? chunk(metrics) : undefined;
+  const isMetricsNotEmpty = isNotEmpty(metrics);
+  const metricsArr = chunk(metrics);
 
-  const setMetrics = (newMetrics: string[], metricsIndex: number) => {
-    if (!metricsArr) return;
-
+  const mutateMetrics = (newMetrics: string[], metricsIndex: number) => {
     const newMetricsArr = metricsArr.map((metrics, i) =>
       i === metricsIndex ? newMetrics : metrics
     );
@@ -88,14 +101,12 @@ const SourceTab = () => {
   };
 
   const removeMetric = (metricsIndex: number, removalIndex: number) => {
-    if (!metricsArr) return;
-
     const metrics = metricsArr[metricsIndex];
     const filteredMetrics = metrics.filter(
       (metrics, index) => index !== removalIndex
     );
 
-    if (isEmptyArray(filteredMetrics)) {
+    if (isEmpty(filteredMetrics)) {
       const filteredMetricsArr = metricsArr.filter(
         (metrics, index) => index !== metricsIndex
       );
@@ -178,12 +189,12 @@ const SourceTab = () => {
 
             <div className="flex w-full flex-col space-y-[5px]">
               <AnimatePresence>
-                {metricsArr?.map((metrics, metricsIndex) => (
+                {metricsArr.map((metrics, metricsIndex) => (
                   <ReorderGroup
                     className="flex w-full max-w-[320px] flex-grow flex-wrap items-center gap-x-1.5 gap-y-3"
                     key={metricsIndex}
                     onReorder={(newMetrics) =>
-                      setMetrics(newMetrics, metricsIndex)
+                      mutateMetrics(newMetrics, metricsIndex)
                     }
                     values={metrics}
                   >

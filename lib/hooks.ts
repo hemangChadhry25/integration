@@ -1,14 +1,8 @@
 import * as React from "react";
+import { Control, FieldPath, FieldPathValue, useWatch } from "react-hook-form";
 
 import { addEvent } from "./dom";
 import { debounce } from "./utils";
-import {
-  Control,
-  FieldPath,
-  FieldPathValue,
-  PathValue,
-  useWatch,
-} from "react-hook-form";
 
 export function useDebounce<TValue>(value: TValue, wait?: number) {
   const [state, setState] = React.useState(value);
@@ -207,7 +201,7 @@ export function useUnmountEffect(cleanup: () => void) {
   React.useEffect(() => cleanupCallbackRef, [cleanupCallbackRef]);
 }
 
-export function useWatched<
+export function useEnhancedWatch<
   TFieldValues extends Record<string, any>,
   TFieldName extends FieldPath<TFieldValues>
 >({

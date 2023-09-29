@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useAtom } from "jotai";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -24,8 +23,8 @@ import {
   TooltipTrigger,
   inputVariants,
 } from "@/components/ui";
-import { goToPreviousAtom } from "@/lib/atom";
 import { RemainCharacters } from "@/components/remain-characters";
+import { ToggleMachineContext } from "@/machines";
 
 interface FormValues {
   name: string;
@@ -36,7 +35,6 @@ interface FormValues {
 }
 
 export default function Events() {
-  const [, goToPrevious] = useAtom(goToPreviousAtom);
   const {
     register,
     control,
@@ -53,6 +51,8 @@ export default function Events() {
       })
     ),
   });
+
+  const [, send] = ToggleMachineContext.useActor();
 
   const onSubmit: SubmitHandler<FormValues> = (variables) => {};
 
@@ -88,7 +88,7 @@ export default function Events() {
                 <button
                   className="inline-flex flex-none items-center gap-x-3 text-base font-semibold text-gray-600 focus-visible:outline-none"
                   type="button"
-                  onClick={goToPrevious}
+                  onClick={() => send("TOGGLE")}
                 >
                   <ArrowLeft2 className="flex-none" /> New Event
                 </button>

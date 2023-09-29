@@ -19,7 +19,7 @@ import { useUpdateEffect } from "@/lib/hooks";
 const schema = z.object({
   label: z.string().max(30),
   singleOrMultiSelect: z.enum(["single", "multiple"]),
-  optional: z.boolean(),
+  optionalField: z.boolean(),
   placeholder: z.string().max(30),
   hint: z.string().max(30),
   tooltip: z.string().max(50),
@@ -33,8 +33,12 @@ export default function SetupTab() {
     useForm<FormValues>({
       resolver: zodResolver(schema),
       defaultValues: {
+        label: "",
         singleOrMultiSelect: "single",
-        optional: false,
+        optionalField: false,
+        placeholder: "",
+        hint: "",
+        tooltip: "",
       },
     });
   const singleOrMultiSelect = watch("singleOrMultiSelect");
@@ -126,7 +130,7 @@ export default function SetupTab() {
             </Label>
             <Controller
               control={control}
-              name="optional"
+              name="optionalField"
               render={({ field: { value, onChange, ...props } }) => (
                 <Switch
                   checked={value}

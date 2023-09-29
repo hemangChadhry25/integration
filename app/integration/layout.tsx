@@ -47,7 +47,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { INTEGRATION_PAGE_PATHNAME } from "@/lib/constants";
+import { INTEGRATION_PAGE } from "@/lib/constants";
 
 const ActiveLink = ({
   href,
@@ -78,7 +78,7 @@ export default function IntegrationLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isNotIntegrationPage = pathname !== INTEGRATION_PAGE_PATHNAME;
+  const isNotIntegrationPage = pathname !== INTEGRATION_PAGE;
 
   return (
     <>

@@ -144,7 +144,7 @@ export function isArray(arg: any): arg is any[] {
 }
 
 export function countCharacters(
-  arg: string | number | any[] | Record<any, any> | null | undefined
+  arg: string | number | any[] | Record<string, any> | null | undefined
 ): number {
   if (isNull(arg) || isUndefined(arg)) {
     return 0;
@@ -198,7 +198,7 @@ export function chunk<T extends unknown[]>(arr: T, size = 2): T[] {
     return recursion(remainArr as T, size, [...result, sliced] as T[]);
   };
 
-  if (isEmptyArray(arr)) {
+  if (isEmpty(arr) || size < 1) {
     return [] as T[];
   }
 
@@ -216,11 +216,11 @@ export function add(...nums: number[]): number {
   return recursion(nums);
 }
 
-export function isEmptyArray<T extends unknown[]>(arr: T): boolean {
+export function isEmpty<T extends unknown[]>(arr: T): boolean {
   return arr.length === 0;
 }
 
-export function isNotEmptyArray<T extends unknown[]>(arr: T): boolean {
+export function isNotEmpty<T extends unknown[]>(arr: T): boolean {
   return arr.length > 0;
 }
 
@@ -259,9 +259,11 @@ export function debounce(cb: () => void, wait?: number) {
   };
 }
 
-export function getId() {
-  return ((id = 1) => id++)();
-}
+export const getId = (
+  (id = 1) =>
+  () =>
+    id++
+)();
 
 export function combine<
   T extends any[],

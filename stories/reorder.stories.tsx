@@ -32,7 +32,7 @@ import {
   Trash,
   X,
 } from "@/components/icons";
-import { chunk, flatten, isEmptyArray, isNotEmptyArray } from "@/lib/utils";
+import { chunk, flatten, isEmpty, isNotEmpty } from "@/lib/utils";
 import { EXIT_ANIMATION } from "@/lib/constants";
 
 const meta: Meta = {
@@ -58,7 +58,7 @@ export const Default = () => {
   const clearAll = () => setState([]);
 
   const itemsArr = chunk(state);
-  const showClearAll = isNotEmptyArray(itemsArr);
+  const showClearAll = isNotEmpty(itemsArr);
 
   const setItems = (newItems: string[], itemsIndex: number) => {
     const newItemsArr = itemsArr.map((items, index) =>
@@ -71,7 +71,7 @@ export const Default = () => {
     const items = itemsArr[itemsIndex];
     const filteredItems = items.filter((item, i) => i !== removalIndex);
 
-    if (isEmptyArray(filteredItems)) {
+    if (isEmpty(filteredItems)) {
       const filteredItemsArr = itemsArr.filter((items, i) => i !== itemsIndex);
       setState(flatten(filteredItemsArr));
     } else {
@@ -150,7 +150,7 @@ export const ReorderOnBothAxes = () => {
   const clearAll = () => setState([]);
 
   const itemsArr = chunk(state);
-  const showClearAll = isNotEmptyArray(itemsArr);
+  const showClearAll = isNotEmpty(itemsArr);
 
   const setItemsArr = (newOrder: string[][]) => {
     setState(flatten(newOrder));
@@ -167,7 +167,7 @@ export const ReorderOnBothAxes = () => {
     const items = itemsArr[itemsIndex];
     const filteredItems = items.filter((item, i) => i !== itemIndex);
 
-    if (isEmptyArray(filteredItems)) {
+    if (isEmpty(filteredItems)) {
       const filteredItemsArr = itemsArr.filter(
         (items, index) => index !== itemsIndex
       );

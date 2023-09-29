@@ -5,9 +5,9 @@ export const ACCEPTED_FILE_TYPES = {
   "image/gif": [".gif"],
 };
 
-export const EVENTS_PAGE_PATHNAME = "/integration/metrics/triggers/events";
+export const EVENTS_PAGE = "/integration/metrics/triggers/events";
 
-export const INTEGRATION_PAGE_PATHNAME = "/integration";
+export const INTEGRATION_PAGE = "/integration";
 
 export const METRICS_OPTIONS = [
   "Name",
@@ -23,5 +23,3 @@ export const METRICS_OPTIONS = [
 export const EXIT_ANIMATION = {
   opacity: 0,
 };
-
-export const ONE_SECOND = 1000;

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { atom, useAtom } from "jotai";
 
 import {
   X2,
@@ -39,19 +38,17 @@ import {
   IconButton,
 } from "@/components/ui";
 import { useKeyboard } from "@/lib/hooks";
+import {
+  PreviewMachineContext,
+  SettingsMachineContext,
+  ToggleMachineContext,
+} from "@/machines";
+import { getId } from "@/lib/utils";
 
-export const commandPaletteAtom = atom(false);
-
-export const openCommandPaletteAtom = atom(null, (get, set) =>
-  set(commandPaletteAtom, true)
-);
-
-export const closeCommandPaletteAtom = atom(null, (get, set) =>
-  set(commandPaletteAtom, false)
-);
-
-export default function XCommandPalette() {
-  const [isOpen, setIsOpen] = useAtom(commandPaletteAtom);
+export default function CommandPaletteModal() {
+  const [state, dispatch] = ToggleMachineContext.useActor();
+  const [, send] = SettingsMachineContext.useActor();
+  const [, sendToMachine] = PreviewMachineContext.useActor();
 
   useKeyboard({
     onKeyDown: (e) => {
@@ -59,15 +56,33 @@ export default function XCommandPalette() {
 
       if (shouldToggled) {
         e.preventDefault();
-        setIsOpen((prev) => !prev);
+        dispatch("TOGGLE");
       }
     },
   });
 
+  const onSelectedChange = (value: string) => {
+    const options = { isAdvanced: false };
+
+    switch (value) {
+      case "search":
+        send({
+          ...options,
+          type: "INSERT",
+          value: { for: "search", id: getId() },
+        });
+        break;
+    }
+
+    sendToMachine("ACTIVATE");
+  };
+
+  const open = state.matches("turned on");
+
   return (
-    <CommandPaletteDialog open={isOpen} onOpenChange={setIsOpen}>
+    <CommandPaletteDialog open={open} onOpenChange={() => dispatch("TOGGLE")}>
       <CommandPaletteDialogContent>
-        <CommandPalette onSelectedChange={(value) => console.log(value)}>
+        <CommandPalette onSelectedChange={onSelectedChange}>
           <CommandPaletteHeader>
             <CommandPaletteTitle>New Field</CommandPaletteTitle>
             <CommandPaletteDialogClose asChild>
