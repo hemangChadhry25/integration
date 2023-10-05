@@ -3,10 +3,9 @@ import { assign, createMachine } from "xstate";
 
 interface Setting {
   id: number;
-  preview: boolean;
 }
 
-export interface Search extends Setting {
+export interface SearchSettings extends Setting {
   for: "search";
   settings: {
     source?: {
@@ -27,6 +26,44 @@ export interface Search extends Setting {
   };
 }
 
+export interface DropdownSettings extends Setting {
+  for: "dropdown";
+  settings: {
+    source?: {
+      dataset: string;
+      category: string;
+      metrics: string[];
+      sort: "asc" | "desc";
+    };
+    setup?: {
+      fieldType: string;
+      fieldLabel: string;
+      singleOrMultiSelect: "single" | "multiple";
+      optionalField: boolean;
+      placeholderOrDefaultValue: "placeholder" | "defaultValue";
+      placeholder: string;
+      hint: string;
+      limitSelections?: boolean;
+    };
+  };
+}
+
+export interface ToggleSettings extends Setting {
+  for: "toggle";
+  settings: {
+    source?: {
+      dataset: string;
+      category: string;
+      metric: string;
+    };
+    setup?: {
+      fieldLabel: string;
+      hint: string;
+      tooltip: string;
+    };
+  };
+}
+
 export const settingsMachine = createMachine(
   {
     /** @xstate-layout N4IgpgJg5mDOIC5SzAF1QSwHZVgYgEkA5AZQFEAlAFQG0AGAXUVAAcB7WDTNrZkAD0QBmAJwAmAHQB2ABxSALCLpj5ANgCsYseqkAaEAE9EYuvIlK6y1UKkn5QsQEYAvs-0p02XHgCqABQARAEEqMnomJBB2Tm5eSMEEIRkRCUcbRUU6R3k6JP0jBEc6GQl5dUs0xxlVZUdVFzcQD0wcfCCAYSoCADUQsMY+aK4MHj4EpLN5GUcVKtEs+XzEGdd3NBbvALIOrt7Q8MGOYdH44Sl1VMURGXtzoSF5OqWEGSEL23KRe6FVKRqxVZNdZefBkAIEKgAWnIQQo7QAEgdIkNYmNEFI9IZEOpshIbOV1DZZKoRJpAc0QXgwRDIQEKAB5QL0gDqRCRrCOqNOCAxz3qdAkMm0dFUJNU8ikdRE5OBrSp4KhVHpAHFlQAZfoRDkxEZxUAJXlYnl0KQSMTnYpZcpSJLqGWeOUUMgAWXp3U1hx1J316MxBRsAo0lglVXUqhuantG1gEkgwxwAAIUABDABOAGMABZ4JWqjXsqKc3VohDqHLSBQia6EyXFP3Y3H4ug14mkgGNCmtWMQeNQBMQVNsFgQNgAdywOZV6o9yKL3oE2PLGKuMhrRTkfKKguFopE4slJKjIO7vYTqDYUCgABswJO8zPtcc9QvS0vK9WbOv68bTebyjIrRNW1XEaLA2AgOA+E7XBPSfEsxBEZ4xFePFylyUl1AA8VVyPLs4w2WCuR9Y0UhUKsvikOg9xmGRnjLSQTEsWxLFeMRVHbNYHVwE8NiTMA0yzQji25fEJDrRRrFsOoRTomxBTQtRFCERwig4oEuJjfCvH7QdhzHZ8UWE4ifjMUxyPqbIpGo1Q+QePEKjqTRZBtGRcO4rTE3PS8byE+dxgUCQSXSeQlLSawbKNG0BQtE1kI0RxCTtECgA */
@@ -34,13 +71,29 @@ export const settingsMachine = createMachine(
       settings: [],
       advancedSettings: [],
       currentId: undefined,
-      isCurrentAdvanced: undefined,
+      currentAdvanced: undefined,
     },
     id: "settings",
     initial: "editing",
     states: {
       editing: {},
       "editing search": {
+        on: {
+          TOGGLE: {
+            target: "editing",
+            actions: "resetCurrent",
+          },
+        },
+      },
+      "editing dropdown": {
+        on: {
+          TOGGLE: {
+            target: "editing",
+            actions: "resetCurrent",
+          },
+        },
+      },
+      "editing toggle": {
         on: {
           TOGGLE: {
             target: "editing",
@@ -58,14 +111,6 @@ export const settingsMachine = createMachine(
         actions: "update",
         internal: true,
       },
-      ACTIVATE: {
-        actions: "active",
-        internal: true,
-      },
-      DEACTIVATE: {
-        actions: "deactivate",
-        internal: true,
-      },
       DUPLICATE: {
         actions: "duplicate",
         internal: true,
@@ -76,52 +121,89 @@ export const settingsMachine = createMachine(
         actions: "setCurrent",
         internal: true,
       },
-      REMOVE: [
+      "EDIT-DROPDOWN": {
+        target: ".editing dropdown",
+        cond: "ifDropdown",
+        actions: "setCurrent",
+        internal: true,
+      },
+      "EDIT-TOGGLE": {
+        target: ".editing toggle",
+        cond: "ifToggle",
+        actions: "setCurrent",
+        internal: true,
+      },
+      DELETE: [
         {
           target: ".editing",
           cond: "hasSameCurrentId",
-          actions: ["remove", "resetCurrent"],
+          actions: ["delete", "resetCurrent"],
           internal: true,
         },
         {
-          actions: "remove",
+          actions: "delete",
           internal: true,
         },
       ],
+      REORDER: {
+        actions: "reorder",
+        internal: true,
+      },
     },
     schema: {
       events: {} as
         | { type: "" }
-        | { type: "ACTIVATE"; settingId: number; isAdvanced: boolean }
-        | { type: "DEACTIVATE"; settingId: number; isAdvanced: boolean }
         | {
             type: "DUPLICATE";
             targetSettingId: number;
             settingId: number;
-            isAdvanced: boolean;
+            advanced: boolean;
           }
         | {
             type: "INSERT";
-            value: Omit<Omit<Search, "preview">, "settings">;
-            isAdvanced: boolean;
+            value:
+              | Omit<SearchSettings, "settings">
+              | Omit<DropdownSettings, "settings">
+              | Omit<ToggleSettings, "settings">;
+            advanced: boolean;
           }
-        | { type: "REMOVE"; settingId: number; isAdvanced: boolean }
+        | { type: "DELETE"; settingId: number; advanced: boolean }
         | { type: "TOGGLE" }
         | {
             type: "UPDATE";
-            value: Omit<Search, "preview">;
-            isAdvanced: boolean;
+            value: SearchSettings | DropdownSettings | ToggleSettings;
+            advanced: boolean;
           }
         | {
             type: "EDIT-SEARCH";
             settingId: number;
-            isAdvanced: boolean;
+            advanced: boolean;
+          }
+        | {
+            type: "EDIT-DROPDOWN";
+            settingId: number;
+            advanced: boolean;
+          }
+        | {
+            type: "EDIT-TOGGLE";
+            settingId: number;
+            advanced: boolean;
+          }
+        | {
+            type: "REORDER";
+            advanced: boolean;
+            settings: (SearchSettings | DropdownSettings | ToggleSettings)[];
           },
+
       context: {} as {
-        settings: Search[];
-        advancedSettings: Search[];
+        settings: (SearchSettings | DropdownSettings | ToggleSettings)[];
+        advancedSettings: (
+          | SearchSettings
+          | DropdownSettings
+          | ToggleSettings
+        )[];
         currentId: number | undefined;
-        isCurrentAdvanced: boolean | undefined;
+        currentAdvanced: boolean | undefined;
       },
     },
     tsTypes: {} as import("./settings-machine.typegen").Typegen0,
@@ -132,23 +214,23 @@ export const settingsMachine = createMachine(
     actions: {
       setCurrent: assign({
         currentId: (context, event) => event.settingId,
-        isCurrentAdvanced: (context, event) => event.isAdvanced,
+        currentAdvanced: (context, event) => event.advanced,
       }),
 
       resetCurrent: assign({
         currentId: undefined,
-        isCurrentAdvanced: undefined,
+        currentAdvanced: undefined,
       }),
 
-      remove: assign({
+      delete: assign({
         settings: (context, event) =>
-          event.isAdvanced
+          event.advanced
             ? context.settings
             : context.settings.filter(
                 (setting) => setting.id !== event.settingId
               ),
         advancedSettings: (context, event) =>
-          event.isAdvanced
+          event.advanced
             ? context.advancedSettings.filter(
                 (setting) => setting.id !== event.settingId
               )
@@ -157,81 +239,51 @@ export const settingsMachine = createMachine(
 
       insert: assign({
         settings: (context, event) =>
-          event.isAdvanced
+          event.advanced
             ? context.settings
-            : [
-                ...context.settings,
-                { ...event.value, preview: true, settings: {} },
-              ],
+            : [...context.settings, { ...event.value, settings: {} }],
         advancedSettings: (context, event) =>
-          event.isAdvanced
-            ? [
-                ...context.advancedSettings,
-                { ...event.value, preview: true, settings: {} },
-              ]
-            : context.advancedSettings,
-      }),
-
-      active: assign({
-        settings: (context, event) =>
-          event.isAdvanced
-            ? context.settings
-            : context.settings.map((setting) =>
-                setting.id === event.settingId
-                  ? { ...setting, preview: true }
-                  : setting
-              ),
-        advancedSettings: (context, event) =>
-          event.isAdvanced
-            ? context.advancedSettings.map((setting) =>
-                setting.id === event.settingId
-                  ? { ...setting, preview: true }
-                  : setting
-              )
-            : context.advancedSettings,
-      }),
-
-      deactivate: assign({
-        settings: (context, event) =>
-          event.isAdvanced
-            ? context.settings
-            : context.settings.map((setting) =>
-                setting.id === event.settingId
-                  ? { ...setting, preview: false }
-                  : setting
-              ),
-        advancedSettings: (context, event) =>
-          event.isAdvanced
-            ? context.advancedSettings.map((setting) =>
-                setting.id === event.settingId
-                  ? { ...setting, preview: false }
-                  : setting
-              )
+          event.advanced
+            ? [...context.advancedSettings, { ...event.value, settings: {} }]
             : context.advancedSettings,
       }),
 
       update: assign({
         settings: (context, event) =>
-          event.isAdvanced
+          event.advanced
             ? context.settings
-            : context.settings.map((setting) =>
+            : (context.settings.map((setting) =>
                 setting.id === event.value.id
-                  ? { ...setting, ...event.value }
+                  ? {
+                      ...setting,
+                      ...event.value,
+                      settings: {
+                        ...setting.settings,
+                        ...event.value.settings,
+                      },
+                    }
                   : setting
-              ),
+              ) as (DropdownSettings | SearchSettings | ToggleSettings)[]),
         advancedSettings: (context, event) =>
-          event.isAdvanced
-            ? context.advancedSettings.map((setting) =>
+          event.advanced
+            ? (context.advancedSettings.map((setting) =>
                 setting.id === event.value.id
-                  ? { ...setting, ...event.value }
+                  ? {
+                      ...setting,
+                      ...event.value,
+                      settings: {
+                        ...setting,
+                        ...event.value.settings,
+                      },
+                    }
                   : setting
-              )
+              ) as (DropdownSettings | SearchSettings | ToggleSettings)[])
             : context.advancedSettings,
       }),
 
       duplicate: assign({
         settings: (context, event) => {
-          if (event.isAdvanced) {
+          if (event.advanced) {
             return context.settings;
           }
           const setting = context.settings.find(
@@ -242,7 +294,7 @@ export const settingsMachine = createMachine(
             : context.settings;
         },
         advancedSettings: (context, event) => {
-          if (event.isAdvanced) {
+          if (event.advanced) {
             const setting = context.advancedSettings.find(
               (setting) => setting.id === event.targetSettingId
             );
@@ -256,11 +308,18 @@ export const settingsMachine = createMachine(
           return context.advancedSettings;
         },
       }),
+
+      reorder: assign({
+        advancedSettings: (context, event) =>
+          event.advanced ? event.settings : context.advancedSettings,
+        settings: (context, event) =>
+          event.advanced ? context.settings : event.settings,
+      }),
     },
     services: {},
     guards: {
       ifSearch: (context, event) => {
-        if (event.isAdvanced) {
+        if (event.advanced) {
           const setting = context.advancedSettings.find(
             (setting) => setting.id === event.settingId
           );
@@ -271,6 +330,34 @@ export const settingsMachine = createMachine(
           (setting) => setting.id === event.settingId
         );
         return setting ? setting.for === "search" : false;
+      },
+
+      ifDropdown: (context, event) => {
+        if (event.advanced) {
+          const setting = context.advancedSettings.find(
+            (setting) => setting.id === event.settingId
+          );
+          return setting ? setting.for === "dropdown" : false;
+        }
+
+        const setting = context.settings.find(
+          (setting) => setting.id === event.settingId
+        );
+        return setting ? setting.for === "dropdown" : false;
+      },
+
+      ifToggle: (context, event) => {
+        if (event.advanced) {
+          const setting = context.advancedSettings.find(
+            (setting) => setting.id === event.settingId
+          );
+          return setting ? setting.for === "toggle" : false;
+        }
+
+        const setting = context.settings.find(
+          (setting) => setting.id === event.settingId
+        );
+        return setting ? setting.for === "toggle" : false;
       },
 
       hasSameCurrentId: (context, event) =>

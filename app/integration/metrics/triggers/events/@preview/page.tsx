@@ -1,5 +1,7 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
 import { AlertCircle2, ArrowLeft2, Eye, Tag } from "@/components/icons";
 import {
   Button,
@@ -12,9 +14,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui";
-
 import { PreviewMachineContext } from "@/machines";
-import { SetupTab } from "./setup-tab";
+
+const SetupTab = dynamic(() => import("./setup-tab"));
 
 function Preview({ setupTab }: { setupTab: React.ReactNode }) {
   const [state, send] = PreviewMachineContext.useActor();
@@ -62,6 +64,7 @@ function Preview({ setupTab }: { setupTab: React.ReactNode }) {
             <TooltipTrigger asChild>
               <button
                 className="inline-flex items-center gap-x-1 text-sm font-semibold text-primary-500"
+                disabled
                 onClick={() => send("INACTIVATE")}
               >
                 <ArrowLeft2 className="flex-none" />
@@ -75,8 +78,8 @@ function Preview({ setupTab }: { setupTab: React.ReactNode }) {
         </TooltipProvider>
       </div>
 
-      <Tabs defaultValue="setup" className="flex flex-auto flex-col">
-        <TabsList className="w-full justify-between border-t">
+      <Tabs defaultValue="setup">
+        <TabsList className="h-11 w-full justify-between border-t">
           <TabsTrigger
             className="disabled:opacity-100 disabled:data-[state=active]:border-b-primary-500 disabled:data-[state=active]:text-primary-500"
             value="setup"
@@ -118,7 +121,10 @@ function Preview({ setupTab }: { setupTab: React.ReactNode }) {
             </Tooltip>
           </TooltipProvider>
         </TabsList>
-        <TabsContent className="flex flex-auto flex-col p-5" value="setup">
+        <TabsContent
+          className="relative flex h-[534px] flex-col overflow-y-auto p-5 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-thumb-rounded-lg"
+          value="setup"
+        >
           {setupTab}
         </TabsContent>
         <TabsContent value="filters"></TabsContent>

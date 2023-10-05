@@ -3,7 +3,7 @@
 import * as React from "react";
 import dynamic from "next/dynamic";
 
-import { ChevronLeft, PlayCircle, Search } from "@/components/icons";
+import { ChevronLeft, PlayCircle, Search, Toggle } from "@/components/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui";
 import { TileTransition } from "@/components/ui/transitions";
 import { SettingsMachineContext } from "@/machines";
@@ -64,15 +64,15 @@ function Panels({
 export default function Page() {
   const [state] = SettingsMachineContext.useActor();
 
-  const show = state.matches("editing search");
+  const show = state.matches("editing toggle");
 
   return (
     <TileTransition show={show}>
       <div className="fixed inset-y-0 left-0 top-[70px] z-40 h-[calc(theme(height.full)-70px)] w-[370px] border-r border-gray-200 bg-white">
         <div className="flex items-center justify-between p-5 pb-2">
           <div className="inline-flex flex-none items-center gap-x-2 text-base font-medium text-gray-900 focus-visible:outline-none">
-            <Search className="h-[18px] w-[18px] flex-none" />
-            Search
+            <Toggle className="h-[18px] w-[18px] flex-none text-gray-800" />
+            Toggle
           </div>
           <button className="inline-flex items-center justify-center gap-x-2 text-sm font-semibold text-primary-500 focus-visible:outline-none">
             <PlayCircle className="h-[15px] w-[15px]" />
@@ -80,8 +80,8 @@ export default function Page() {
           </button>
         </div>
         <Panels
-          sourceTab={<SourceTab />}
           setupTab={<SetupTab />}
+          sourceTab={<SourceTab />}
           testTab={<TestTab />}
         />
       </div>

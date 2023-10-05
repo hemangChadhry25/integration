@@ -14,7 +14,9 @@ import {
   RadioGroupItemSelector,
   Switch,
 } from "@/components/ui";
-import { useUpdateEffect } from "@/lib/hooks";
+import { useEnhancedWatch, useUpdateEffect } from "@/lib/hooks";
+import { SettingsMachineContext } from "@/machines";
+import { isUndefined } from "@/lib/utils";
 
 const schema = z.object({
   label: z.string().max(30),
@@ -28,28 +30,62 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+const defaultValues: FormValues = {
+  label: "",
+  singleOrMultiSelect: "single",
+  optionalField: false,
+  placeholder: "",
+  hint: "",
+  tooltip: "",
+};
+
 export default function SetupTab() {
-  const { register, handleSubmit, watch, control, setValue } =
+  const [, send] = SettingsMachineContext.useActor();
+  const { currentId, currentAdvanced } = SettingsMachineContext.useSelector(
+    (state) => ({
+      currentId: state.context.currentId,
+      currentAdvanced: state.context.currentAdvanced,
+    })
+  );
+  const settings = SettingsMachineContext.useSelector((state) =>
+    currentAdvanced ? state.context.advancedSettings : state.context.settings
+  );
+
+  const setting = settings.find((setting) => setting.id === currentId);
+  const values = setting
+    ? setting.for === "search"
+      ? setting.settings
+      : {}
+    : {};
+
+  const { register, handleSubmit, watch, control, getValues } =
     useForm<FormValues>({
       resolver: zodResolver(schema),
-      defaultValues: {
-        label: "",
-        singleOrMultiSelect: "single",
-        optionalField: false,
-        placeholder: "",
-        hint: "",
-        tooltip: "",
-      },
+      values: values.setup || defaultValues,
     });
   const singleOrMultiSelect = watch("singleOrMultiSelect");
 
-  useUpdateEffect(() => {
-    if (singleOrMultiSelect === "multiple") {
-      setValue("limitSelections", false);
-    } else {
-      setValue("limitSelections", undefined);
-    }
-  }, [singleOrMultiSelect]);
+  useEnhancedWatch({
+    control,
+    onChange: () => {
+      const shouldNotUpdate =
+        isUndefined(currentAdvanced) || isUndefined(currentId);
+
+      if (shouldNotUpdate) return;
+
+      send({
+        type: "UPDATE",
+        advanced: currentAdvanced,
+        value: {
+          for: "search",
+          id: currentId,
+          settings: {
+            setup: getValues(),
+          },
+        },
+      });
+    },
+  });
 
   const onSubmit: SubmitHandler<FormValues> = (variables) => {};
 

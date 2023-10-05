@@ -13,21 +13,26 @@ export interface Typegen0 {
     services: never;
   };
   eventsCausingActions: {
-    active: "ACTIVATE";
-    deactivate: "DEACTIVATE";
+    delete: "DELETE";
     duplicate: "DUPLICATE";
     insert: "INSERT";
-    remove: "REMOVE";
-    resetCurrent: "REMOVE" | "TOGGLE";
-    setCurrent: "EDIT-SEARCH";
+    reorder: "REORDER";
+    resetCurrent: "DELETE" | "TOGGLE";
+    setCurrent: "EDIT-DROPDOWN" | "EDIT-SEARCH" | "EDIT-TOGGLE";
     update: "UPDATE";
   };
   eventsCausingDelays: {};
   eventsCausingGuards: {
-    hasSameCurrentId: "REMOVE";
+    hasSameCurrentId: "DELETE";
+    ifDropdown: "EDIT-DROPDOWN";
     ifSearch: "EDIT-SEARCH";
+    ifToggle: "EDIT-TOGGLE";
   };
   eventsCausingServices: {};
-  matchesStates: "editing" | "editing search";
+  matchesStates:
+    | "editing"
+    | "editing dropdown"
+    | "editing search"
+    | "editing toggle";
   tags: never;
 }

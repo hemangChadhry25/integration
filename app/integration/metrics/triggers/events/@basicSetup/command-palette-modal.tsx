@@ -37,7 +37,6 @@ import {
   CommandPaletteTitle,
   IconButton,
 } from "@/components/ui";
-import { useKeyboard } from "@/lib/hooks";
 import {
   PreviewMachineContext,
   SettingsMachineContext,
@@ -45,24 +44,17 @@ import {
 } from "@/machines";
 import { getId } from "@/lib/utils";
 
-export default function CommandPaletteModal() {
+export default function CommandPaletteModal({
+  advanced,
+}: {
+  advanced: boolean;
+}) {
   const [state, dispatch] = ToggleMachineContext.useActor();
   const [, send] = SettingsMachineContext.useActor();
   const [, sendToMachine] = PreviewMachineContext.useActor();
 
-  useKeyboard({
-    onKeyDown: (e) => {
-      const shouldToggled = e.key === "k" && (e.ctrlKey || e.metaKey);
-
-      if (shouldToggled) {
-        e.preventDefault();
-        dispatch("TOGGLE");
-      }
-    },
-  });
-
   const onSelectedChange = (value: string) => {
-    const options = { isAdvanced: false };
+    const options = { advanced };
 
     switch (value) {
       case "search":
@@ -70,6 +62,22 @@ export default function CommandPaletteModal() {
           ...options,
           type: "INSERT",
           value: { for: "search", id: getId() },
+        });
+        break;
+
+      case "dropdown":
+        send({
+          ...options,
+          type: "INSERT",
+          value: { for: "dropdown", id: getId() },
+        });
+        break;
+
+      case "toggle":
+        send({
+          ...options,
+          type: "INSERT",
+          value: { for: "toggle", id: getId() },
         });
         break;
     }

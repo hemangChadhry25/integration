@@ -56,27 +56,29 @@ export default function Layout({
   }
 
   if (layout === "form") {
-    <div className="px-[88px] py-8">
-      <h1 className="text-base font-semibold text-gray-600">New Trigger</h1>
-      <Tabs
-        className="mt-3"
-        value={isNull(tab) ? "general" : tab}
-        onValueChange={onValueChange}
-      >
-        <TabsList className="w-full justify-start px-0">
-          <TabsTrigger value="general">General</TabsTrigger>
-          <TabsTrigger value="events">Events</TabsTrigger>
-          <TabsTrigger value="test">Test</TabsTrigger>
-        </TabsList>
-        <TabsContent className="pt-6" value="general">
-          {generalTab}
-        </TabsContent>
-        <TabsContent className="pt-6" value="events"></TabsContent>
-        <TabsContent className="pt-6" value="test">
-          {testTab}
-        </TabsContent>
-      </Tabs>
-    </div>;
+    return (
+      <div className="px-[88px] py-8">
+        <h1 className="text-base font-semibold text-gray-600">New Trigger</h1>
+        <Tabs
+          className="mt-3"
+          value={isNull(tab) ? "general" : tab}
+          onValueChange={onValueChange}
+        >
+          <TabsList className="w-full justify-start px-0">
+            <TabsTrigger value="general">General</TabsTrigger>
+            <TabsTrigger value="events">Events</TabsTrigger>
+            <TabsTrigger value="test">Test</TabsTrigger>
+          </TabsList>
+          <TabsContent className="pt-6" value="general">
+            {generalTab}
+          </TabsContent>
+          <TabsContent className="pt-6" value="events"></TabsContent>
+          <TabsContent className="pt-6" value="test">
+            {testTab}
+          </TabsContent>
+        </Tabs>
+      </div>
+    );
   }
 
   return <>{children}</>;

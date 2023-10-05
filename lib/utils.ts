@@ -265,7 +265,7 @@ export const getId = (
     id++
 )();
 
-export function combine<
+export function callAll<
   T extends any[],
   K extends ((...args: T) => void) | undefined
 >(...fns: K[]) {
@@ -275,3 +275,5 @@ export function combine<
 export function flatten<T extends any[]>(arr: T) {
   return arr.flat(1);
 }
+
+export function noop() {}

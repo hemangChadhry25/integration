@@ -10,14 +10,14 @@ export const EVENTS_PAGE = "/integration/metrics/triggers/events";
 export const INTEGRATION_PAGE = "/integration";
 
 export const METRICS_OPTIONS = [
-  "Name",
-  "Resource Type",
-  "Description",
-  "Tag Type",
+  "Service Name",
+  "Personal",
+  "Service Type",
+  "Type",
   "ID",
-  "Tag Category",
-  "Creation Date",
-  "Country",
+  "Service",
+  "Last Date & Time",
+  "Country Code",
 ];
 
 export const EXIT_ANIMATION = {

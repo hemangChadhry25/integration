@@ -34,7 +34,7 @@ export function BasicSetupSegment({ settings }: { settings: React.ReactNode }) {
         Add field
       </Button>
 
-      <CommandPaletteModal />
+      <CommandPaletteModal advanced={false} />
     </div>
   );
 }
@@ -42,7 +42,7 @@ export function BasicSetupSegment({ settings }: { settings: React.ReactNode }) {
 export default function BasicSetup() {
   return (
     <ToggleMachineContext.Provider>
-      <BasicSetupSegment settings={<Settings />} />
+      <BasicSetupSegment settings={<Settings advanced={false} />} />
     </ToggleMachineContext.Provider>
   );
 }

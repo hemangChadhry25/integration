@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Control, FieldPath, FieldPathValue, useWatch } from "react-hook-form";
+import {
+  Control,
+  DeepPartialSkipArrayKey,
+  FieldPath,
+  FieldPathValue,
+  useWatch,
+} from "react-hook-form";
 
 import { addEvent } from "./dom";
 import { debounce } from "./utils";
@@ -201,23 +207,17 @@ export function useUnmountEffect(cleanup: () => void) {
   React.useEffect(() => cleanupCallbackRef, [cleanupCallbackRef]);
 }
 
-export function useEnhancedWatch<
-  TFieldValues extends Record<string, any>,
-  TFieldName extends FieldPath<TFieldValues>
->({
+export function useEnhancedWatch<TFieldValues extends Record<string, any>>({
   control,
-  name,
-  onValueChange,
+  onChange,
 }: {
   control: Control<TFieldValues>;
-  name: TFieldName;
-  onValueChange: (value: FieldPathValue<TFieldValues, TFieldName>) => void;
+  onChange: (value: DeepPartialSkipArrayKey<TFieldValues>) => void;
 }) {
   const watched = useWatch({
     control,
-    name,
   });
-  const onValueChangeCallbackRef = useCallbackRef(onValueChange);
+  const onValueChangeCallbackRef = useCallbackRef(onChange);
 
   useUpdateEffect(() => {
     onValueChangeCallbackRef(watched);

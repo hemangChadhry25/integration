@@ -22,6 +22,7 @@ import {
   PlusCircle,
   Search,
   Settings,
+  ShieldCharged,
   ThreeLayers,
   User,
   UserPlus,
@@ -1133,6 +1134,33 @@ export const InviteUsers = () => {
           Invite Users
         </Button>
       </div>
+    </nav>
+  );
+};
+
+export const FilledLinksSidebar = () => {
+  return (
+    <nav className="z-20 h-screen w-[224px] overflow-y-auto border-r border-gray-200 bg-gray-50 p-[15px] pb-0 scrollbar-thin scrollbar-thumb-rounded-lg">
+      <ul className="grid gap-2">
+        <li>
+          <Link
+            className="flex h-10 cursor-pointer items-center gap-x-3 rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-500 focus:bg-primary-50 focus:text-primary-500 focus-visible:outline-none"
+            href="#"
+          >
+            <ShieldCharged />
+            Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="flex h-10 cursor-pointer items-center gap-x-3 rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-500 focus:bg-primary-50 focus:text-primary-500 focus-visible:outline-none"
+            href="#"
+          >
+            <ShieldCharged />
+            My Integrations
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 };

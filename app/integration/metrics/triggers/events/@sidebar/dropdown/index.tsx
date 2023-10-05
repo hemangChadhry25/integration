@@ -1,16 +1,10 @@
-"use client";
-
-import * as React from "react";
-import dynamic from "next/dynamic";
-
 import { ChevronLeft, PlayCircle, Search } from "@/components/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui";
 import { TileTransition } from "@/components/ui/transitions";
 import { SettingsMachineContext } from "@/machines";
-
-const SourceTab = dynamic(() => import("./source-tab"));
-const SetupTab = dynamic(() => import("./setup-tab"));
-const TestTab = dynamic(() => import("./test-tab"));
+import SetupTab from "./setup-tab";
+import SourceTab from "./source-tab";
+import TestTab from "./test-tab";
 
 function Panels({
   sourceTab,
@@ -64,7 +58,7 @@ function Panels({
 export default function Page() {
   const [state] = SettingsMachineContext.useActor();
 
-  const show = state.matches("editing search");
+  const show = state.matches("editing dropdown");
 
   return (
     <TileTransition show={show}>
@@ -80,8 +74,8 @@ export default function Page() {
           </button>
         </div>
         <Panels
-          sourceTab={<SourceTab />}
           setupTab={<SetupTab />}
+          sourceTab={<SourceTab />}
           testTab={<TestTab />}
         />
       </div>

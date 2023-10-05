@@ -7,7 +7,7 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Command as CommandPalettePrimitive } from "cmdk";
 import { VariantProps } from "class-variance-authority";
 
-import { cn, combine, createContext } from "@/lib/utils";
+import { cn, callAll, createContext } from "@/lib/utils";
 import { Dialog, DialogContent } from "@/components/ui";
 import { inputVariants } from "./input";
 import { useControllableState } from "@/lib/hooks";
@@ -221,7 +221,7 @@ const CommandPaletteItem = React.forwardRef<
   return (
     <CommandPalettePrimitive.Item
       ref={ref}
-      onSelect={combine(onSelectedChange, closeCommandPaletteDialog)}
+      onSelect={callAll(onSelectedChange, closeCommandPaletteDialog)}
       className={cn(
         "flex h-[68px] cursor-pointer select-none items-center gap-x-3 rounded-lg border border-gray-200 p-[13px] shadow-[0px_1px_4px_0px_rgba(0,0,0,0.03)] outline-none transition duration-300 hover:border-2 hover:border-gray-300 hover:p-3",
         className

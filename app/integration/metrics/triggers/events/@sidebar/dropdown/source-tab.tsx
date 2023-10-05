@@ -71,7 +71,7 @@ const SourceTab = () => {
 
   const setting = settings.find((setting) => setting.id === currentId);
   const values = setting
-    ? setting.for === "search"
+    ? setting.for === "dropdown"
       ? setting.settings
       : {}
     : {};
@@ -95,7 +95,7 @@ const SourceTab = () => {
         type: "UPDATE",
         advanced: currentAdvanced,
         value: {
-          for: "search",
+          for: "dropdown",
           id: currentId,
           settings: {
             source: getValues(),

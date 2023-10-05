@@ -1,3 +1,0 @@
-const ConditionsTab = () => {
-  return null;
-};

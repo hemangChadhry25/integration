@@ -14,8 +14,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui";
+import { SettingsPreview } from "./settings-preview";
+import { AdvancedSettingsPreview } from "./advanced-settings-preview";
 
-export const SetupTab = () => {
+export default function SetupTab() {
   return (
     <>
       <h3 className="text-sm font-medium text-gray-900">
@@ -57,7 +59,12 @@ export const SetupTab = () => {
         </TooltipProvider>
       </RadioGroup>
 
-      <div className="mt-auto">
+      <div className="mt-6 space-y-6">
+        <SettingsPreview />
+        <AdvancedSettingsPreview />
+      </div>
+
+      <div className="mt-auto pt-9">
         <h3 className="text-sm font-semibold text-gray-900">
           Connect your account
         </h3>
@@ -102,4 +109,4 @@ export const SetupTab = () => {
       </div>
     </>
   );
-};
+}

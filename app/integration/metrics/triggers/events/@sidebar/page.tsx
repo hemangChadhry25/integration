@@ -1,14 +1,33 @@
 "use client";
 
+import React from "react";
 import * as PortalPrimitive from "@radix-ui/react-portal";
 import dynamic from "next/dynamic";
 
-const SearchSidebar = dynamic(() => import("./search"));
+const Search = dynamic(() => import("./search"));
+const Dropdown = dynamic(() => import("./dropdown"));
+const Toggle = dynamic(() => import("./toggle"));
 
-const Portal = ({ searchSidebar }: { searchSidebar: React.ReactNode }) => {
-  return <PortalPrimitive.Portal>{searchSidebar}</PortalPrimitive.Portal>;
+const Portal = ({
+  search,
+  dropdown,
+  toggle,
+}: {
+  search: React.ReactNode;
+  dropdown: React.ReactNode;
+  toggle: React.ReactNode;
+}) => {
+  return (
+    <PortalPrimitive.Portal>
+      {search}
+      {dropdown}
+      {toggle}
+    </PortalPrimitive.Portal>
+  );
 };
 
-export default function Page() {
-  return <Portal searchSidebar={<SearchSidebar />} />;
+export default function Sidebar() {
+  return (
+    <Portal search={<Search />} dropdown={<Dropdown />} toggle={<Toggle />} />
+  );
 }
