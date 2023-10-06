@@ -1,10 +1,11 @@
-import { HelperText, Label, inputVariants } from "@/components/ui";
-import { useEnhancedWatch } from "@/lib/hooks";
-import { isUndefined } from "@/lib/utils";
-import { SettingsMachineContext } from "@/machines";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { HelperText, Label, inputVariants } from "@/components/ui";
+import { useEnhancedWatch } from "@/lib/hooks";
+import { SettingsMachineContext } from "@/machines";
+import { isUndefined } from "@/lib/utils";
 
 const schema = z.object({
   dataset: z.string(),
@@ -44,7 +45,7 @@ export default function SourceTab() {
     defaultValues: values.source || defaultValues,
   });
 
-  useEnhancedWatch({
+  const { dataset, category } = useEnhancedWatch({
     control,
     onChange: () => {
       const shouldNotUpdate =
@@ -65,9 +66,6 @@ export default function SourceTab() {
       });
     },
   });
-
-  const dataset = getValues("dataset");
-  const category = getValues("category");
 
   const onSubmit: SubmitHandler<FormValues> = (variables) => {};
 

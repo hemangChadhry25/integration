@@ -1,3 +1,5 @@
+"use client";
+
 import { SettingsMachineContext, ToggleSettings } from "@/machines";
 import {
   Copy,

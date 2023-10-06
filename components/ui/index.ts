@@ -45,3 +45,4 @@ export * from "./hover-card";
 export * from "./command-palette";
 export * from "./dropdown";
 export * from "./listbox";
+export * from "./rearrange";

@@ -186,6 +186,25 @@ export function toPxIfNumber(arg: string | number) {
   return arg;
 }
 
+export function get2DArray<T extends any[]>(arr: T, size = 2): T[] {
+  if (isEmpty(arr) || size < 1) {
+    return [];
+  }
+
+  const recursion = (arr: T, size: number, result = [] as T[]): T[] => {
+    if (size >= arr.length) {
+      return [...result, [...arr]] as T[];
+    }
+
+    const remain = arr.slice(size);
+    const slice = arr.slice(0, size);
+
+    return recursion(remain as T, size, [...result, slice] as T[]);
+  };
+
+  return recursion(arr, size);
+}
+
 export function chunk<T extends unknown[]>(arr: T, size = 2): T[] {
   const recursion = (arr: T, size: number, result = [] as T[]): T[] => {
     if (size >= arr.length) {

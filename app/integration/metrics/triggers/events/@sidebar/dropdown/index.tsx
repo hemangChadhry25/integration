@@ -1,6 +1,5 @@
 import { ChevronLeft, PlayCircle, Search } from "@/components/icons";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui";
-import { TileTransition } from "@/components/ui/transitions";
 import { SettingsMachineContext } from "@/machines";
 import SetupTab from "./setup-tab";
 import SourceTab from "./source-tab";
@@ -61,7 +60,7 @@ export default function Page() {
   const show = state.matches("editing dropdown");
 
   return (
-    <TileTransition show={show}>
+    show && (
       <div className="fixed inset-y-0 left-0 top-[70px] z-40 h-[calc(theme(height.full)-70px)] w-[370px] border-r border-gray-200 bg-white">
         <div className="flex items-center justify-between p-5 pb-2">
           <div className="inline-flex flex-none items-center gap-x-2 text-base font-medium text-gray-900 focus-visible:outline-none">
@@ -79,6 +78,6 @@ export default function Page() {
           testTab={<TestTab />}
         />
       </div>
-    </TileTransition>
+    )
   );
 }

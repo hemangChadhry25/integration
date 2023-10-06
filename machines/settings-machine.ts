@@ -84,6 +84,7 @@ export const settingsMachine = createMachine(
             actions: "resetCurrent",
           },
         },
+        entry: "setCurrent",
       },
       "editing dropdown": {
         on: {
@@ -92,6 +93,7 @@ export const settingsMachine = createMachine(
             actions: "resetCurrent",
           },
         },
+        entry: "setCurrent",
       },
       "editing toggle": {
         on: {
@@ -100,6 +102,7 @@ export const settingsMachine = createMachine(
             actions: "resetCurrent",
           },
         },
+        entry: "setCurrent",
       },
     },
     on: {
@@ -118,19 +121,16 @@ export const settingsMachine = createMachine(
       "EDIT-SEARCH": {
         target: ".editing search",
         cond: "ifSearch",
-        actions: "setCurrent",
         internal: true,
       },
       "EDIT-DROPDOWN": {
         target: ".editing dropdown",
         cond: "ifDropdown",
-        actions: "setCurrent",
         internal: true,
       },
       "EDIT-TOGGLE": {
         target: ".editing toggle",
         cond: "ifToggle",
-        actions: "setCurrent",
         internal: true,
       },
       DELETE: [
@@ -216,7 +216,6 @@ export const settingsMachine = createMachine(
         currentId: (context, event) => event.settingId,
         currentAdvanced: (context, event) => event.advanced,
       }),
-
       resetCurrent: assign({
         currentId: undefined,
         currentAdvanced: undefined,
@@ -316,7 +315,6 @@ export const settingsMachine = createMachine(
           event.advanced ? context.settings : event.settings,
       }),
     },
-    services: {},
     guards: {
       ifSearch: (context, event) => {
         if (event.advanced) {

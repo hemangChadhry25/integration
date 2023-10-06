@@ -1,11 +1,12 @@
-import { HelpCircle } from "@/components/icons";
-import { HelperText, Input, Label } from "@/components/ui";
-import { useEnhancedWatch } from "@/lib/hooks";
-import { isUndefined } from "@/lib/utils";
-import { SettingsMachineContext } from "@/machines";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { isUndefined } from "@/lib/utils";
+import { SettingsMachineContext } from "@/machines";
+import { useEnhancedWatch } from "@/lib/hooks";
+import { HelperText, Input, Label } from "@/components/ui";
+import { HelpCircle } from "@/components/icons";
 
 const schema = z.object({
   fieldLabel: z.string().max(30),

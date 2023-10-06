@@ -23,8 +23,8 @@ const iconButtonVariants = cva(
       size: {
         sm: "text-sm w-9 h-9",
         md: "text-sm w-10 h-10",
-        lg: "text-base h-11 h-11",
-        xl: "text-base h-11 h-12",
+        lg: "text-base h-11 w-11",
+        xl: "text-base h-11 w-12",
         "2xl": "text-[18px] leading-[28px] h-[60px]",
       },
     },

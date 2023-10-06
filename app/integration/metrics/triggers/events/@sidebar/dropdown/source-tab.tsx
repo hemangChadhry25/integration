@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { SubmitHandler, useForm, Controller, useWatch } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion } from "framer-motion";
 
 import {
   ArrowDownAZ,
@@ -24,20 +23,16 @@ import {
   Badge,
   HelperText,
   Label,
-  ReorderGroup,
-  ReorderItem,
+  Rearrange,
+  RearrangeButton,
+  RearrangeGroup,
+  RearrangeItem,
+  RearrangeTrack,
   ScaleOutIn,
   inputVariants,
 } from "@/components/ui";
-import {
-  chunk,
-  cn,
-  isEmpty,
-  isNotEmpty,
-  flatten,
-  isUndefined,
-} from "@/lib/utils";
-import { EXIT_ANIMATION, METRICS_OPTIONS } from "@/lib/constants";
+import { cn, isNotEmpty, isUndefined } from "@/lib/utils";
+import { METRICS_OPTIONS } from "@/lib/constants";
 import { SettingsMachineContext } from "@/machines";
 import { useEnhancedWatch } from "@/lib/hooks";
 
@@ -83,7 +78,9 @@ const SourceTab = () => {
       resolver: zodResolver(schema),
     });
 
-  useEnhancedWatch({
+  const onSubmit: SubmitHandler<FormValues> = (variables) => {};
+
+  const { category, dataset } = useEnhancedWatch({
     control,
     onChange: () => {
       const shouldNotUpdate =
@@ -105,42 +102,8 @@ const SourceTab = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (variables) => {};
-
-  // TODO: replace this method with watch when its bug is fixed
-  const dataset = getValues("dataset");
-  const category = getValues("category");
   const metrics = getValues("metrics");
   const isMetricsNotEmpty = isNotEmpty(metrics);
-  const metricsArr = chunk(metrics);
-
-  const clearAll = () => setValue("metrics", []);
-
-  const mutateMetrics = (newMetrics: string[], metricsIndex: number) => {
-    const newMetricsArr = metricsArr.map((metrics, i) =>
-      i === metricsIndex ? newMetrics : metrics
-    );
-    setValue("metrics", flatten(newMetricsArr));
-  };
-
-  const removeMetric = (metricsIndex: number, removalIndex: number) => {
-    const metrics = metricsArr[metricsIndex];
-    const filteredMetrics = metrics.filter(
-      (metrics, index) => index !== removalIndex
-    );
-
-    if (isEmpty(filteredMetrics)) {
-      const filteredMetricsArr = metricsArr.filter(
-        (metrics, index) => index !== metricsIndex
-      );
-      setValue("metrics", flatten(filteredMetricsArr));
-    } else {
-      const newMetricsArr = metricsArr.map((metrics, index) =>
-        index === metricsIndex ? filteredMetrics : metrics
-      );
-      setValue("metrics", flatten(newMetricsArr));
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="pb-8">
@@ -182,7 +145,7 @@ const SourceTab = () => {
         )}
 
         {category && (
-          <div className="space-y-4">
+          <>
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <Label className="text-gray-700" htmlFor="metrics" size="sm">
@@ -210,65 +173,44 @@ const SourceTab = () => {
               />
             </div>
 
-            <div className="flex w-full flex-col space-y-[5px]">
-              <AnimatePresence>
-                {metricsArr.map((metrics, metricsIndex) => (
-                  <ReorderGroup
-                    className="flex w-full max-w-[320px] flex-grow flex-wrap items-center gap-x-1.5 gap-y-3"
-                    key={metricsIndex}
-                    onReorder={(newMetrics) =>
-                      mutateMetrics(newMetrics, metricsIndex)
-                    }
-                    values={metrics}
-                  >
-                    <motion.span
-                      className="text-sm text-gray-500"
-                      exit={EXIT_ANIMATION}
-                    >
-                      {metricsIndex + 1}
-                    </motion.span>
-
-                    {metrics.map((metric, metricIndex) => (
-                      <React.Fragment key={metric}>
-                        <ReorderItem layout drag value={metric}>
-                          {({ dragControls }) => (
+            <div className="mt-4 space-y-3">
+              <Rearrange
+                values={metrics}
+                track={(value) => <RearrangeTrack>{value}</RearrangeTrack>}
+                button={
+                  <RearrangeButton className="mt-4">Clear All</RearrangeButton>
+                }
+                onValueChange={(values) => setValue("metrics", values)}
+              >
+                {({ value, patch, remove }) => (
+                  <RearrangeGroup values={value} onRearrange={patch}>
+                    {value.map((item, index) => (
+                      <React.Fragment key={item}>
+                        <RearrangeItem value={item}>
+                          {(fn) => (
                             <Badge className="select-none" visual="primary">
                               <GripVertical
                                 className="cursor-pointer opacity-60"
-                                onPointerDown={(event) =>
-                                  dragControls.start(event)
-                                }
+                                onPointerDown={fn}
                               />
-                              {metric}
-                              <X
-                                className="cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100"
-                                onClick={() =>
-                                  removeMetric(metricsIndex, metricIndex)
-                                }
-                              />
+                              {item}
+                              <button
+                                className="inline-flex flex-none cursor-pointer opacity-60 transition-opacity duration-300 ease-out hover:opacity-100 focus-visible:outline-none"
+                                onClick={() => remove(index)}
+                              >
+                                <X />
+                              </button>
                             </Badge>
                           )}
-                        </ReorderItem>
-                        <motion.span
-                          className="inline-block h-1 w-1 flex-none rounded-full bg-gray-400 last-of-type:hidden"
-                          exit={EXIT_ANIMATION}
-                        />
+                        </RearrangeItem>
+                        <span className="inline-block h-1 w-1 flex-none rounded-full bg-gray-400 last-of-type:hidden" />
                       </React.Fragment>
                     ))}
-                  </ReorderGroup>
-                ))}
-                {isMetricsNotEmpty && (
-                  <motion.button
-                    className="mt-4 inline-flex text-sm font-semibold text-primary-500 focus-visible:outline-none"
-                    exit={EXIT_ANIMATION}
-                    onClick={clearAll}
-                  >
-                    Clear all
-                  </motion.button>
+                  </RearrangeGroup>
                 )}
-              </AnimatePresence>
+              </Rearrange>
             </div>
-          </div>
+          </>
         )}
       </div>
 

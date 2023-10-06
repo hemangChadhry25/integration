@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { Listbox as ListboxPrimitive, Transition } from "@headlessui/react";

@@ -1,3 +1,5 @@
+"use client";
+
 import { ToggleSettings } from "@/machines";
 import { HelpCircle } from "./icons";
 import {
