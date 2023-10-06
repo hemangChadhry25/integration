@@ -225,3 +225,27 @@ export function useEnhancedWatch<TFieldValues extends Record<string, any>>({
 
   return watched;
 }
+
+export const useArray = <T>(defaultState?: T[]) => {
+  const [state, setState] = React.useState(defaultState);
+
+  const remove = React.useCallback(
+    (index: number) =>
+      setState((prev) => prev?.filter((value, i) => i !== index)),
+    []
+  );
+
+  const prepend = React.useCallback(
+    (value: T) => setState((prev) => (prev ? [...prev, value] : [value])),
+    []
+  );
+
+  const append = React.useCallback(
+    (value: T) => setState((prev) => (prev ? [value, ...prev] : [value])),
+    []
+  );
+
+  const clear = React.useCallback(() => setState(undefined), []);
+
+  return [state, { remove, prepend, append, patch: setState, clear }] as const;
+};

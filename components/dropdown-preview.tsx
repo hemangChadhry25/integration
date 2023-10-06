@@ -5,6 +5,7 @@ import * as React from "react";
 import { DropdownSettings } from "@/machines";
 import { Check2, ChevronDown, HelpCircle, Search, X } from "./icons";
 import {
+  Badge,
   DropdownCommand,
   DropdownCommandEmpty,
   DropdownCommandGroup,
@@ -18,6 +19,8 @@ import {
   InputLeftElement,
   Label,
 } from "./ui";
+import { isEmpty, keys } from "@/lib/utils";
+import { useArray, useControllableState } from "@/lib/hooks";
 
 interface Option {
   id: string;
@@ -34,14 +37,44 @@ type Options = Option[];
 
 const options: Options = [
   {
-    id: "72255d4849af8ed6e0df1173",
     serviceName: "ALB WAF Service",
+    personal: "Personal",
     serviceType: "Video streaming service",
     type: "Digital",
+    id: "72255d4849af8ed6e0df1173",
     service: "Software",
     lastDateAndTime: "08/05/2023 at 03:05:15 PM",
     countryCode: "UK",
+  },
+  {
+    serviceName: "ALC CTF Service",
     personal: "Personal",
+    serviceType: "Audio streaming service",
+    type: "Service",
+    id: "72255d4849af8ed6e0df117",
+    service: "Online Services",
+    lastDateAndTime: "08/05/2023 at 03:05:15 PM",
+    countryCode: "UA",
+  },
+  {
+    serviceName: "ALD RMP Service",
+    personal: "Premier",
+    serviceType: "Premium video streaming service",
+    type: "Digital",
+    id: "72255d4849af8ed6e0df119",
+    service: "Online Store",
+    lastDateAndTime: "08/05/2023 at 03:05:15 PM",
+    countryCode: "US",
+  },
+  {
+    serviceName: "ALE NFP Service",
+    personal: "Business",
+    serviceType: "Audio streaming service",
+    type: "Service",
+    id: "72255d4849af8ed6e0df110",
+    service: "Online Services",
+    lastDateAndTime: "08/05/2023 at 03:05:15 PM",
+    countryCode: "US",
   },
 ];
 
@@ -52,8 +85,6 @@ export const DropdownPreview = ({ settings }: DropdownPreviewProps) => {
   const { fieldLabel, hint, optionalField } = setup || {};
   const { metrics = [] } = source || {};
 
-  const [selected, setSelected] = React.useState<Option>();
-
   const hasServiceName = metrics.includes("Service Name");
   const hasPersonal = metrics.includes("Personal");
   const hasServiceType = metrics.includes("Service Type");
@@ -63,44 +94,78 @@ export const DropdownPreview = ({ settings }: DropdownPreviewProps) => {
   const hasLastDateAndTime = metrics.includes("Last Date & Time");
   const hasCountryCode = metrics.includes("Country Code");
 
+  const record = {
+    id: hasId,
+    serviceName: hasServiceName,
+    serviceType: hasServiceType,
+    type: hasType,
+    lastDateAndTime: hasLastDateAndTime,
+    countryCode: hasCountryCode,
+    personal: hasPersonal,
+    service: hasService,
+  };
+
+  const [badges, { patch, remove }] = useArray<string>();
+  const [selected, setSelected] = useControllableState<Option>({
+    onChange: (value) => {
+      if (!value) {
+        return patch(undefined);
+      }
+
+      const result = keys(record).map((key) => (record[key] ? value[key] : ""));
+      const filteredResult = result.filter(Boolean);
+      patch(filteredResult);
+    },
+  });
+
+  const noResults = isEmpty(metrics);
+
   return (
     <div>
-      <div className="space-y-1.5">
-        <Label className="flex items-center gap-x-2 text-gray-700" size="sm">
-          {fieldLabel ? fieldLabel : "Dropdown"}
+      <Label className="flex items-center gap-x-2 text-gray-700" size="sm">
+        {fieldLabel ? fieldLabel : "Dropdown"}
 
-          {optionalField && <HelpCircle className="text-gray-400" />}
-        </Label>
+        {optionalField && <HelpCircle className="text-gray-400" />}
+      </Label>
 
-        {hint && <HelperText size="sm">{hint}</HelperText>}
+      {hint && (
+        <HelperText className="mt-y-1.5" size="sm">
+          {hint}
+        </HelperText>
+      )}
 
-        <div className="mt-1.5">
-          <DropdownPopover selected={selected} onSelectedChange={setSelected}>
-            <DropdownPopoverTrigger>
-              {selected ? (
-                selected.serviceName
-              ) : (
-                <span className="text-gray-400">Select a tag</span>
-              )}
-              <ChevronDown className="ml-auto h-5 w-5 text-gray-500" />
-            </DropdownPopoverTrigger>
-            <DropdownPopoverContent>
-              <DropdownCommand className="overflow-hidden">
-                <InputGroup>
-                  <InputLeftElement className="w-8">
-                    <Search className="h-[15] w-[15] text-gray-500" />
-                  </InputLeftElement>
-                  <DropdownCommandInput
-                    placeholder="Search..."
-                    className="pl-8"
-                  />
-                </InputGroup>
+      <div className="mt-1.5">
+        <DropdownPopover selected={selected} onSelectedChange={setSelected}>
+          <DropdownPopoverTrigger>
+            {selected ? (
+              selected.serviceName
+            ) : (
+              <span className="text-gray-400">Select a tag</span>
+            )}
+            <ChevronDown className="ml-auto h-5 w-5 text-gray-500" />
+          </DropdownPopoverTrigger>
+          <DropdownPopoverContent>
+            <DropdownCommand className="overflow-hidden">
+              <InputGroup>
+                <InputLeftElement className="w-8">
+                  <Search className="h-[15] w-[15] text-gray-500" />
+                </InputLeftElement>
+                <DropdownCommandInput
+                  placeholder="Search..."
+                  className="pl-8"
+                />
+              </InputGroup>
 
-                <DropdownCommandEmpty className="text-sm text-gray-900">
-                  No framework found.
-                </DropdownCommandEmpty>
-                <DropdownCommandGroup>
-                  {options.map((option) => (
+              <DropdownCommandEmpty className="text-sm text-gray-900">
+                No results found.
+              </DropdownCommandEmpty>
+              <DropdownCommandGroup>
+                {noResults ? (
+                  <span className="flex justify-center py-3 text-center text-sm text-gray-900">
+                    No results found
+                  </span>
+                ) : (
+                  options.map((option) => (
                     <DropdownCommandItem key={option.id} itemValue={option}>
                       <div className="space-y-1.5">
                         <div className="flex items-center gap-x-1.5">
@@ -170,12 +235,31 @@ export const DropdownPreview = ({ settings }: DropdownPreviewProps) => {
                       </div>
                       <Check2 className="ml-auto text-primary-500 opacity-0 group-data-[state=selected]:opacity-100" />
                     </DropdownCommandItem>
-                  ))}
-                </DropdownCommandGroup>
-              </DropdownCommand>
-            </DropdownPopoverContent>
-          </DropdownPopover>
-        </div>
+                  ))
+                )}
+              </DropdownCommandGroup>
+            </DropdownCommand>
+          </DropdownPopoverContent>
+        </DropdownPopover>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {badges?.map((badge, index) => (
+          <Badge
+            className="gap-x-1 rounded-2xl px-1.5 py-1"
+            size="lg"
+            visual="primary"
+            key={index}
+          >
+            {badge}
+            <button
+              className="flex-none focus-visible:outline-none"
+              onClick={() => remove(index)}
+            >
+              <X />
+            </button>
+          </Badge>
+        ))}
       </div>
     </div>
   );

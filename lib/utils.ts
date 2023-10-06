@@ -296,3 +296,7 @@ export function flatten<T extends any[]>(arr: T) {
 }
 
 export function noop() {}
+
+export function keys<T extends Record<string, any>>(record: T): (keyof T)[] {
+  return Object.keys(record);
+}

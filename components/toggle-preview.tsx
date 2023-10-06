@@ -22,14 +22,14 @@ export const TogglePreview = ({ settings }: TogglePreviewProps) => {
     <div>
       <div className="flex items-center gap-x-2">
         <Label className="text-gray-700" size="sm">
-          {fieldLabel ? fieldLabel : "Toggle"}
+          Toggle
         </Label>
 
         {tooltip && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <HelpCircle className="text-gray-500" />
+                <HelpCircle className="text-gray-400" />
               </TooltipTrigger>
               <TooltipContent>{tooltip}</TooltipContent>
             </Tooltip>
@@ -37,20 +37,14 @@ export const TogglePreview = ({ settings }: TogglePreviewProps) => {
         )}
       </div>
 
-      {hint && (
-        <HelperText className="mt-1.5" size="sm">
-          Hint text lorem ipsum dolor sit amet, consectetur.
-        </HelperText>
-      )}
-
       <div className="mt-3 flex items-start gap-x-2">
         <Switch size="md" />
         <div>
           <Label className="text-gray-700" size="sm">
-            Remember me
+            {fieldLabel ? fieldLabel : "Remember me"}
           </Label>
           <HelperText size="sm">
-            Save my login details for next time.
+            {hint ? hint : "Save my login details for next time."}
           </HelperText>
         </div>
       </div>

@@ -108,7 +108,7 @@ export const DropdownDraggableCard = ({
           </HelperText>
         )}
 
-        <div className="mt-3">
+        <div className="pointer-events-none mt-3">
           <select className={inputVariants()} id={id}>
             <option value="">Select a tag</option>
           </select>

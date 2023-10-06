@@ -79,7 +79,7 @@ export const ToggleDraggableCard = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-x-2">
             <Label className="text-gray-700" size="sm">
-              {fieldLabel ? fieldLabel : "Toggle"}
+              Toggle
             </Label>
 
             {tooltip && (
@@ -109,20 +109,14 @@ export const ToggleDraggableCard = ({
           </DropdownMenu>
         </div>
 
-        {hint && (
-          <HelperText className="mt-1.5" size="sm">
-            {hint}
-          </HelperText>
-        )}
-
-        <div className="mt-3 flex items-start gap-x-2">
+        <div className="pointer-events-none mt-3 flex items-start gap-x-2">
           <Switch size="md" />
           <div>
             <Label className="text-gray-700" size="sm">
-              Remember me
+              {fieldLabel ? fieldLabel : " Remember me"}
             </Label>
             <HelperText size="sm">
-              Save my login details for next time.
+              {hint ? hint : "Save my login details for next time."}
             </HelperText>
           </div>
         </div>

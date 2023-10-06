@@ -82,7 +82,7 @@ export const SearchFieldDraggableCard = ({
         <div className="flex items-center justify-between">
           <div className="flex-grow">
             <Label
-              className="flex items-center gap-x-1 text-gray-700"
+              className="flex items-center gap-x-2 text-gray-700"
               size="sm"
             >
               {label ? label : "Search"}
@@ -91,7 +91,7 @@ export const SearchFieldDraggableCard = ({
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
-                      <HelpCircle className="text-gray-500" />
+                      <HelpCircle className="text-gray-400" />
                     </TooltipTrigger>
                     <TooltipContent>{tooltip}</TooltipContent>
                   </Tooltip>
@@ -121,7 +121,7 @@ export const SearchFieldDraggableCard = ({
           </DropdownMenu>
         </div>
 
-        <InputGroup className="mt-3">
+        <InputGroup className="pointer-events-none mt-3">
           <InputLeftElement>
             <Search className="h-5 w-5 text-gray-500" />
           </InputLeftElement>
