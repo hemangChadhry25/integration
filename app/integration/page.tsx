@@ -90,7 +90,10 @@ function Overview() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (variables) => {};
+  const onSubmit: SubmitHandler<FormValues> = (variables) => {
+    console.log(variables);
+    // make a function to in redux toolkit to create the integration in the database later we we make a interceptor
+  };
 
   return (
     <>

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useForm, SubmitHandler, Controller, useWatch } from "react-hook-form";
@@ -15,9 +16,19 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DropdownCommand,
+  DropdownCommandEmpty,
+  DropdownCommandGroup,
+  DropdownCommandInput,
+  DropdownCommandItem,
+  DropdownPopover,
+  DropdownPopoverContent,
+  DropdownPopoverTrigger,
   HelperText,
   IconButton,
   Input,
+  InputGroup,
+  InputLeftElement,
   Label,
   RadioGroup,
   RadioGroupItemSelector,
@@ -25,7 +36,15 @@ import {
   buttonVariants,
   inputVariants,
 } from "@/components/ui";
-import { ArrowLeft2, Eye, HelpCircle, Plus2, X2 } from "@/components/icons";
+import {
+  ArrowLeft2,
+  ChevronDown,
+  Eye,
+  HelpCircle,
+  Plus2,
+  Search,
+  X2,
+} from "@/components/icons";
 import { isNull, isUndefined } from "@/lib/utils";
 
 const schema = z.object({
@@ -98,6 +117,8 @@ export default function SecondTab() {
     });
     closeDialog();
   };
+
+  const [selected, setSelected] = useState("GET");
 
   return (
     <>
@@ -226,8 +247,8 @@ export default function SecondTab() {
               <p className="mt-1 text-sm text-gray-500">
                 API Key Auth lets you build a form to request an API key, along
                 with any additional fields your API requires for authentication.
-                Zapier then passes the data users enter in those fields with
-                every API call.{" "}
+                Blend Metrix then passes the data users enter in those fields
+                with every API call.{" "}
                 <Link
                   className="text-primary-500 underline focus-visible:outline-none"
                   href="#"
@@ -260,6 +281,266 @@ export default function SecondTab() {
                 <Plus2 />
                 Add fields
               </Button>
+
+              <div className="mt-6 space-y-2">
+                <h3 className="text-sm font-medium leading-[16.94px] text-gray-900">
+                  Copy your OAuth Redirect URL
+                </h3>
+                <p className="text-xs text-gray-500">
+                  Copy Blend Metrix OAuth Redirect URL below, and add it to the
+                  allowed list in your app’s admin console if needed.
+                </p>
+                <Input
+                  value="https://blendmetrix.com/dashboard/auth/oauth/return/App193026CLIAPI/"
+                  readOnly
+                  className="text-sm"
+                />
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <h3 className="text-sm font-medium leading-[16.94px] text-gray-900">
+                  Enter your Application Credentials
+                </h3>
+                <div className="mt-4">
+                  {" "}
+                  <Label className="  text-sm  text-gray-900">
+                    Client ID <span className="text-red-500">(required)</span>{" "}
+                  </Label>
+                </div>
+
+                <p className="text-xs text-gray-500">
+                  Copy Client ID from your app and enter here; may also be
+                  called Consumer Key or API Key. Referenced in Blend Metrix
+                  requests as CLIENT ID
+                </p>
+                <Input placeholder="" className="text-sm" />
+                <div className="mt-4">
+                  {" "}
+                  <Label className="  text-sm text-gray-900">
+                    Client Secret{" "}
+                    <span className="text-red-500">(required)</span>{" "}
+                  </Label>
+                </div>
+
+                <p className="text-xs text-gray-500">
+                  Copy Client Secret from your app and enter here; may also be
+                  called Consumer Secret or API Secret. Referenced in Blend
+                  Metrix requests as CLIENT ID
+                </p>
+                <Input placeholder="" className="text-sm" />
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <h3 className="text-sm font-medium leading-[16.94px] text-gray-900">
+                  Add OAuth v2 Endpoint Configuration
+                </h3>
+                <div className="mt-4">
+                  {" "}
+                  <Label className="  text-sm text-gray-900">
+                    Authorized <span className="text-red-500">(required)</span>{" "}
+                  </Label>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Specify where to send users to authenticate with your API.
+                </p>
+                <div className="flex gap-4">
+                  <DropdownPopover
+                    selected={selected}
+                    onSelectedChange={setSelected}
+                  >
+                    <DropdownPopoverTrigger className="w-36 text-sm">
+                      {selected}
+                      <ChevronDown className="ml-auto h-5 w-5 text-gray-500" />
+                    </DropdownPopoverTrigger>
+                    <DropdownPopoverContent className="w-32">
+                      <DropdownCommand className="overflow-hidden">
+                        <DropdownCommandGroup>
+                          <DropdownCommandItem itemValue={"POST"}>
+                            POST
+                          </DropdownCommandItem>
+                          <DropdownCommandItem itemValue={"GET"}>
+                            GET
+                          </DropdownCommandItem>
+                        </DropdownCommandGroup>
+                      </DropdownCommand>
+                    </DropdownPopoverContent>
+                  </DropdownPopover>
+                  <Input
+                    placeholder="ex: https://example.com"
+                    className="text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <h3 className="text-sm font-medium leading-[16.94px] text-gray-900">
+                  Scope <span className="text-gray-500">(optional)</span>
+                </h3>
+
+                <p className="text-xs text-gray-500">
+                  If you want to limit Blend Metrix’s access to your app data,
+                  define the OAuth scopes with a comma or space separated list
+                  of values.
+                </p>
+                <Input placeholder=" " className="text-sm" />
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <div className="mt-4">
+                  {" "}
+                  <Label className="  text-sm text-gray-900">
+                    Access Token Request{" "}
+                    <span className="text-red-500">(required)</span>{" "}
+                  </Label>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Enter the API endpoint URL where Blend Metrix sends the
+                  approval code on user redirect, typically via POST, and
+                  receives access_token in the response.
+                </p>
+                <div className="flex gap-4">
+                  <DropdownPopover
+                    selected={selected}
+                    onSelectedChange={setSelected}
+                  >
+                    <DropdownPopoverTrigger className="w-36 text-sm">
+                      {selected}
+                      <ChevronDown className="ml-auto h-5 w-5 text-gray-500" />
+                    </DropdownPopoverTrigger>
+                    <DropdownPopoverContent className="w-32">
+                      <DropdownCommand className="overflow-hidden">
+                        <DropdownCommandGroup>
+                          <DropdownCommandItem itemValue={"POST"}>
+                            POST
+                          </DropdownCommandItem>
+                          <DropdownCommandItem itemValue={"GET"}>
+                            GET
+                          </DropdownCommandItem>
+                        </DropdownCommandGroup>
+                      </DropdownCommand>
+                    </DropdownPopoverContent>
+                  </DropdownPopover>
+                  <Input
+                    placeholder="ex: https://example.com"
+                    className="text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <div className="mt-4">
+                  {" "}
+                  <Label className="  text-sm text-gray-900">
+                    Refresh Token Request{" "}
+                    <span className="text-red-500">(required)</span>{" "}
+                  </Label>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Enter the API endpoint URL where Blend Metrix can request a
+                  refreshed access token when a RefreshAuthError error is
+                  thrown.
+                </p>
+                <div className="flex gap-4">
+                  <DropdownPopover
+                    selected={selected}
+                    onSelectedChange={setSelected}
+                  >
+                    <DropdownPopoverTrigger className="w-36 text-sm">
+                      {selected}
+                      <ChevronDown className="ml-auto h-5 w-5 text-gray-500" />
+                    </DropdownPopoverTrigger>
+                    <DropdownPopoverContent className="w-32">
+                      <DropdownCommand className="overflow-hidden">
+                        <DropdownCommandGroup>
+                          <DropdownCommandItem itemValue={"POST"}>
+                            POST
+                          </DropdownCommandItem>
+                          <DropdownCommandItem itemValue={"GET"}>
+                            GET
+                          </DropdownCommandItem>
+                        </DropdownCommandGroup>
+                      </DropdownCommand>
+                    </DropdownPopoverContent>
+                  </DropdownPopover>
+                  <Input
+                    placeholder="ex: https://example.com"
+                    className="text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <h3 className="text-sm font-medium leading-[16.94px] text-gray-900">
+                  Automatically Refresh Token{" "}
+                  <span className="text-gray-500">(optional)</span>
+                </h3>
+
+                <p className="text-xs text-gray-500">
+                  Should Blend Metrix invoke your refreshAccessToken request
+                  automatically when we receive a 401 response?{" "}
+                </p>
+                <div className="flex gap-4 text-sm text-gray-600">
+                  <Checkbox size="md" id="checkbox" value=" " />
+                  <p> I want to automatically refresh on unauthorized error.</p>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <div className="mt-4">
+                  {" "}
+                  <Label className="  text-sm text-gray-900">
+                    Test <span className="text-red-500">(required)</span>{" "}
+                  </Label>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Enter an API endpoint URL to test authentication credentials,
+                  ideally one needing no configuration such as /me.
+                </p>
+                <div className="flex gap-4">
+                  <DropdownPopover
+                    selected={selected}
+                    onSelectedChange={setSelected}
+                  >
+                    <DropdownPopoverTrigger className="w-36 text-sm">
+                      {selected}
+                      <ChevronDown className="ml-auto h-5 w-5 text-gray-500" />
+                    </DropdownPopoverTrigger>
+                    <DropdownPopoverContent className="w-32">
+                      <DropdownCommand className="overflow-hidden">
+                        <DropdownCommandGroup>
+                          <DropdownCommandItem itemValue={"POST"}>
+                            POST
+                          </DropdownCommandItem>
+                          <DropdownCommandItem itemValue={"GET"}>
+                            GET
+                          </DropdownCommandItem>
+                        </DropdownCommandGroup>
+                      </DropdownCommand>
+                    </DropdownPopoverContent>
+                  </DropdownPopover>
+                  <Input
+                    placeholder="ex: https://example.com"
+                    className="text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                <h3 className="text-sm font-medium leading-[16.94px] text-gray-900">
+                  Connection Label{" "}
+                  <span className="text-gray-500">(optional)</span>
+                </h3>
+
+                <p className="text-xs text-gray-500">
+                  Customize the connection label users see in Blend Metrix to
+                  help differentiate between multiple connected accounts for
+                  your app. If included, do not use sensitive information.
+                  Include info from authentication input fields with FIELD or
+                  from test request output fields with FIELD, replacing field
+                  with the field key you wish to use. Learn More.
+                </p>
+                <Input placeholder="" className="text-sm" />
+              </div>
 
               <div className="mt-[310px] flex justify-end">
                 <Button disabled>Save & Continue</Button>
